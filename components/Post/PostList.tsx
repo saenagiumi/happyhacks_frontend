@@ -6,17 +6,18 @@ export const PostList = () => {
 
   return (
     <div className="mx-2">
-      {data?.map((data) => {
+      {data?.map((post) => {
+        console.log(post.id);
         return (
-          <ol>
-            <li key={data.id} className="mb-2">
-              <CommentHtml
-                postedAt={"2022/12/09 22:56"}
-                body={"data.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrase"}
-                user={data.name}
-              />
-            </li>
-          </ol>
+          <li key={post.id} className="mb-2">
+            <CommentHtml
+              postedAt={"2022/12/09 22:56"}
+              body={
+                "data.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrase"
+              }
+              user={post.name}
+            />
+          </li>
         );
       })}
     </div>
