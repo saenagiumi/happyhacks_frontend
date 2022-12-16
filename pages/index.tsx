@@ -1,5 +1,5 @@
-import { Header } from "../components/Header/Header";
-import { PostList } from "../components/Post/PostList";
+import { Header } from "components/Header/Header";
+import { PostList } from "components/Post/PostList";
 
 export default function Home() {
   return (

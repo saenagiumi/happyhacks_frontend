@@ -1,5 +1,5 @@
-import { usePosts } from "../../hooks/usePosts";
-import { CommentHtml } from "./Post";
+import { usePosts } from "hooks/usePosts";
+import { CommentHtml } from "components/Post/Post";
 
 export const PostList = () => {
   const { data, error } = usePosts();
