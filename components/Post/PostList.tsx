@@ -5,21 +5,22 @@ export const PostList = () => {
   const { data, error } = usePosts();
 
   return (
-    <div className="mx-2">
+    <ol className="mx-2">
       {data?.map((post) => {
         console.log(post.id);
         return (
           <li key={post.id} className="mb-2">
             <Post
-              postedAt={"2022/12/09 22:56"}
+              title={"title"}
               body={
                 "data.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrase"
               }
-              user={post.name}
+              author={"authoname"}
+              postedAt={"2022/12/09 22:56"}
             />
           </li>
         );
       })}
-    </div>
+    </ol>
   );
 };
