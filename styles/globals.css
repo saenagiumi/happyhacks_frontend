@@ -1,3 +1,12 @@
-@tailwind base;
+/* MantineのNormalize CSSと競合しないよう調整 */
 @tailwind components;
 @tailwind utilities;
+
+h1, h2, p, ul, ol, li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
