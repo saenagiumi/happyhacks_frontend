@@ -1,5 +1,5 @@
 import { usePosts } from "hooks/usePosts";
-import { CommentHtml } from "components/Post/Post";
+import { Post } from "components/Post/Post";
 
 export const PostList = () => {
   const { data, error } = usePosts();
@@ -10,7 +10,7 @@ export const PostList = () => {
         console.log(post.id);
         return (
           <li key={post.id} className="mb-2">
-            <CommentHtml
+            <Post
               postedAt={"2022/12/09 22:56"}
               body={
                 "data.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrase"

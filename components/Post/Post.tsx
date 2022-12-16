@@ -26,7 +26,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface CommentHtmlProps {
+interface PostProps {
   postedAt: string;
   body: string;
   author: {
@@ -35,8 +35,7 @@ interface CommentHtmlProps {
   };
 }
 
-export const CommentHtml = ({ postedAt, body, user }: CommentHtmlProps) => {
-  console.log(body);
+export const Post = ({ postedAt, body, user }: PostProps) => {
   const { classes } = useStyles();
   return (
     <Paper
