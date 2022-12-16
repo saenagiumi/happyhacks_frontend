@@ -44,13 +44,11 @@ export const Post = ({ title, body, author, postedAt }: PostProps) => {
       className={classes.comment}
     >
       <Text className="pl-1.5 pt-1.5 text-gray-600 font-bold" size="lg">
-        ここには質問のタイトルが入ります。多少長くなることもあるでしょう
+        {title}
       </Text>
 
       <TypographyStylesProvider className={classes.body}>
-        <div className="w-full break-all text-gray-500">
-          質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります
-        </div>
+        <div className="w-full break-all text-gray-500">{body} </div>
       </TypographyStylesProvider>
       <Group position="apart">
         <Group spacing="xs">

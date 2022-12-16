@@ -6,13 +6,15 @@ const fetcher = async (url) => {
   return json;
 };
 
-export const usePosts = () => {
+export const useFetchArray = (url) => {
   const { data, error } = useSWR(
-    "https://jsonplaceholder.typicode.com/users",
+    url,
     fetcher
   );
   return {
     data,
-    error
+    error,
+    isLoading: !data && !error,
+    isEmpty: data && data.length === 0,
   };
 };
