@@ -10,6 +10,15 @@ export default function App({ Component, pageProps }: AppProps) {
       theme={{
         /** Put your mantine theme override here */
         colorScheme: "light",
+        fontFamily: 'Noto Sans JP, sans-serif',
+        fontSizes: {
+          xs: 12,
+          sm: 14,
+          md: 14,
+          lg: 16,
+          xl: 20,
+        },
+        
       }}
     >
       <Component {...pageProps} />
