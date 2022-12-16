@@ -27,15 +27,13 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface PostProps {
-  postedAt: string;
+  title: string;
   body: string;
-  author: {
-    name: string;
-    image: string;
-  };
+  author: string;
+  postedAt: string;
 }
 
-export const Post = ({ postedAt, body, user }: PostProps) => {
+export const Post = ({ title, body, author, postedAt }: PostProps) => {
   const { classes } = useStyles();
   return (
     <Paper
@@ -56,9 +54,9 @@ export const Post = ({ postedAt, body, user }: PostProps) => {
       </TypographyStylesProvider>
       <Group position="apart">
         <Group spacing="xs">
-          <Avatar alt={user} radius="xl" />
+          <Avatar alt={"author.name"} radius="xl" />
           <Text className="text-gray-600" size="sm">
-            {user}
+            {author}
           </Text>
         </Group>
         <Group className="pr-2">
