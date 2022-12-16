@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "api": "json-server --watch data/db.json --port 3004"
+    "api": "json-server --host 192.168.10.109 --watch db.json --port 3004"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
