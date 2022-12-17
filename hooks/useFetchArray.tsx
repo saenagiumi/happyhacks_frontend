@@ -1,12 +1,14 @@
 import useSWRImmutable from "swr/immutable";
 
-const fetcher = async (url) => {
+type Url = string;
+
+const fetcher = async (url: Url) => {
   const response = await fetch(url);
   const json = await response.json();
   return json;
 };
 
-export const useFetchArray = (url) => {
+export const useFetchArray = (url: Url) => {
   const { data, error } = useSWRImmutable(
     url,
     fetcher
