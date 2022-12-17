@@ -43,7 +43,7 @@ export const Post = ({ title, body, author, postedAt }: PostProps) => {
       withBorder
       className={classes.comment}
     >
-      <Text className="pl-1.5 pt-1.5 text-gray-600 font-bold" size="lg">
+      <Text className="pl-2 pt-1.5 text-gray-600 font-bold" size="lg">
         {title}
       </Text>
 
@@ -51,7 +51,7 @@ export const Post = ({ title, body, author, postedAt }: PostProps) => {
         <div className="w-full break-all text-gray-500">{body} </div>
       </TypographyStylesProvider>
       <Group position="apart">
-        <Group spacing="xs">
+        <Group className="ml-0.5" spacing="xs">
           <Avatar alt={"author.name"} radius="xl" />
           <Text className="text-gray-600" size="sm">
             {author}
