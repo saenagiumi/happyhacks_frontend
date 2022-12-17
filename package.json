@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "api": "json-server --host 192.168.10.109 --watch db.json --port 3004"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
     "autoprefixer": "^10.4.13",
+    "json-server": "^0.17.1",
     "postcss": "^8.4.20",
     "tailwindcss": "^3.2.4"
   }

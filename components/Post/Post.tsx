@@ -26,17 +26,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface CommentHtmlProps {
-  postedAt: string;
+interface PostProps {
+  title: string;
   body: string;
-  author: {
-    name: string;
-    image: string;
-  };
+  author: string;
+  postedAt: string;
 }
 
-export const CommentHtml = ({ postedAt, body, user }: CommentHtmlProps) => {
-  console.log(body);
+export const Post = ({ title, body, author, postedAt }: PostProps) => {
   const { classes } = useStyles();
   return (
     <Paper
@@ -46,20 +43,18 @@ export const CommentHtml = ({ postedAt, body, user }: CommentHtmlProps) => {
       withBorder
       className={classes.comment}
     >
-      <Text className="pl-1.5 pt-1.5 text-gray-600 font-bold" size="lg">
-        ここには質問のタイトルが入ります。多少長くなることもあるでしょう
+      <Text className="pl-2 pt-1.5 text-gray-600 font-bold" size="lg">
+        {title}
       </Text>
 
       <TypographyStylesProvider className={classes.body}>
-        <div className="w-full break-all text-gray-500">
-          質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります質問の内容が入ります
-        </div>
+        <div className="w-full break-all text-gray-500">{body} </div>
       </TypographyStylesProvider>
       <Group position="apart">
-        <Group spacing="xs">
-          <Avatar alt={user} radius="xl" />
+        <Group className="ml-0.5" spacing="xs">
+          <Avatar alt={"author.name"} radius="xl" />
           <Text className="text-gray-600" size="sm">
-            {user}
+            {author}
           </Text>
         </Group>
         <Group className="pr-2">

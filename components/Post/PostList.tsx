@@ -1,24 +1,34 @@
-import { usePosts } from "../../hooks/usePosts";
-import { CommentHtml } from "./Post";
+import Link from "next/link";
+import { Post } from "components/Post/Post";
+import { useFetchArray } from "hooks/useFetchArray";
+import { API_URL } from "utils/const";
+
+type Post = {
+  id: number;
+  title: string;
+  body: string;
+  author: string;
+};
 
 export const PostList = () => {
-  const { data, error } = usePosts();
+  const { data, error, isLoading, isEmpty } = useFetchArray(`${API_URL}/posts`);
 
   return (
-    <div className="mx-2">
-      {data?.map((data) => {
+    <ol className="mx-2">
+      {data?.map((post: Post) => {        
         return (
-          <ol>
-            <li key={data.id} className="mb-2">
-              <CommentHtml
+          <li key={post.id} className="mb-2">
+            <Link href={`/posts/${post.id}`} className="no-underline">
+              <Post
+                title={post.title}
+                body={post.body}
+                author={post.author}
                 postedAt={"2022/12/09 22:56"}
-                body={"data.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrasedata.company.catchPhrase"}
-                user={data.name}
               />
-            </li>
-          </ol>
+            </Link>
+          </li>
         );
       })}
-    </div>
+    </ol>
   );
 };

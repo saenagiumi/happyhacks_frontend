@@ -1,6 +1,7 @@
-import "../styles/globals.css";
+import "styles/globals.css";
 import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
+import { Header } from "components/Header/Header";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
         
       }}
     >
+      <Header />
       <Component {...pageProps} />
     </MantineProvider>
   );
