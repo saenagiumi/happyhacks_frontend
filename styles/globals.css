@@ -1,26 +1,12 @@
-html,
-body {
-  padding: 0;
+/* MantineのNormalize CSSと競合しないよう調整 */
+@tailwind components;
+@tailwind utilities;
+
+h1, h2, p, ul, ol, li {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+li {
+  list-style: none;
 }
