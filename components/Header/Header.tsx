@@ -10,7 +10,7 @@ export const Header = () => {
       </Link>
       <div>
         <ul>
-          <Link href="/posts/create">
+          <Link href="/posts/new">
             <Button color="yellow" size="xs">
               質問する
             </Button>
