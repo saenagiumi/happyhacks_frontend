@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
         fontSizes: {
           xs: 12,
           sm: 14,
-          md: 14,
+          md: 16,
           lg: 16,
           xl: 20,
         },
