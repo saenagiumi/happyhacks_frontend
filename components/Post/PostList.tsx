@@ -8,6 +8,7 @@ type Post = {
   title: string;
   body: string;
   author: string;
+  created_at: string;
 };
 
 export const PostList = () => {
@@ -15,7 +16,7 @@ export const PostList = () => {
 
   return (
     <ol className="mx-2">
-      {data?.map((post: Post) => {        
+      {data?.map((post: Post) => {
         return (
           <li key={post.id} className="mb-2">
             <Link href={`/posts/${post.id}`} className="no-underline">
@@ -23,7 +24,7 @@ export const PostList = () => {
                 title={post.title}
                 body={post.body}
                 author={post.author}
-                postedAt={"2022/12/09 22:56"}
+                postedAt={post.created_at}
               />
             </Link>
           </li>

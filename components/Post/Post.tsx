@@ -6,6 +6,7 @@ import {
   TypographyStylesProvider,
   Paper,
 } from "@mantine/core";
+import dayjs from "dayjs";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -59,7 +60,7 @@ export const Post = ({ title, body, author, postedAt }: PostProps) => {
         </Group>
         <Group className="pr-2">
           <Text size="sm" color="dimmed">
-            {postedAt}
+            {dayjs(postedAt).format("MM/DD HH:mm")}
           </Text>
         </Group>
       </Group>
