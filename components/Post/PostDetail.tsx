@@ -27,8 +27,8 @@ export const PostDetail = () => {
         <Post
           title={data.title}
           body={data.body}
-          author={data.author}
-          postedAt={"2022/12/09 22:56"}
+          user={data.user}
+          postedAt={data.created_at}
         />
       </div>
     </div>

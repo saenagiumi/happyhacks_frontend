@@ -7,7 +7,7 @@ type Post = {
   id: number;
   title: string;
   body: string;
-  author: string;
+  user: string;
   created_at: string;
 };
 
@@ -23,7 +23,7 @@ export const PostList = () => {
               <Post
                 title={post.title}
                 body={post.body}
-                author={post.author}
+                user={post.user}
                 postedAt={post.created_at}
               />
             </Link>
