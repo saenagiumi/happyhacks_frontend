@@ -9,7 +9,7 @@ import { createStyles, Paper, Group, Text } from "@mantine/core";
 type Post = {
   title: string;
   body: string;
-  author: "authorLiteral" | string;
+  user_id: "2" | string;
 };
 
 const useStyles = createStyles((theme) => ({
@@ -43,7 +43,7 @@ const PostForm = () => {
   const onSubmit: SubmitHandler<Post> = (InputData) => {
     const PostData = {
       ...InputData,
-      author: "authorLiteral",
+      user_id: "2",
     };
     createPost(PostData);
   };
