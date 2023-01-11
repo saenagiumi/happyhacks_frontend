@@ -7,6 +7,7 @@ import {
   Paper,
   Button,
 } from "@mantine/core";
+import { UserNameByUserId } from "components/User/UserNameByUserId";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -30,11 +31,11 @@ const useStyles = createStyles((theme) => ({
 interface CommentProps {
   title: string;
   body: string;
-  author: string;
+  user: string;
   postedAt: string;
 }
 
-export const Comment = ({ title, body, author, postedAt }: CommentProps) => {
+export const Comment = ({ title, body, userId, postedAt }: CommentProps) => {
   const { classes } = useStyles();
   return (
     <Paper
@@ -48,7 +49,7 @@ export const Comment = ({ title, body, author, postedAt }: CommentProps) => {
         <Group spacing="xs" className="px-1">
           <Avatar alt={"author.name"} radius="xl" size="lg" />
           <Text className="text-gray-600" size="lg">
-            {author}
+            <UserNameByUserId id={userId} />
           </Text>
         </Group>
         <Group className="pr-2">
