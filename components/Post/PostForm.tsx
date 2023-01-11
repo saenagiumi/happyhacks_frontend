@@ -52,7 +52,6 @@ const PostForm = () => {
     
     try {
       const response = await axios.post(`${API_URL}/posts`, { post: postInputData });
-      console.log(response);
       
       if (response.status === 201) {
         router.push("/");
