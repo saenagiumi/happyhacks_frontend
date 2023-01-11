@@ -30,11 +30,11 @@ const useStyles = createStyles((theme) => ({
 interface PostProps {
   title: string;
   body: string;
-  user: string;
+  name: string;
   postedAt: string;
 }
 
-export const Post = ({ title, body, user, postedAt }: PostProps) => {
+export const Post = ({ title, body, name, postedAt }: PostProps) => {
   const { classes } = useStyles();
   return (
     <Paper
@@ -55,7 +55,7 @@ export const Post = ({ title, body, user, postedAt }: PostProps) => {
         <Group className="ml-0.5" spacing="xs">
           <Avatar alt={"author.name"} radius="xl" />
           <Text className="text-gray-600" size="sm">
-            {user}
+            {name}
           </Text>
         </Group>
         <Group className="pr-2">
