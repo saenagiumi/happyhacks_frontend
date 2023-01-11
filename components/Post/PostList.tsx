@@ -7,12 +7,12 @@ type Post = {
   id: number;
   title: string;
   body: string;
-  user: string;
+  name: string;
   created_at: string;
 };
 
 export const PostList = () => {
-  const { data, error, isLoading, isEmpty } = useFetchArray(`${API_URL}/posts`);
+  const { data, error, isLoading, isEmpty } = useFetchArray(`${API_URL}/posts`);  
 
   return (
     <ol className="mx-2">
@@ -23,7 +23,7 @@ export const PostList = () => {
               <Post
                 title={post.title}
                 body={post.body}
-                user={post.user}
+                name={post.name}
                 postedAt={post.created_at}
               />
             </Link>
