@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useFetchArray } from "hooks/useFetchArray";
 import { API_URL } from "utils/const";
 import { Comment } from "components/Comment/Comment";
@@ -23,7 +22,6 @@ export const CommentListByPostId = (props: { id: string }) => {
   return (
       <ol className="space-y-2">
         {data?.map((comment: any) => {
-          console.log(comment);
           
           return (
             <li key={comment.id}>
