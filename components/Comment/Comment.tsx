@@ -32,7 +32,7 @@ const useStyles = createStyles((theme) => ({
 interface CommentProps {
   title: string;
   body: string;
-  user: string;
+  userId: string;
   postedAt: string;
 }
 
