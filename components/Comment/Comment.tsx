@@ -7,6 +7,7 @@ import {
   Paper,
   Button,
 } from "@mantine/core";
+import dayjs from "dayjs";
 import { UserNameByUserId } from "components/User/UserNameByUserId";
 
 const useStyles = createStyles((theme) => ({
@@ -54,7 +55,7 @@ export const Comment = ({ title, body, userId, postedAt }: CommentProps) => {
         </Group>
         <Group className="pr-2">
           <Text size="sm" color="dimmed">
-            {postedAt}
+            {dayjs(postedAt).format("MM/DD HH:mm")}
           </Text>
         </Group>
       </Group>
