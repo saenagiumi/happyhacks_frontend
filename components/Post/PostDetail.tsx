@@ -9,7 +9,7 @@ export const PostDetail = () => {
   const { data, error, isLoading } = useFetch(
     router.query.id ? `${API_URL}/posts/${router.query.id}` : null
   );
-
+  
   if (isLoading) {
     return <div>ローディング中</div>;
   }
@@ -27,8 +27,8 @@ export const PostDetail = () => {
         <Post
           title={data.title}
           body={data.body}
-          author={data.author}
-          postedAt={"2022/12/09 22:56"}
+          name={data.name}
+          postedAt={data.created_at}
         />
       </div>
     </div>

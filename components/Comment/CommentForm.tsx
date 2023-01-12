@@ -3,17 +3,27 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { API_URL } from "utils/const";
 import { Textarea, TextInput, Button } from "@mantine/core";
-import { createStyles, Paper, Group, Text } from "@mantine/core";
+import { createStyles, Paper } from "@mantine/core";
+import { useSWRConfig } from "swr"
 
 
-type Post = {
+type Props = {
+  modalHandlers: {
+    readonly open: () => void;
+    readonly close: () => void;
+    readonly toggle: () => void;
+  };
+};
+
+type Comment = {
   title: string;
   body: string;
-  user_id: "2" | string;
+  user_id: "3" | string;
+  post_id: "3" | string;
 };
 
 const useStyles = createStyles((theme) => ({
-  post: {
+  comment: {
     padding: `${theme.spacing.lg}px ${theme.spacing.xl}px`,
   },
 
@@ -31,30 +41,39 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const PostForm = () => {
+const CommentForm = (props: Props) => {
   const router = useRouter();
+  const { mutate } = useSWRConfig()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Post>();
+  } = useForm<Comment>();
 
-  const onSubmit: SubmitHandler<Post> = (InputData) => {
-    const PostData = {
+  const onSubmit: SubmitHandler<Comment> = (InputData) => {
+    const CommentData = {
       ...InputData,
-      user_id: "2",
+      user_id: "3",
+      post_id: "3",
     };
-    createPost(PostData);
+    createComment(CommentData);
   };
 
-  const createPost = async (postInputData: Post) => {
-    
+  const createComment = async (commentInputData: Comment) => {
     try {
-      const response = await axios.post(`${API_URL}/posts`, { post: postInputData });
-      
+      const response = await axios.post(`${API_URL}/posts/3/comments`, {
+        comment: commentInputData,
+      });
+
       if (response.status === 201) {
-        router.push("/");
+        // モーダルを閉じる処理
+        props.modalHandlers.close();
+        
+        // 一覧の更新処理
+        mutate(`${API_URL}/posts/3/comments`)
+        
+        router.push("/posts/3");
         return response.data;
       }
     } catch (error) {
@@ -71,17 +90,18 @@ const PostForm = () => {
   const { classes } = useStyles();
   return (
     <div>
-      <Paper p="xs" radius="xs" className={classes.post}>
+      <Paper p="xs" radius="xs" className={classes.comment}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <TextInput
+              data-autofocus
               className=""
               classNames={{
                 input: "pl-2.5 text-gray-600",
                 label: "text-gray-500 font-bold mb-1",
               }}
-              placeholder="次の日の大事な持ち物を忘れてしまう"
-              label="タイトル"
+              placeholder="玄関のドアに持ち物リストを吊るしておく"
+              label="対策を簡潔に説明すると？"
               radius="xs"
               size="md"
               withAsterisk
@@ -89,7 +109,7 @@ const PostForm = () => {
             />
             {errors.title && (
               <span className="text-xs font-bold text-red-400">
-                質問のタイトルを入力してください
+                回答のタイトルを入力してください
               </span>
             )}
           </div>
@@ -99,8 +119,8 @@ const PostForm = () => {
                 input: "pl-2.5 px-2 text-gray-600",
                 label: "text-gray-500 font-bold mb-1",
               }}
-              placeholder="どんなシチュエーションで何に困っているのか、詳しく記載することで回答してもらいやすくなります"
-              label="質問の内容"
+              placeholder="紐付きのホワイトボードに持ち物リストを記入し、前日のうちに玄関のドアノブに吊るしておくことで、次の日出かける前に必ず持ち物を確認する動線ができ上がります。細かいところは工夫してみてください。うまくいくといいですね✊"
+              label="具体的な内容"
               size="md"
               radius="xs"
               autosize
@@ -111,7 +131,7 @@ const PostForm = () => {
             />
             {errors.body && (
               <span className="text-xs font-bold text-red-400">
-                質問の内容を入力してください
+                回答の内容を入力してください
               </span>
             )}
           </div>
@@ -122,7 +142,7 @@ const PostForm = () => {
               color="yellow"
               size="lg"
             >
-              投稿する
+              回答する
             </Button>
           </div>
         </form>
@@ -131,4 +151,4 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default CommentForm;
