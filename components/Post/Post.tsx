@@ -37,13 +37,7 @@ interface PostProps {
 export const Post = ({ title, body, name, postedAt }: PostProps) => {
   const { classes } = useStyles();
   return (
-    <Paper
-      shadow="sm"
-      radius="xs"
-      p="xs"
-      withBorder
-      className={classes.comment}
-    >
+    <div className="pt-1.5">
       <Text className="pl-2 pt-1.5 text-gray-600 font-bold" size="lg">
         {title}
       </Text>
@@ -64,6 +58,6 @@ export const Post = ({ title, body, name, postedAt }: PostProps) => {
           </Text>
         </Group>
       </Group>
-    </Paper>
+    </div>
   );
 };
