@@ -26,7 +26,7 @@ const PostsId = () => {
   }
 
   return (
-    <div className="mx-2">
+    <div className="mx-1.5">
       <PostDetail />
       <h2 className="font-medium text-gray-600 my-4 ml-1">２件の提案</h2>
       <CommentListByPostId id={data.id} />
