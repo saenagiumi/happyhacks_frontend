@@ -1,6 +1,7 @@
 import { useFetchArray } from "hooks/useFetchArray";
 import { API_URL } from "utils/const";
 import { Comment } from "components/Comment/Comment";
+import { toZenkaku } from "components/libs/toZenkaku";
 
 export const CommentListByPostId = (props: { id: string }) => {
   const { data, error, isLoading, isEmpty } = useFetchArray(
@@ -16,13 +17,17 @@ export const CommentListByPostId = (props: { id: string }) => {
   }
 
   if (isEmpty) {
-    return <p className=" text-gray-500">あなたの知見を共有してあげましょう</p>;
+    return <p className=" text-gray-500 my-4 ml-1">あなたの知見を共有してあげましょう</p>;
   }
 
   return (
+    <div>
+      <h2 className="font-medium text-base text-gray-600 my-4 ml-1">
+        {toZenkaku(data.length.toString())}件のコメント
+      </h2>
+
       <ol className="space-y-2">
         {data?.map((comment: any) => {
-          
           return (
             <li key={comment.id}>
               <Comment
@@ -35,5 +40,6 @@ export const CommentListByPostId = (props: { id: string }) => {
           );
         })}
       </ol>
+    </div>
   );
 };

@@ -8,6 +8,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Modal, Avatar } from "@mantine/core";
 import CommentForm from "components/Comment/CommentForm";
 import { CommentListByPostId } from "components/Comment/CommentListByPostId";
+import { useState } from "react";
 
 const PostsId = () => {
   const router = useRouter();
@@ -16,6 +17,8 @@ const PostsId = () => {
   const { data, error, isLoading } = useFetch(
     router.query.id ? `${API_URL}/posts/${router.query.id}` : null
   );
+
+
 
   if (isLoading) {
     return <div>ローディング中</div>;
@@ -28,7 +31,6 @@ const PostsId = () => {
   return (
     <div className="mx-1.5">
       <PostDetail />
-      <h2 className="font-medium text-gray-600 my-4 ml-1">２件の提案</h2>
       <CommentListByPostId id={data.id} />
       <Modal centered opened={opened} onClose={() => modalHandlers.close()}>
         <CommentForm modalHandlers={modalHandlers} />
