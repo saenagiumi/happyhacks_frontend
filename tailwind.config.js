@@ -13,7 +13,11 @@ module.exports = {
       lg: "1200px",
       xl: "1400px",
     },
-    extend: {},
+    extend: {
+      colors: {
+        "li-separator-gray": "#eff3f4",
+      }
+    },
   },
   plugins: [],
 };
