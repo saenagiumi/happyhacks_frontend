@@ -1,4 +1,4 @@
-import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 
 const fetcher = async (url: string) => {
   const response = await fetch(url);
@@ -7,7 +7,7 @@ const fetcher = async (url: string) => {
 };
 
 export const useFetch = (url: string | null) => {
-  const { data, error } = useSWRImmutable(
+  const { data, error } = useSWR(
     url,
     fetcher
   );
