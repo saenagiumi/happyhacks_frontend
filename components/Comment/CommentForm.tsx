@@ -4,12 +4,22 @@ import { useRouter } from "next/router";
 import { API_URL } from "utils/const";
 import { Textarea, TextInput, Button } from "@mantine/core";
 import { createStyles, Paper } from "@mantine/core";
+import { useSWRConfig } from "swr"
 
+
+type Props = {
+  modalHandlers: {
+    readonly open: () => void;
+    readonly close: () => void;
+    readonly toggle: () => void;
+  };
+};
 
 type Comment = {
   title: string;
   body: string;
-  author: "authorLiteral" | string;
+  user_id: "3" | string;
+  post_id: "3" | string;
 };
 
 const useStyles = createStyles((theme) => ({
@@ -31,8 +41,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const CommentForm = () => {
+const CommentForm = (props: Props) => {
   const router = useRouter();
+  const { mutate } = useSWRConfig()
 
   const {
     register,
@@ -43,18 +54,26 @@ const CommentForm = () => {
   const onSubmit: SubmitHandler<Comment> = (InputData) => {
     const CommentData = {
       ...InputData,
-      author: "authorLiteral",
+      user_id: "3",
+      post_id: "3",
     };
     createComment(CommentData);
   };
 
   const createComment = async (commentInputData: Comment) => {
-    
     try {
-      const response = await axios.post(`${API_URL}/posts/[id]/comments`, { post: commentInputData });
-      
+      const response = await axios.post(`${API_URL}/posts/3/comments`, {
+        comment: commentInputData,
+      });
+
       if (response.status === 201) {
-        router.push("/posts/[id]");
+        // モーダルを閉じる処理
+        props.modalHandlers.close();
+        
+        // 一覧の更新処理
+        mutate(`${API_URL}/posts/3/comments`)
+        
+        router.push("/posts/3");
         return response.data;
       }
     } catch (error) {
@@ -75,7 +94,7 @@ const CommentForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <TextInput
-            data-autoFocus
+              data-autofocus
               className=""
               classNames={{
                 input: "pl-2.5 text-gray-600",
