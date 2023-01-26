@@ -5,6 +5,9 @@ import { API_URL } from "utils/const";
 import { Textarea, TextInput, Button } from "@mantine/core";
 import { createStyles, Paper, Group, Text } from "@mantine/core";
 
+// recoil
+import { useRecoilValue } from "recoil";
+import tokenState from "recoil/atoms/tokenState";
 
 type Post = {
   title: string;
@@ -33,6 +36,7 @@ const useStyles = createStyles((theme) => ({
 
 const PostForm = () => {
   const router = useRouter();
+  const token = useRecoilValue(tokenState);  
 
   const {
     register,
@@ -51,9 +55,13 @@ const PostForm = () => {
   const createPost = async (postInputData: Post) => {
     
     try {
-      const response = await axios.post(`${API_URL}/posts`, { post: postInputData });
+      const response = await axios.post(`${API_URL}/posts`, { post: postInputData }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       
-      if (response.status === 201) {
+      if (response.status === 200) {
         router.push("/");
         return response.data;
       }
