@@ -32,7 +32,7 @@ const PostsId = () => {
       <PostDetail />
       <CommentListByPostId id={data.id} />
       <Modal centered opened={opened} onClose={() => modalHandlers.close()}>
-        <CommentForm modalHandlers={modalHandlers} />
+        <CommentForm userId={user?.sub} postId={router.query.id} modalHandlers={modalHandlers} />
       </Modal>
 
       {user === undefined && !isLoading && (
