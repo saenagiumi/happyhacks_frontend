@@ -4,8 +4,11 @@ import { useRouter } from "next/router";
 import { API_URL } from "utils/const";
 import { Textarea, TextInput, Button } from "@mantine/core";
 import { createStyles, Paper } from "@mantine/core";
-import { useSWRConfig } from "swr"
+import { useSWRConfig } from "swr";
 
+// recoil
+import { useRecoilValue } from "recoil";
+import tokenState from "recoil/atoms/tokenState";
 
 type Props = {
   modalHandlers: {
@@ -19,7 +22,7 @@ type Comment = {
   title: string;
   body: string;
   user_id: "3" | string;
-  post_id: "3" | string;
+  post_id: "7" | string;
 };
 
 const useStyles = createStyles((theme) => ({
@@ -43,7 +46,8 @@ const useStyles = createStyles((theme) => ({
 
 const CommentForm = (props: Props) => {
   const router = useRouter();
-  const { mutate } = useSWRConfig()
+  const { mutate } = useSWRConfig();
+  const token = useRecoilValue(tokenState);
 
   const {
     register,
@@ -55,25 +59,33 @@ const CommentForm = (props: Props) => {
     const CommentData = {
       ...InputData,
       user_id: "3",
-      post_id: "3",
+      post_id: "7",
     };
     createComment(CommentData);
   };
 
   const createComment = async (commentInputData: Comment) => {
     try {
-      const response = await axios.post(`${API_URL}/posts/3/comments`, {
-        comment: commentInputData,
-      });
+      const response = await axios.post(
+        `${API_URL}/posts/7/comments`,
+        {
+          comment: commentInputData,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         // モーダルを閉じる処理
         props.modalHandlers.close();
-        
+
         // 一覧の更新処理
-        mutate(`${API_URL}/posts/3/comments`)
-        
-        router.push("/posts/3");
+        mutate(`${API_URL}/posts/7/comments`);
+
+        router.push("/posts/7");
         return response.data;
       }
     } catch (error) {
