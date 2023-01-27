@@ -4,10 +4,15 @@ import { useRouter } from "next/router";
 import { API_URL } from "utils/const";
 import { Textarea, TextInput, Button } from "@mantine/core";
 import { createStyles, Paper } from "@mantine/core";
-import { useSWRConfig } from "swr"
+import { useSWRConfig } from "swr";
 
+// recoil
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import tokenState from "recoil/atoms/tokenState";
 
 type Props = {
+  userId: string | undefined;
+  postId: string | string[] | undefined
   modalHandlers: {
     readonly open: () => void;
     readonly close: () => void;
@@ -16,10 +21,10 @@ type Props = {
 };
 
 type Comment = {
-  title: string;
-  body: string;
-  user_id: "3" | string;
-  post_id: "3" | string;
+  user_id: string | undefined;
+    post_id: string | string[] | undefined;
+    title: string;
+    body: string;
 };
 
 const useStyles = createStyles((theme) => ({
@@ -43,7 +48,8 @@ const useStyles = createStyles((theme) => ({
 
 const CommentForm = (props: Props) => {
   const router = useRouter();
-  const { mutate } = useSWRConfig()
+  const { mutate } = useSWRConfig();
+  const token = useRecoilValue(tokenState);
 
   const {
     register,
@@ -54,26 +60,35 @@ const CommentForm = (props: Props) => {
   const onSubmit: SubmitHandler<Comment> = (InputData) => {
     const CommentData = {
       ...InputData,
-      user_id: "3",
-      post_id: "3",
+      user_id: props.userId,
+      post_id: props.postId,
     };
+    
     createComment(CommentData);
   };
 
   const createComment = async (commentInputData: Comment) => {
     try {
-      const response = await axios.post(`${API_URL}/posts/3/comments`, {
-        comment: commentInputData,
-      });
+      const response = await axios.post(
+        `${API_URL}/posts/${props.postId}/comments`,
+        {
+          comment: commentInputData,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         // モーダルを閉じる処理
         props.modalHandlers.close();
-        
+
         // 一覧の更新処理
-        mutate(`${API_URL}/posts/3/comments`)
-        
-        router.push("/posts/3");
+        mutate(`${API_URL}/posts/${props.postId}/comments`);
+
+        router.push(`/posts/${props.postId}`);
         return response.data;
       }
     } catch (error) {
