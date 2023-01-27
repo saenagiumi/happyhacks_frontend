@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 import { API_URL } from "utils/const";
 
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, Avatar } from "@mantine/core";
+import { Modal, Avatar, Button } from "@mantine/core";
 import CommentForm from "components/Comment/CommentForm";
 import { CommentListByPostId } from "components/Comment/CommentListByPostId";
-import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const PostsId = () => {
   const router = useRouter();
@@ -17,8 +17,7 @@ const PostsId = () => {
   const { data, error, isLoading } = useFetch(
     router.query.id ? `${API_URL}/posts/${router.query.id}` : null
   );
-
-
+  const { user, loginWithPopup } = useAuth0();
 
   if (isLoading) {
     return <div>ローディング中</div>;
@@ -36,15 +35,25 @@ const PostsId = () => {
         <CommentForm modalHandlers={modalHandlers} />
       </Modal>
 
-      <div className="flex mt-4">
-        <Avatar radius="xl" size="md" />
-        <div
-          onClick={() => modalHandlers.open()}
-          className="w-full box-border ml-2 p-3 border-solid border border-gray-300 rounded-lg  text-gray-400"
-        >
-          回答する
+      {user === undefined && !isLoading && (
+        <div className="flex justify-center my-10">
+          <Button onClick={() => loginWithPopup()} color="yellow" size="md">
+            ログインして回答する
+          </Button>
         </div>
-      </div>
+      )}
+
+      {user && (
+        <div className="flex mt-4">
+          <Avatar radius="xl" size="md" />
+          <div
+            onClick={() => modalHandlers.open()}
+            className="w-full box-border ml-2 p-3 border-solid border border-gray-300 rounded-lg  text-gray-400"
+          >
+            回答する
+          </div>
+        </div>
+      )}
     </div>
   );
 };
