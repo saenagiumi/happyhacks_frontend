@@ -10,6 +10,11 @@ import CommentForm from "components/Comment/CommentForm";
 import { CommentListByPostId } from "components/Comment/CommentListByPostId";
 import { useAuth0 } from "@auth0/auth0-react";
 
+// アクセストークンの取得
+import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import tokenState from "recoil/atoms/tokenState";
+
 const PostsId = () => {
   const router = useRouter();
   const [opened, modalHandlers] = useDisclosure(false);
@@ -18,6 +23,23 @@ const PostsId = () => {
     router.query.id ? `${API_URL}/posts/${router.query.id}` : null
   );
   const { user, loginWithPopup } = useAuth0();
+
+  const { getAccessTokenSilently } = useAuth0();
+  const setToken = useSetRecoilState(tokenState);
+
+  // ログイン時にトークンを取得しRecoilへ格納
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently();
+        setToken(accessToken);
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    getToken();
+  }, [user]);
+  
 
   if (isLoading) {
     return <div>ローディング中</div>;
