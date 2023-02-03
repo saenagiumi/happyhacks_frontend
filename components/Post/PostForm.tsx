@@ -9,6 +9,11 @@ import { createStyles, Paper, Group, Text } from "@mantine/core";
 import { useRecoilValue } from "recoil";
 import tokenState from "recoil/atoms/tokenState";
 
+
+// Toast
+import { showNotification } from "@mantine/notifications";
+import { MdCheckCircle } from "react-icons/md";
+
 type Post = {
   title: string;
   body: string;
@@ -63,6 +68,13 @@ const PostForm = () => {
       
       if (response.status === 200) {
         router.push("/");
+        showNotification({
+          title: '投稿完了',
+          message: '質問を投稿しました',
+          color: 'yellow',
+          icon: <MdCheckCircle size={30} />,
+          disallowClose: true,
+        })
         return response.data;
       }
     } catch (error) {
