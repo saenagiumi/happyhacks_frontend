@@ -8,7 +8,6 @@ import {
   Button,
 } from "@mantine/core";
 import dayjs from "dayjs";
-import { UserNameByUserId } from "components/User/UserNameByUserId";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -32,11 +31,12 @@ const useStyles = createStyles((theme) => ({
 interface CommentProps {
   title: string;
   body: string;
-  userId: string;
+  name: string;
+  iconSrc: string;
   postedAt: string;
 }
 
-export const Comment = ({ title, body, userId, postedAt }: CommentProps) => {
+export const Comment = ({ title, body, name, iconSrc, postedAt }: CommentProps) => {
   const { classes } = useStyles();
   return (
     <Paper
@@ -48,9 +48,9 @@ export const Comment = ({ title, body, userId, postedAt }: CommentProps) => {
     >
       <Group className="my-2" position="apart">
         <Group spacing="xs" className="px-1">
-          <Avatar alt={"author.name"} radius="xl" size="lg" />
+          <Avatar src={iconSrc} alt={name} radius="xl" size="md" />
           <Text className="text-gray-600" size="lg">
-            <UserNameByUserId id={userId} />
+            <div>{name}</div>
           </Text>
         </Group>
         <Group className="pr-2">

@@ -67,7 +67,7 @@ const PostsId = () => {
 
       {user && (
         <div className="flex mt-4">
-          <Avatar radius="xl" size="md" />
+          <Avatar src={user.picture} radius="xl" size="md" />
           <div
             onClick={() => modalHandlers.open()}
             className="w-full box-border ml-2 p-3 border-solid border border-gray-300 rounded-lg  text-gray-400"

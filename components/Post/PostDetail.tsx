@@ -21,13 +21,14 @@ export const PostDetail = () => {
   return (
     <div>
       <Head>
-        <title>{data?.title}</title>
+        <title>{data.title}</title>
       </Head>
       <div>
         <Post
           title={data.title}
           body={data.body}
           name={data.name}
+          iconSrc={data.iconSrc}
           postedAt={data.created_at}
         />
       </div>
