@@ -10,6 +10,10 @@ import { useSWRConfig } from "swr";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import tokenState from "recoil/atoms/tokenState";
 
+// Toast
+import { showNotification } from "@mantine/notifications";
+import { MdCheckCircle } from "react-icons/md";
+
 type Props = {
   userId: string | undefined;
   postId: string | string[] | undefined
@@ -89,6 +93,13 @@ const CommentForm = (props: Props) => {
         mutate(`${API_URL}/posts/${props.postId}/comments`);
 
         router.push(`/posts/${props.postId}`);
+        showNotification({
+          title: '投稿完了',
+          message: '回答を投稿しました',
+          color: 'yellow',
+          icon: <MdCheckCircle size={30} />,
+          disallowClose: true,
+        })
         return response.data;
       }
     } catch (error) {
