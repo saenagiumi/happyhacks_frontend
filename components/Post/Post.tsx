@@ -31,10 +31,11 @@ interface PostProps {
   title: string;
   body: string;
   name: string;
+  iconSrc: string;
   postedAt: string;
 }
 
-export const Post = ({ title, body, name, postedAt }: PostProps) => {
+export const Post = ({ title, body, name, iconSrc, postedAt }: PostProps) => {
   const { classes } = useStyles();
   return (
     <div className="pt-1.5">
@@ -47,7 +48,7 @@ export const Post = ({ title, body, name, postedAt }: PostProps) => {
       </TypographyStylesProvider>
       <Group position="apart">
         <Group className="ml-0.5" spacing="xs">
-          <Avatar alt={"author.name"} radius="xl" />
+          <Avatar src={iconSrc} alt={"author.name"} radius="xl" size="sm" />
           <Text className="text-gray-600" size="sm">
             {name}
           </Text>

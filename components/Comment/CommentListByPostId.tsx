@@ -33,7 +33,8 @@ export const CommentListByPostId = (props: { id: string }) => {
               <Comment
                 title={comment.title}
                 body={comment.body}
-                userId={comment.user_id}
+                name={comment.name}
+                iconSrc={comment.picture}
                 postedAt={comment.created_at}
               />
             </li>
