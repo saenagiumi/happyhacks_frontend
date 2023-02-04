@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 
-// 投稿一覧
-import { PostList } from "components/Post/PostList";
-
 // 認証
 import { useAuth0 } from "@auth0/auth0-react";
 
 // Recoil
 import { useSetRecoilState } from "recoil";
 import tokenState from "recoil/atoms/tokenState";
+
+import ActiveTab from "pages/[activeTab]";
 
 export default function Home() {
   const { getAccessTokenSilently } = useAuth0();
@@ -29,7 +28,7 @@ export default function Home() {
 
   return (
     <div>
-      <PostList />
+      <ActiveTab />
     </div>
   );
 }
