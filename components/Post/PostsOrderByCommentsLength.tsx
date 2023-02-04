@@ -10,17 +10,24 @@ type Post = {
   name: string;
   picture: string;
   created_at: string;
+  comments_count: number;
 };
 
-export const PostList = () => {
-  const { data, error, isLoading, isEmpty } = useFetchArray(`${API_URL}/posts`);  
+export const PostsOrderByCommentsLength = () => {
+  const { data, error, isLoading, isEmpty } = useFetchArray(`${API_URL}/posts_with_comments_count`); 
 
+  // postに紐づいたcommentsの件数で降順ソート
+  const sortedData = data ? [...data].sort((a, b) => b.comments_count - a.comments_count) : [];
+  
+  console.log(sortedData); 
   return (
     <ol className="mx-1">
-      {data?.map((post: Post) => {
-        
+      {sortedData.map((post: Post) => {
         return (
-          <li key={post.id} className="pb-1.5 mx-0.5 border-0 border-b border-li-separator-gray border-solid">
+          <li
+            key={post.id}
+            className="pb-1.5 mx-0.5 border-0 border-b border-li-separator-gray border-solid"
+          >
             <Link href={`/posts/${post.id}`} className="no-underline">
               <Post
                 title={post.title}
