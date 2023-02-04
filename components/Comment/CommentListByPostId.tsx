@@ -23,7 +23,10 @@ export const CommentListByPostId = (props: { id: string }) => {
   return (
     <div>
       <h2 className="font-medium text-base text-gray-600 my-4 ml-1">
-        {toZenkaku(data.length.toString())}件のコメント
+        {data.length <= 9
+          ? toZenkaku(data.length.toString())
+          : data.length.toString()}
+        件のコメント
       </h2>
 
       <ol className="space-y-2">
