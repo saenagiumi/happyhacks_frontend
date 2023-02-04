@@ -6,6 +6,10 @@ import {
   TypographyStylesProvider,
   Paper,
 } from "@mantine/core";
+
+// react-icons
+import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
+
 import dayjs from "dayjs";
 
 const useStyles = createStyles((theme) => ({
@@ -33,9 +37,17 @@ interface PostProps {
   name: string;
   iconSrc: string;
   postedAt: string;
+  comments_count: number;
 }
 
-export const Post = ({ title, body, name, iconSrc, postedAt }: PostProps) => {
+export const Post = ({
+  title,
+  body,
+  name,
+  iconSrc,
+  postedAt,
+  comments_count,
+}: PostProps) => {
   const { classes } = useStyles();
   return (
     <div className="pt-1.5">
@@ -54,9 +66,16 @@ export const Post = ({ title, body, name, iconSrc, postedAt }: PostProps) => {
           </Text>
         </Group>
         <Group className="pr-2">
-          <Text size="sm" color="dimmed">
+          {/* <Text size="sm" color="dimmed">
             {dayjs(postedAt).format("MM/DD HH:mm")}
-          </Text>
+          </Text> */}
+          {comments_count && (
+            // コメントがあればアイコンと件数を表示
+            <div className=" text-gray-500 flex items-center">
+              <HiOutlineChatBubbleOvalLeft className="mr-0.5" />
+              <div className="text-sm">{comments_count}</div>
+            </div>
+          )}
         </Group>
       </Group>
     </div>

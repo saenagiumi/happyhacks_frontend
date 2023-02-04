@@ -28,8 +28,9 @@ export const PostDetail = () => {
           title={data.title}
           body={data.body}
           name={data.name}
-          iconSrc={data.iconSrc}
+          iconSrc={data.picture}
           postedAt={data.created_at}
+          comments_count={0}
         />
       </div>
     </div>

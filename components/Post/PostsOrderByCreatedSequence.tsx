@@ -10,16 +10,14 @@ type Post = {
   name: string;
   picture: string;
   created_at: string;
+  comments_count: number;
 };
 
 export const PostsOrderByCreatedSequence = () => {
-  const { data, error, isLoading, isEmpty } = useFetchArray(`${API_URL}/posts`); 
+  const { data, error, isLoading, isEmpty } = useFetchArray(`${API_URL}/posts_with_comments_count`);
   
   // postの作成順で降順ソート
   const sortedData = data ? [...data].sort((a, b) => b.id - a.id) : [];
-
-  console.log(sortedData);
-  
 
   return (
     <ol className="mx-1">
@@ -34,6 +32,7 @@ export const PostsOrderByCreatedSequence = () => {
                 name={post.name}
                 iconSrc={post.picture}
                 postedAt={post.created_at}
+                comments_count={post.comments_count}
               />
             </Link>
           </li>
