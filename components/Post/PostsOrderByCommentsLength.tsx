@@ -35,6 +35,7 @@ export const PostsOrderByCommentsLength = () => {
                 name={post.name}
                 iconSrc={post.picture}
                 postedAt={post.created_at}
+                comments_count={post.comments_count}
               />
             </Link>
           </li>
