@@ -14,26 +14,32 @@ type Post = {
 };
 
 export const PostsOrderByCreatedSequence = () => {
-  const { data, error, isLoading, isEmpty } = useFetchArray(`${API_URL}/posts_with_comments_count`);
-  
+  const { data, error, isLoading, isEmpty } = useFetchArray(
+    `${API_URL}/posts_with_comments_count`
+  );
+
   // postの作成順で降順ソート
   const sortedData = data ? [...data].sort((a, b) => b.id - a.id) : [];
 
   return (
-    <ol className="mx-1">
+    <ol>
       {sortedData.map((post: Post) => {
-        
         return (
-          <li key={post.id} className="pb-1.5 mx-0.5 border-0 border-b border-li-separator-gray border-solid">
+          <li
+            key={post.id}
+            className="pb-1.5 border-0 border-b-4  border-gray-200 border-solid"
+          >
             <Link href={`/posts/${post.id}`} className="no-underline">
-              <Post
-                title={post.title}
-                body={post.body}
-                name={post.name}
-                iconSrc={post.picture}
-                postedAt={post.created_at}
-                comments_count={post.comments_count}
-              />
+              <div className="mx-1.5">
+                <Post
+                  title={post.title}
+                  body={post.body}
+                  name={post.name}
+                  iconSrc={post.picture}
+                  postedAt={post.created_at}
+                  comments_count={post.comments_count}
+                />
+              </div>
             </Link>
           </li>
         );

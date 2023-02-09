@@ -59,7 +59,7 @@ export const Post = ({
         <div className="w-full break-all text-gray-500">{body} </div>
       </TypographyStylesProvider>
       <Group position="apart">
-        <Group className="ml-0.5" spacing="xs">
+        <Group className="ml-1.5" spacing="xs">
           <Avatar src={iconSrc} alt={"author.name"} radius="xl" size="sm" />
           <Text className="text-gray-600" size="sm">
             {name}
