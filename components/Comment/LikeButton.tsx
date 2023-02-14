@@ -20,7 +20,7 @@ export const LikeButton = ({ on }: LikeButtonProps) => {
       speed={2}
       keepLastFrame
       src={HeartJson}
-      style={{ height: "40px", width: "45px" }}
+      style={{ height: "40px", width: "40px" }}
     ></Player>
   );
 };
