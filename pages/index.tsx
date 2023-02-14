@@ -10,6 +10,8 @@ import tokenState from "recoil/atoms/tokenState";
 import ActiveTab from "pages/[activeTab]";
 
 export default function Home() {
+  console.log(process.env["NEXT_PUBLIC_BASE_URL"]);
+  
   const { getAccessTokenSilently } = useAuth0();
   const setToken = useSetRecoilState(tokenState);
 
