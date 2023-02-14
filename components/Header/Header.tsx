@@ -19,7 +19,7 @@ export const Header = () => {
   console.log(`${user}user`);
   console.log(`${isLoading}user`);
   console.log(`${!isLoading}!isLoading`);
-  console.log(`${user === null}user === null`);
+  console.log(`${user === undefined}user === null`);
   
 
   return (
@@ -28,7 +28,7 @@ export const Header = () => {
         <Logo className="w-[170px] h-full" />
       </Link>
 
-      {user === null && !isLoading && (
+      {user === undefined && !isLoading && (
         // ログアウト時の表示
         <ul className="flex items-center">
           <li className="mr-1">
