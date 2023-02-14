@@ -16,6 +16,12 @@ export const Header = () => {
     logout();
   };
 
+  console.log(`${user}user`);
+  console.log(`${isLoading}user`);
+  console.log(`${!isLoading}!isLoading`);
+  console.log(`${user === null}user === null`);
+  
+
   return (
     <div className="h-12 flex justify-between items-center pt-1 pl-2 pr-2.5">
       <Link href="/">
