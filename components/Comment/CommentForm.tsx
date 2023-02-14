@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { API_URL } from "utils/const";
-import { Textarea, TextInput, Button } from "@mantine/core";
+import { Textarea, TextInput, UnstyledButton } from "@mantine/core";
 import { createStyles, Paper } from "@mantine/core";
 import { useSWRConfig } from "swr";
 
@@ -16,7 +16,7 @@ import { MdCheckCircle } from "react-icons/md";
 
 type Props = {
   userId: string | undefined;
-  postId: string | string[] | undefined
+  postId: string | string[] | undefined;
   modalHandlers: {
     readonly open: () => void;
     readonly close: () => void;
@@ -26,9 +26,9 @@ type Props = {
 
 type Comment = {
   user_id: string | undefined;
-    post_id: string | string[] | undefined;
-    title: string;
-    body: string;
+  post_id: string | string[] | undefined;
+  title: string;
+  body: string;
 };
 
 const useStyles = createStyles((theme) => ({
@@ -67,7 +67,6 @@ const CommentForm = (props: Props) => {
       user_id: props.userId,
       post_id: props.postId,
     };
-    
     createComment(CommentData);
   };
 
@@ -94,12 +93,12 @@ const CommentForm = (props: Props) => {
 
         router.push(`/posts/${props.postId}`);
         showNotification({
-          title: '投稿完了',
-          message: '回答を投稿しました',
-          color: 'yellow',
+          title: "投稿完了",
+          message: "回答を投稿しました",
+          color: "green.4",
           icon: <MdCheckCircle size={30} />,
           disallowClose: true,
-        })
+        });
         return response.data;
       }
     } catch (error) {
@@ -116,63 +115,59 @@ const CommentForm = (props: Props) => {
   const { classes } = useStyles();
   return (
     <div>
-      <Paper p="xs" radius="xs" className={classes.comment}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-4">
-            <TextInput
-              data-autofocus
-              className=""
-              classNames={{
-                input: "pl-2.5 text-gray-600",
-                label: "text-gray-500 font-bold mb-1",
-              }}
-              placeholder="玄関のドアに持ち物リストを吊るしておく"
-              label="対策を簡潔に説明すると？"
-              radius="xs"
-              size="md"
-              withAsterisk
-              {...register("title", { required: true })}
-            />
-            {errors.title && (
-              <span className="text-xs font-bold text-red-400">
-                回答のタイトルを入力してください
-              </span>
-            )}
-          </div>
-          <div className="mb-10">
-            <Textarea
-              classNames={{
-                input: "pl-2.5 px-2 text-gray-600",
-                label: "text-gray-500 font-bold mb-1",
-              }}
-              placeholder="紐付きのホワイトボードに持ち物リストを記入し、前日のうちに玄関のドアノブに吊るしておくことで、次の日出かける前に必ず持ち物を確認する動線ができ上がります。細かいところは工夫してみてください。うまくいくといいですね✊"
-              label="具体的な内容"
-              size="md"
-              radius="xs"
-              autosize
-              minRows={6}
-              maxRows={6}
-              withAsterisk
-              {...register("body", { required: true })}
-            />
-            {errors.body && (
-              <span className="text-xs font-bold text-red-400">
-                回答の内容を入力してください
-              </span>
-            )}
-          </div>
-          <div className="text-center">
-            <Button
-              type="submit"
-              classNames={{ root: "w-48" }}
-              color="yellow"
-              size="lg"
-            >
-              回答する
-            </Button>
-          </div>
-        </form>
-      </Paper>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-4">
+          <TextInput
+            data-autofocus
+            className=""
+            classNames={{
+              input: "pl-2.5 text-gray-600",
+              label: "text-gray-500 font-bold mb-1",
+            }}
+            placeholder="玄関のドアに持ち物リストを吊るしておく"
+            label="対策を簡潔に説明すると？"
+            radius="xs"
+            size="md"
+            withAsterisk
+            {...register("title", { required: true })}
+          />
+          {errors.title && (
+            <span className="text-xs font-bold text-red-400">
+              回答のタイトルを入力してください
+            </span>
+          )}
+        </div>
+        <div className="mb-8">
+          <Textarea
+            classNames={{
+              input: "pl-2.5 px-2 text-gray-600",
+              label: "text-gray-500 font-bold mb-1",
+            }}
+            placeholder="紐付きのホワイトボードに次の日の持ち物を記入し、前日のうちに玄関のドアノブに吊るしておくことで、次の日出かける前に必ず持ち物を確認する動線ができます。うまくいくといいですね💪"
+            label="具体的な内容"
+            size="md"
+            radius="xs"
+            autosize
+            minRows={6}
+            maxRows={6}
+            withAsterisk
+            {...register("body", { required: true })}
+          />
+          {errors.body && (
+            <span className="text-xs font-bold text-red-400">
+              回答の内容を入力してください
+            </span>
+          )}
+        </div>
+        <div className="text-center">
+          <UnstyledButton
+            type="submit"
+            className="w-[175px] h-[48px] rounded-[3px] text-center font-bold text-emerald-50 bg-main-green"
+          >
+            投稿する
+          </UnstyledButton>
+        </div>
+      </form>
     </div>
   );
 };
