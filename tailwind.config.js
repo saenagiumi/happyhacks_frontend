@@ -16,6 +16,7 @@ module.exports = {
     extend: {
       colors: {
         "li-separator-gray": "#eff3f4",
+        "main-green": "#42ce9f",
       }
     },
   },
