@@ -17,7 +17,7 @@ export const CommentListByPostId = (props: { id: string }) => {
   }
 
   if (isEmpty) {
-    return <p className=" text-gray-500 my-4 ml-1">あなたの知見を共有してあげましょう</p>;
+    return <p className=" text-gray-500 my-4 ml-1">あなたの経験や対策を教えてあげましょう</p>;
   }
 
   return (

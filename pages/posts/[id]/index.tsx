@@ -59,18 +59,18 @@ const PostsId = () => {
 
       {user === undefined && !isLoading && (
         <div className="flex justify-center my-10">
-          <Button onClick={() => loginWithPopup()} color="yellow" size="md">
+          <Button className="text-emerald-50" onClick={() => loginWithPopup()} color="green.4" size="md">
             ログインして回答する
           </Button>
         </div>
       )}
 
       {user && (
-        <div className="flex mt-4">
+        <div className="flex my-2.5 mx-0.5">
           <Avatar src={user.picture} radius="xl" size="md" />
           <div
             onClick={() => modalHandlers.open()}
-            className="w-full box-border ml-2 p-3 border-solid border border-gray-300 rounded-lg  text-gray-400"
+            className="w-full box-border ml-2 pl-3.5 pt-1.5 border-solid border border-gray-300 rounded-full  text-gray-400"
           >
             回答する
           </div>

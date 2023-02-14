@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { API_URL } from "utils/const";
-import { Textarea, TextInput, Button } from "@mantine/core";
+import { Textarea, TextInput, Button, UnstyledButton } from "@mantine/core";
 import { createStyles, Paper, Group, Text } from "@mantine/core";
 
 // recoil
@@ -71,7 +71,7 @@ const PostForm = () => {
         showNotification({
           title: '投稿完了',
           message: '質問を投稿しました',
-          color: 'yellow',
+          color: 'green.4',
           icon: <MdCheckCircle size={30} />,
           disallowClose: true,
         })
@@ -136,14 +136,12 @@ const PostForm = () => {
             )}
           </div>
           <div className="text-center">
-            <Button
+            <UnstyledButton
               type="submit"
-              classNames={{ root: "w-48" }}
-              color="yellow"
-              size="lg"
+              className="w-[175px] h-[48px] rounded-[3px] text-center font-bold text-emerald-50 bg-main-green"
             >
               投稿する
-            </Button>
+            </UnstyledButton>
           </div>
         </form>
       </Paper>

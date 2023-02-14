@@ -1,3 +1,6 @@
+import { useCallback, useState } from "react";
+
+// Mantine
 import {
   createStyles,
   Text,
@@ -5,9 +8,23 @@ import {
   Group,
   TypographyStylesProvider,
   Paper,
-  Button,
+  UnstyledButton,
 } from "@mantine/core";
+
+// Day.js
 import dayjs from "dayjs";
+
+// 日本語対応
+import "dayjs/locale/ja";
+dayjs.locale("ja");
+
+// 相対日時のプラグイン
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
+// お気に入りボタン
+import { LikeButton } from "./LikeButton";
+import { BookmarkButton } from "./BookmarkButton";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -15,8 +32,8 @@ const useStyles = createStyles((theme) => ({
   },
 
   body: {
-    paddingLeft: 7,
-    paddingTop: 8,
+    paddingLeft: 5,
+    paddingTop: 5,
     paddingBottom: 5,
     fontSize: theme.fontSizes.sm,
   },
@@ -36,50 +53,69 @@ interface CommentProps {
   postedAt: string;
 }
 
-export const Comment = ({ title, body, name, iconSrc, postedAt }: CommentProps) => {
+export const Comment = ({
+  title,
+  body,
+  name,
+  iconSrc,
+  postedAt,
+}: CommentProps) => {
+  const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+
   const { classes } = useStyles();
   return (
-    <Paper
-      shadow="sm"
-      radius="xs"
-      p="xs"
-      withBorder
-      className={classes.comment}
-    >
-      <Group className="my-2" position="apart">
-        <Group spacing="xs" className="px-1">
-          <Avatar src={iconSrc} alt={name} radius="xl" size="md" />
-          <Text className="text-gray-600" size="lg">
-            <div>{name}</div>
-          </Text>
+    <div>
+      <Paper
+        shadow="sm"
+        radius="xs"
+        p="xs"
+        withBorder
+        className={classes.comment}
+      >
+        <Group className="mb-2 pt-1" position="apart">
+          <Group spacing="xs" className="px-[5px]">
+            <Avatar src={iconSrc} alt={name} radius="xl" />
+            <Text className="pt-0.5" size="sm">
+              <div className="text-gray-700 font-bold">{name}</div>
+              <div className="text-gray-400 text-xs">
+                {dayjs(postedAt).fromNow()}
+              </div>
+            </Text>
+          </Group>
         </Group>
-        <Group className="pr-2">
-          <Text size="sm" color="dimmed">
-            {dayjs(postedAt).format("MM/DD HH:mm")}
-          </Text>
-        </Group>
-      </Group>
-      <Text className="pl-2 pb-3 text-gray-600 font-bold" size="xl">
-        {title}
-      </Text>
+        <Text className="px-2 pt-1 pb-3 text-gray-600 font-bold" size="md">
+          {title}
+        </Text>
 
-      <TypographyStylesProvider className={classes.body}>
-        <div className="w-full break-all text-gray-500 text-base">{body}</div>
-      </TypographyStylesProvider>
-      <Group className="my-5" position="center">
-        <Button
-          variant="gradient"
-          gradient={{ from: "#ed6ea0", to: "#ec8c69", deg: 35 }}
-        >
-          やりたい！28
-        </Button>
-        <Button
-          variant="gradient"
-          gradient={{ from: "teal", to: "cyan", deg: 60 }}
-        >
-          リストに追加
-        </Button>
-      </Group>
-    </Paper>
+        <div className={classes.body}>
+          <div className="w-full break-all text-gray-500">{body}</div>
+        </div>
+
+        <hr className="mb-[1px] mx-[3px] h-[1px] bg-gray-200 border-0 dark:bg-gray-700" />
+
+        <div className="mb-[-8px] flex justify-center items-center gap-x-[17%]">
+          <UnstyledButton onClick={() => setLiked(!liked)}>
+            <div className="flex justify-center items-center font-bold text-sm text-gray-400">
+              <div className="mr-[-6px]">いいね</div>
+              <div className=" mb-[2px]">
+                <LikeButton on={liked ? true : false}></LikeButton>
+              </div>
+              <div className="ml-[-5px] text-gray-400">3</div>
+            </div>
+          </UnstyledButton>
+
+          <UnstyledButton onClick={() => setBookmarked(!bookmarked)}>
+            <div className="flex justify-center items-center font-bold text-sm text-gray-400">
+              <div className="mr-[-6px]">マイリスト</div>
+              <div>
+                <BookmarkButton on={bookmarked ? true : false} />
+              </div>
+              <div className="ml-[-5px] text-gray-400">3</div>
+            </div>
+          </UnstyledButton>
+        </div>
+      </Paper>
+    </div>
   );
 };
