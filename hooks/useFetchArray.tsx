@@ -1,4 +1,4 @@
-import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 
 type Url = string;
 
@@ -9,7 +9,7 @@ const fetcher = async (url: Url) => {
 };
 
 export const useFetchArray = (url: Url) => {
-  const { data, error } = useSWRImmutable(
+  const { data, error } = useSWR(
     url,
     fetcher
   );
