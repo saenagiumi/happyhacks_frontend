@@ -22,7 +22,7 @@ export const Header = () => {
         <Logo className="w-[170px] h-full" />
       </Link>
 
-      {user === undefined && !isLoading && (
+      {user === null && !isLoading && (
         // ログアウト時の表示
         <ul className="flex items-center">
           <li className="mr-1">
