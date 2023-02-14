@@ -14,7 +14,7 @@ const ActiveTab = () => {
     <Tabs
       value={router.query.activeTab as string}
       defaultValue="/"
-      color="yellow"
+      color="green.4"
       radius="xs"
       onTabChange={(value) => router.push(`${value}`)}
     >
