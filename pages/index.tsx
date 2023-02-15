@@ -19,7 +19,7 @@ export default function Home() {
       console.log(token);
       setToken(token);
     } catch (err) {
-      //loginWithRedirect()
+      loginWithRedirect()
     }
   }, [getAccessTokenSilently, loginWithRedirect]);
 
