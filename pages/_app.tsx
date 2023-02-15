@@ -61,7 +61,16 @@ export default function App({ Component, pageProps }: AppProps) {
           redirect_uri: redirectUri,
           audience: process.env["NEXT_PUBLIC_AUTH0_AUDIENCE"]!,
         }}
-        onRedirectCallback={onRedirectCallback}
+        onRedirectCallback={appState => {
+        // appState には、リダイレクト前の状態が含まれています
+        window.history.replaceState(
+          {},
+          document.title,
+          appState && appState.returnTo
+            ? appState.returnTo
+            : window.location.pathname
+        );
+      }}
       >
         <RecoilRoot>
           <NotificationsProvider position="top-center">
