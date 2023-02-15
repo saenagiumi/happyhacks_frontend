@@ -12,12 +12,12 @@ export const Header = () => {
     useAuth0();
   console.log({ user, isLoading, isAuthenticated, loginWithRedirect, logout });
 
-  useEffect(() => {
-    if (user !== undefined) {
-      console.log("後から実行されたよ");
-      console.log({user});
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user !== undefined) {
+  //     console.log("後から実行されたよ");
+  //     console.log({user});
+  //   }
+  // }, [user]);
 
 
   const handleLogout = () => {
