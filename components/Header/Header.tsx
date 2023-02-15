@@ -23,7 +23,6 @@ export const Header = () => {
       <Link href="/">
         <Logo className="w-[170px] h-full" />
       </Link>
-      <div>{user?.name}</div>
 
       {user && !isLoading && (
         // ログイン時の表示
