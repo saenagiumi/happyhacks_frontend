@@ -22,15 +22,15 @@ import { MdCheckCircle } from "react-icons/md";
 export default function App({ Component, pageProps }: AppProps) {
   const redirectUri = `${process.env["NEXT_PUBLIC_BASE_URL"]}`;
 
-  const onRedirectCallback = () => {
-    showNotification({
-      title: "ログインしました",
-      message: "",
-      color: "green.4",
-      icon: <MdCheckCircle size={30} />,
-      disallowClose: true,
-    });
-  };
+  // const onRedirectCallback = () => {
+  //   showNotification({
+  //     title: "ログインしました",
+  //     message: "",
+  //     color: "green.4",
+  //     icon: <MdCheckCircle size={30} />,
+  //     disallowClose: true,
+  //   });
+  // };
 
   return (
     <Auth0Provider
@@ -38,18 +38,18 @@ export default function App({ Component, pageProps }: AppProps) {
       clientId={process.env["NEXT_PUBLIC_AUTH0_CLIENT_ID"]!}
       authorizationParams={{
         redirect_uri: redirectUri,
-        audience: process.env["NEXT_PUBLIC_AUTH0_AUDIENCE"]!,
+        // audience: process.env["NEXT_PUBLIC_AUTH0_AUDIENCE"]!,
       }}
-      onRedirectCallback={(appState) => {
-        // appState には、リダイレクト前の状態が含まれています
-        window.history.replaceState(
-          {},
-          document.title,
-          appState && appState.returnTo
-            ? appState.returnTo
-            : window.location.pathname
-        );
-      }}
+      // onRedirectCallback={(appState) => {
+      //   // appState には、リダイレクト前の状態が含まれています
+      //   window.history.replaceState(
+      //     {},
+      //     document.title,
+      //     appState && appState.returnTo
+      //       ? appState.returnTo
+      //       : window.location.pathname
+      //   );
+      // }}
     >
       <MantineProvider
         withGlobalStyles
