@@ -7,17 +7,18 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import { MdNotificationsNone } from "react-icons/md";
 
 export const Header = () => {
-  const { user, isLoading, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { user, isLoading, isAuthenticated, loginWithRedirect, logout } =
+    useAuth0();
   console.log({ user, isLoading, isAuthenticated, loginWithRedirect, logout });
-  
 
   const handleLogout = () => {
     // RecoilでsessionStorageに保存したアクセストークンを消去
     sessionStorage.clear();
     logout({
       logoutParams: {
-        returnTo: typeof window === 'undefined' ? undefined : window.location.origin
-      }
+        returnTo:
+          typeof window === "undefined" ? undefined : window.location.origin,
+      },
     });
   };
   return (
@@ -26,7 +27,7 @@ export const Header = () => {
         <Logo className="w-[170px] h-full" />
       </Link>
 
-      {isAuthenticated && (
+      {isAuthenticated ? (
         // ログイン時の表示
         <ul className="flex items-center">
           <li className="flex text-gray-400 mr-3">
@@ -56,9 +57,7 @@ export const Header = () => {
             </Link>
           </li>
         </ul>
-      )}
-
-      {!isAuthenticated && (
+      ) : (
         // ログアウト時の表示
         <ul className="flex items-center">
           <li className="mr-1">
