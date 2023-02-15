@@ -15,6 +15,7 @@ import { showNotification } from "@mantine/notifications";
 import { MdCheckCircle } from "react-icons/md";
 
 type Props = {
+  accessToken: string | undefined;
   userId: string | undefined;
   postId: string | string[] | undefined;
   modalHandlers: {
@@ -53,7 +54,7 @@ const useStyles = createStyles((theme) => ({
 const CommentForm = (props: Props) => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
-  const token = useRecoilValue(tokenState);
+  // const token = useRecoilValue(tokenState);
 
   const {
     register,
@@ -79,7 +80,7 @@ const CommentForm = (props: Props) => {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${props.accessToken}`,
           },
         }
       );
