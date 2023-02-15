@@ -14,7 +14,7 @@ export const Header = () => {
     sessionStorage.clear();
     logout({
       logoutParams: {
-        returnTo: `${process.env["NEXT_PUBLIC_BASE_URL"]}`
+        returnTo: window.location.origin
       }
     });
   };
