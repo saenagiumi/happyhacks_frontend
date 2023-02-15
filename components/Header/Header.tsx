@@ -12,19 +12,27 @@ export const Header = () => {
   const handleLogout = () => {
     // RecoilでsessionStorageに保存したアクセストークンを消去
     sessionStorage.clear();
-    logout();
+    logout({
+      logoutParams: {
+        returnTo: `${process.env["NEXT_PUBLIC_BASE_URL"]}`
+      }
+    });
   };
 
   console.log(`${user}user`);
-  console.log(`${isLoading}user`);
+  console.log(`${isLoading}isLoading`);
   console.log(`${!isLoading}!isLoading`);
-  console.log(`${user === undefined}user === null`);
+  console.log(`${user === undefined}user === undefined`);
 
   return (
     <div className="h-12 flex justify-between items-center pt-1 pl-2 pr-2.5">
       <Link href="/">
         <Logo className="w-[170px] h-full" />
       </Link>
+
+      {isLoading == true && (
+        <div>loading</div>
+      )}
       
       {user && (
         // ログイン時の表示
@@ -58,7 +66,18 @@ export const Header = () => {
         </ul>
       )}
 
-      {user === undefined && !isLoading && (
+      {user == null && (
+        <div>user=null</div>
+      )}
+      {!user && (
+        <div>!user</div>
+      )}
+
+      {user == undefined && (
+        <div>user=undefined</div>
+      )}
+
+      {user == undefined && !isLoading && (
         // ログアウト時の表示
         <ul className="flex items-center">
           <li className="mr-1">
