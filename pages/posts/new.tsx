@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import PostForm from "components/Post/PostForm";
+import { useEffect, useState } from "react";
 
 const RedirectToLogin = () => {
   const { loginWithRedirect } = useAuth0();
@@ -8,7 +9,21 @@ const RedirectToLogin = () => {
 };
 
 const NewPost = () => {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [accessToken, setAccessToken] = useState("");
+
+  // アクセストークン取得
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const token = await getAccessTokenSilently({});
+        setAccessToken(token);
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    getToken();
+  }, [getAccessTokenSilently, user?.sub]);
 
   return (
     <>
@@ -22,7 +37,7 @@ const NewPost = () => {
             </h3>
             <p className="text-sm text-gray-600">気軽に質問してみましょう</p>
           </div>
-          <PostForm />
+          <PostForm accessToken={accessToken} />
         </div>
       ) : isLoading ? (
         //ログイン試行中はローディング画面を表示
