@@ -14,10 +14,13 @@ export const Header = () => {
     sessionStorage.clear();
     logout({
       logoutParams: {
-        returnTo: window.location.origin
+        returnTo: typeof window === 'undefined' ? undefined : window.location.origin
       }
     });
   };
+
+  console.log(typeof window === 'undefined' ? undefined : window.location.origin);
+  
 
   console.log(`${user}user`);
   console.log(`${isLoading}isLoading`);
