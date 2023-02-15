@@ -25,7 +25,7 @@ export default function Home() {
       }
     };
     getToken();
-  }, []);
+  }, [getAccessTokenSilently, setToken]);
 
   return (
     <div>
