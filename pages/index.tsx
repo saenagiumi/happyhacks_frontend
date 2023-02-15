@@ -20,17 +20,17 @@ export default function Home() {
   const setToken = useSetRecoilState(tokenState);
 
   // ログイン時にトークンを取得しRecoilへ格納
-  useEffect(() => {
-    const getToken = async () => {
-      try {
-        const accessToken = await getAccessTokenSilently();
-        setToken(accessToken);
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    getToken();
-  }, []);
+  // useEffect(() => {
+  //   const getToken = async () => {
+  //     try {
+  //       const accessToken = await getAccessTokenSilently();
+  //       setToken(accessToken);
+  //     } catch (e: any) {
+  //       console.log(e.message);
+  //     }
+  //   };
+  //   getToken();
+  // }, []);
 
   return (
     <div>

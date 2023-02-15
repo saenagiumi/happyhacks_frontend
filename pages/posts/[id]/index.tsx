@@ -28,17 +28,17 @@ const PostsId = () => {
   const setToken = useSetRecoilState(tokenState);
 
   // ログイン時にトークンを取得しRecoilへ格納
-  useEffect(() => {
-    const getToken = async () => {
-      try {
-        const accessToken = await getAccessTokenSilently();
-        setToken(accessToken);
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    getToken();
-  }, [user]);
+  // useEffect(() => {
+  //   const getToken = async () => {
+  //     try {
+  //       const accessToken = await getAccessTokenSilently();
+  //       setToken(accessToken);
+  //     } catch (e: any) {
+  //       console.log(e.message);
+  //     }
+  //   };
+  //   getToken();
+  // }, [user]);
   
 
   if (isLoading) {
@@ -65,7 +65,7 @@ const PostsId = () => {
         </div>
       )}
 
-      {user && (
+      {user && !isLoading && (
         <div className="flex my-2.5 mx-0.5">
           <Avatar src={user.picture} radius="xl" size="md" />
           <div
