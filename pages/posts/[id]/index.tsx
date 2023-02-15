@@ -27,18 +27,18 @@ const PostsId = () => {
   const { getAccessTokenSilently } = useAuth0();
   const setToken = useSetRecoilState(tokenState);
 
-  // ログイン時にトークンを取得しRecoilへ格納
-  // useEffect(() => {
-  //   const getToken = async () => {
-  //     try {
-  //       const accessToken = await getAccessTokenSilently();
-  //       setToken(accessToken);
-  //     } catch (e: any) {
-  //       console.log(e.message);
-  //     }
-  //   };
-  //   getToken();
-  // }, [user]);
+  // ログイン完了後にトークンを取得しRecoilへ格納
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently({});
+        setToken(accessToken);
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    getToken();
+  }, [user]);
   
 
   if (isLoading) {
