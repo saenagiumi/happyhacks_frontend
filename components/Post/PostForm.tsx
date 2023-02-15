@@ -39,10 +39,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const PostForm = () => {
-  const router = useRouter();
-  const token = useRecoilValue(tokenState);  
-
+const PostForm = ({accessToken}: any) => {
+  const router = useRouter();  
   const {
     register,
     handleSubmit,
@@ -58,23 +56,26 @@ const PostForm = () => {
   };
 
   const createPost = async (postInputData: Post) => {
-    
     try {
-      const response = await axios.post(`${API_URL}/posts`, { post: postInputData }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      
+      const response = await axios.post(
+        `${API_URL}/posts`,
+        { post: postInputData },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
       if (response.status === 200) {
         router.push("/");
         showNotification({
-          title: '投稿完了',
-          message: '質問を投稿しました',
-          color: 'green.4',
+          title: "投稿完了",
+          message: "質問を投稿しました",
+          color: "green.4",
           icon: <MdCheckCircle size={30} />,
           disallowClose: true,
-        })
+        });
         return response.data;
       }
     } catch (error) {

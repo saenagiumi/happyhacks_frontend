@@ -11,9 +11,7 @@ import { CommentListByPostId } from "components/Comment/CommentListByPostId";
 import { useAuth0 } from "@auth0/auth0-react";
 
 // アクセストークンの取得
-import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
-import tokenState from "recoil/atoms/tokenState";
+import { useEffect, useState } from "react";
 
 const PostsId = () => {
   const router = useRouter();
@@ -22,23 +20,22 @@ const PostsId = () => {
   const { data, error, isLoading } = useFetch(
     router.query.id ? `${API_URL}/posts/${router.query.id}` : null
   );
-  const { user, loginWithPopup } = useAuth0();
 
-  const { getAccessTokenSilently } = useAuth0();
-  const setToken = useSetRecoilState(tokenState);
-
-  // ログイン完了後にトークンを取得しRecoilへ格納
+  const { user, loginWithPopup, getAccessTokenSilently } = useAuth0();
+  const [accessToken, setAccessToken] = useState("");
+  
+  // アクセストークン取得
   useEffect(() => {
     const getToken = async () => {
       try {
-        const accessToken = await getAccessTokenSilently({});
-        setToken(accessToken);
+        const token = await getAccessTokenSilently({});
+        setAccessToken(token);
       } catch (e: any) {
         console.log(e.message);
       }
     };
     getToken();
-  }, [user]);
+  }, [getAccessTokenSilently, user?.sub]);
   
 
   if (isLoading) {
@@ -54,7 +51,7 @@ const PostsId = () => {
       <PostDetail />
       <CommentListByPostId id={data.id} />
       <Modal centered opened={opened} onClose={() => modalHandlers.close()}>
-        <CommentForm userId={user?.sub} postId={router.query.id} modalHandlers={modalHandlers} />
+        <CommentForm accessToken={accessToken} userId={user?.sub} postId={router.query.id} modalHandlers={modalHandlers} />
       </Modal>
 
       {user === undefined && !isLoading && (
