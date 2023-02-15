@@ -25,7 +25,7 @@ export const Header = () => {
       </Link>
       <div>{user?.name}</div>
 
-      {user && (
+      {user && !isLoading && (
         // ログイン時の表示
         <ul className="flex items-center">
           <li className="flex text-gray-400 mr-3">
