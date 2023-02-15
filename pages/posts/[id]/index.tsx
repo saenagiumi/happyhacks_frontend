@@ -28,17 +28,17 @@ const PostsId = () => {
   const setToken = useSetRecoilState(tokenState);
 
   // ログイン完了後にトークンを取得しRecoilへ格納
-  // useEffect(() => {
-  //   const getToken = async () => {
-  //     try {
-  //       const accessToken = await getAccessTokenSilently({});
-  //       setToken(accessToken);
-  //     } catch (e: any) {
-  //       console.log(e.message);
-  //     }
-  //   };
-  //   getToken();
-  // }, [user]);
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently({});
+        setToken(accessToken);
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    getToken();
+  }, [user]);
   
 
   if (isLoading) {
