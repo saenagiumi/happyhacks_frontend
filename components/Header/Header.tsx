@@ -18,25 +18,12 @@ export const Header = () => {
       }
     });
   };
-
-  console.log(typeof window === 'undefined' ? undefined : window.location.origin);
-  
-
-  console.log(`${user}user`);
-  console.log(`${isLoading}isLoading`);
-  console.log(`${!isLoading}!isLoading`);
-  console.log(`${user === undefined}user === undefined`);
-
   return (
     <div className="h-12 flex justify-between items-center pt-1 pl-2 pr-2.5">
       <Link href="/">
         <Logo className="w-[170px] h-full" />
       </Link>
 
-      {isLoading == true && (
-        <div>loading</div>
-      )}
-      
       {user && (
         // ログイン時の表示
         <ul className="flex items-center">
@@ -67,17 +54,6 @@ export const Header = () => {
             </Link>
           </li>
         </ul>
-      )}
-
-      {user == null && (
-        <div>user=null</div>
-      )}
-      {!user && (
-        <div>!user</div>
-      )}
-
-      {user == undefined && (
-        <div>user=undefined</div>
       )}
 
       {user == undefined && !isLoading && (
