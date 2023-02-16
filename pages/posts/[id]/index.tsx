@@ -21,7 +21,7 @@ const PostsId = () => {
     router.query.id ? `${API_URL}/posts/${router.query.id}` : null
   );
 
-  const { user, loginWithRedirect, getAccessTokenSilently } = useAuth0();
+  const { user, loginWithPopup, getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = useState("");
   
   // アクセストークン取得
@@ -56,7 +56,7 @@ const PostsId = () => {
 
       {user === undefined && !isLoading && (
         <div className="flex justify-center my-10">
-          <Button className="text-emerald-50" onClick={() => loginWithRedirect()} color="green.4" size="md">
+          <Button className="text-emerald-50" onClick={() => loginWithPopup()} color="green.4" size="md">
             ログインして回答する
           </Button>
         </div>
