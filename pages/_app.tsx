@@ -22,20 +22,20 @@ import { MdCheckCircle } from "react-icons/md";
 export default function App({ Component, pageProps }: AppProps) {
   const redirectUri = `${process.env["NEXT_PUBLIC_BASE_URL"]}`;
 
-  // const onRedirectCallback = () => {
-  //   showNotification({
-  //     title: "ログインしました",
-  //     message: "",
-  //     color: "green.4",
-  //     icon: <MdCheckCircle size={30} />,
-  //     disallowClose: true,
-  //   });
-  // };
+  const onRedirectCallback = () => {
+    showNotification({
+      title: "ログインしました",
+      message: "",
+      color: "green.4",
+      icon: <MdCheckCircle size={30} />,
+      disallowClose: true,
+    });
+  };
 
   return (
     <Auth0Provider
-      domain={process.env["NEXT_PUBLIC_AUTH0_DOMAIN"]!}
-      clientId={process.env["NEXT_PUBLIC_AUTH0_CLIENT_ID"]!}
+    domain="happyhacks.jp.auth0.com"
+    clientId="4AO7Ec3apMKTxHU3Tlk6naEAC6LF7IHT"
       authorizationParams={{
         redirect_uri: redirectUri,
         // audience: process.env["NEXT_PUBLIC_AUTH0_AUDIENCE"]!,
