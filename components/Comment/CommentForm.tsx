@@ -6,10 +6,6 @@ import { Textarea, TextInput, UnstyledButton } from "@mantine/core";
 import { createStyles, Paper } from "@mantine/core";
 import { useSWRConfig } from "swr";
 
-// recoil
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import tokenState from "recoil/atoms/tokenState";
-
 // Toast
 import { showNotification } from "@mantine/notifications";
 import { MdCheckCircle } from "react-icons/md";
@@ -54,7 +50,6 @@ const useStyles = createStyles((theme) => ({
 const CommentForm = (props: Props) => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
-  // const token = useRecoilValue(tokenState);
 
   const {
     register,
