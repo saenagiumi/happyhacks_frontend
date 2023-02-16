@@ -22,13 +22,21 @@ import { MdCheckCircle } from "react-icons/md";
 export default function App({ Component, pageProps }: AppProps) {
   const redirectUri = `${process.env["NEXT_PUBLIC_BASE_URL"]}`;
 
-  const onRedirectCallback = () => {
+  const onRedirectCallback = (appState: any) => {
     showNotification({
       title: "ログインしました",
       message: "",
       color: "green.4",
       icon: <MdCheckCircle size={30} />,
     });
+    // appState には、リダイレクト前の状態が含まれています
+    window.history.replaceState(
+      {},
+      document.title,
+      appState && appState.returnTo
+        ? appState.returnTo
+        : window.location.pathname
+    );
   };
 
   return (
@@ -41,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
       }}
       useRefreshTokens={true}
       cacheLocation="localstorage"
-      onRedirectCallback={() => onRedirectCallback()}
+      onRedirectCallback={(appState) => onRedirectCallback(appState)}
     >
       <MantineProvider
         withGlobalStyles
