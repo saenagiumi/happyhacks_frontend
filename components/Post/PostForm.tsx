@@ -5,11 +5,6 @@ import { API_URL } from "utils/const";
 import { Textarea, TextInput, Button, UnstyledButton } from "@mantine/core";
 import { createStyles, Paper, Group, Text } from "@mantine/core";
 
-// recoil
-import { useRecoilValue } from "recoil";
-import tokenState from "recoil/atoms/tokenState";
-
-
 // Toast
 import { showNotification } from "@mantine/notifications";
 import { MdCheckCircle } from "react-icons/md";
@@ -74,7 +69,6 @@ const PostForm = ({accessToken}: any) => {
           message: "質問を投稿しました",
           color: "green.4",
           icon: <MdCheckCircle size={30} />,
-          disallowClose: true,
         });
         return response.data;
       }
