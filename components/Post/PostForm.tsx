@@ -74,7 +74,6 @@ const PostForm = ({accessToken}: any) => {
           message: "質問を投稿しました",
           color: "green.4",
           icon: <MdCheckCircle size={30} />,
-          disallowClose: true,
         });
         return response.data;
       }

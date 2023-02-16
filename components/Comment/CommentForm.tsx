@@ -98,7 +98,6 @@ const CommentForm = (props: Props) => {
           message: "回答を投稿しました",
           color: "green.4",
           icon: <MdCheckCircle size={30} />,
-          disallowClose: true,
         });
         return response.data;
       }
