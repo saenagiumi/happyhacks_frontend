@@ -5,7 +5,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { MdNotificationsNone } from "react-icons/md";
-import { useEffect } from "react";
 
 export const Header = () => {
   const { user, isLoading, loginWithRedirect, logout } = useAuth0();
