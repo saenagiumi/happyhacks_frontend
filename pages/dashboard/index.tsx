@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PostsByUserId from 'components/Post/PostsByUserId';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const index = () => {
+const DashBoard = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = useState("");
 
@@ -26,4 +26,4 @@ const index = () => {
   )
 }
 
-export default index
+export default DashBoard
