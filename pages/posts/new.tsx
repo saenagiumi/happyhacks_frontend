@@ -23,8 +23,6 @@ const NewPost = () => {
       }
     };
     getToken();
-    console.log("走ってるよ");
-    
   }, [getAccessTokenSilently, user?.sub]);
 
   return (

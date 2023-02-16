@@ -34,9 +34,7 @@ const PostsId = () => {
         console.log(e.message);
       }
     };
-    getToken();
-    console.log("走ってるよ");
-    
+    getToken();    
   }, [getAccessTokenSilently, user?.sub]);
   
 

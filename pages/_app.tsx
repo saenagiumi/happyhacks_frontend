@@ -28,7 +28,6 @@ export default function App({ Component, pageProps }: AppProps) {
       message: "",
       color: "green.4",
       icon: <MdCheckCircle size={30} />,
-      disallowClose: true,
     });
   };
 
@@ -42,17 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
       }}
       useRefreshTokens={true}
       cacheLocation="localstorage"
-
-      // onRedirectCallback={(appState) => {
-      //   // appState には、リダイレクト前の状態が含まれています
-      //   window.history.replaceState(
-      //     {},
-      //     document.title,
-      //     appState && appState.returnTo
-      //       ? appState.returnTo
-      //       : window.location.pathname
-      //   );
-      // }}
+      onRedirectCallback={() => onRedirectCallback()}
     >
       <MantineProvider
         withGlobalStyles
