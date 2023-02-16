@@ -34,12 +34,15 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Auth0Provider
-    domain="happyhacks.jp.auth0.com"
-    clientId="4AO7Ec3apMKTxHU3Tlk6naEAC6LF7IHT"
+      domain={process.env["NEXT_PUBLIC_AUTH0_DOMAIN"]!}
+      clientId={process.env["NEXT_PUBLIC_AUTH0_CLIENT_ID"]!}
       authorizationParams={{
         redirect_uri: redirectUri,
-        // audience: process.env["NEXT_PUBLIC_AUTH0_AUDIENCE"]!,
+        audience: process.env["NEXT_PUBLIC_AUTH0_AUDIENCE"]!,
       }}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
+
       // onRedirectCallback={(appState) => {
       //   // appState には、リダイレクト前の状態が含まれています
       //   window.history.replaceState(
