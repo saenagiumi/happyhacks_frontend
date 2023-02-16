@@ -61,7 +61,16 @@ export const Header = () => {
               </Menu.Target>
 
               <Menu.Dropdown>
-                <Menu.Item>プロフィール</Menu.Item>
+                <Menu.Item>
+                  <Link href="/dashboard" className="no-underline">
+                    投稿した質問
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link href="/dashboard/comments" className="no-underline">
+                    投稿した回答
+                  </Link>
+                </Menu.Item>
                 <Menu.Item>マイリスト</Menu.Item>
 
                 <Menu.Divider />

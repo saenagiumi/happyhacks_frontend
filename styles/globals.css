@@ -2,11 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-h1, h2, p, ul, ol, li {
+h1, h2, h3, p, ul, ol, li, hr {
+  font-style: normal;
   margin: 0;
   padding: 0;
 }
 
 li {
   list-style: none;
+}
+
+a {
+  color: inherit;
 }
