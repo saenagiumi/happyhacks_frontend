@@ -13,9 +13,6 @@ import { Header } from "components/Header/Header";
 // 認証
 import { Auth0Provider } from "@auth0/auth0-react";
 
-// 状態管理
-import { RecoilRoot } from "recoil";
-
 // Toast
 import { MdCheckCircle } from "react-icons/md";
 
@@ -105,12 +102,10 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         }}
       >
-        <RecoilRoot>
           <NotificationsProvider position="top-center">
             <Header />
             <Component {...pageProps} />
           </NotificationsProvider>
-        </RecoilRoot>
       </MantineProvider>
     </Auth0Provider>
   );

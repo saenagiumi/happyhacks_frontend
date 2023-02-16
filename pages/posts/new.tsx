@@ -23,7 +23,7 @@ const NewPost = () => {
       }
     };
     getToken();
-  }, [getAccessTokenSilently, user?.sub]);
+  }, []);
 
   return (
     <>
