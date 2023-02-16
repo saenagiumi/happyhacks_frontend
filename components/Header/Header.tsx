@@ -8,17 +8,8 @@ import { MdNotificationsNone } from "react-icons/md";
 import { useEffect } from "react";
 
 export const Header = () => {
-  const { user, isLoading, isAuthenticated, loginWithRedirect, logout } =
+  const { user, isLoading, loginWithRedirect, logout } =
     useAuth0();
-  console.log({ user, isLoading, isAuthenticated, loginWithRedirect, logout });
-
-  // useEffect(() => {
-  //   if (user !== undefined) {
-  //     console.log("後から実行されたよ");
-  //     console.log({user});
-  //   }
-  // }, [user]);
-
 
   const handleLogout = () => {
     // RecoilでsessionStorageに保存したアクセストークンを消去
