@@ -5,31 +5,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { MdNotificationsNone } from "react-icons/md";
-import { useEffect } from "react";
 
 export const Header = () => {
-  const { user, isLoading, isAuthenticated, loginWithRedirect, logout } =
-    useAuth0();
-  console.log({ user, isLoading, isAuthenticated, loginWithRedirect, logout });
+  const { user, isLoading, loginWithRedirect, logout } = useAuth0();
 
-  // useEffect(() => {
-  //   if (user !== undefined) {
-  //     console.log("後から実行されたよ");
-  //     console.log({user});
-  //   }
-  // }, [user]);
-
-
-  const handleLogout = () => {
-    // RecoilでsessionStorageに保存したアクセストークンを消去
-    sessionStorage.clear();
-    logout({
-      logoutParams: {
-        returnTo:
-          typeof window === "undefined" ? undefined : window.location.origin,
-      },
-    });
-  };
   return (
     <div className="h-12 flex justify-between items-center pt-1 pl-2 pr-2.5">
       <Link href="/">
@@ -87,7 +66,20 @@ export const Header = () => {
 
                 <Menu.Divider />
 
-                <Menu.Item onClick={() => handleLogout()}>ログアウト</Menu.Item>
+                <Menu.Item
+                  onClick={() =>
+                    logout({
+                      logoutParams: {
+                        returnTo:
+                          typeof window === "undefined"
+                            ? undefined
+                            : window.location.origin,
+                      },
+                    })
+                  }
+                >
+                  ログアウト
+                </Menu.Item>
               </Menu.Dropdown>
             </Menu>
           </li>
