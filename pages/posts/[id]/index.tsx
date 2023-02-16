@@ -35,7 +35,7 @@ const PostsId = () => {
       }
     };
     getToken();    
-  }, [getAccessTokenSilently, user?.sub]);
+  }, []);
   
 
   if (isLoading) {
