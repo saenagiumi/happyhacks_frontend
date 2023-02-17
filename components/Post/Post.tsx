@@ -4,11 +4,22 @@ import {
   Avatar,
   Group,
   TypographyStylesProvider,
-  Paper,
+  Menu,
+  UnstyledButton,
+  Modal,
+  Button,
 } from "@mantine/core";
 
 // react-icons
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import axios from "axios";
+import { API_URL } from "utils/const";
+import { showNotification } from "@mantine/notifications";
+import { MdCheckCircle } from "react-icons/md";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -30,28 +41,121 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface PostProps {
+  sub: string;
   title: string;
   body: string;
   name: string;
   iconSrc: string;
   postedAt: string;
+  accessToken: string | undefined;
   comments_count: number;
 }
 
 export const Post = ({
+  sub,
   title,
   body,
   name,
   iconSrc,
   postedAt,
+  accessToken,
   comments_count,
 }: PostProps) => {
   const { classes } = useStyles();
+  const { user } = useAuth0();
+  const router = useRouter();
+  const [opened, setOpened] = useState(false);
+
+  const handleDelete = async (postId: string | string[] | undefined) => {
+    try {
+      const response = await axios.delete(`${API_URL}/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (response.status === 204) {
+        // モーダルを閉じる処理
+        setOpened(false);
+
+        // back
+        router.back();
+
+        showNotification({
+          title: "削除完了",
+          message: "投稿を削除しました",
+          color: "green.4",
+          icon: <MdCheckCircle size={30} />,
+        });
+        return response.data;
+      }
+    } catch (error) {
+      console.error(error);
+      // エラーが発生した場合の処理を実行する
+    }
+  };
+
   return (
     <div className="pt-1.5">
-      <Text className="pl-2 pr-1.5 pt-1.5 text-gray-600 font-bold" size={15.5}>
-        {title}
-      </Text>
+      <div className="flex justify-between items-center pl-2 pr-2 pt-1.5 text-gray-600 font-bold">
+        <Text className="mr-1" size={15.5}>
+          {title}
+        </Text>
+
+        {accessToken && user?.sub == sub && (
+          // ログインユーザーのsubと参照している投稿のsubが一致したらメニューを表示
+          <Menu position="bottom-end" offset={5} width={180} shadow="md">
+            <Menu.Target>
+              <UnstyledButton>
+                <HiOutlineDotsHorizontal className="text-gray-500" size={18} />
+              </UnstyledButton>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item>編集する</Menu.Item>
+
+              <Menu.Item
+                onClick={() => setOpened(true)}
+                className=" text-red-500"
+              >
+                削除する
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        )}
+      </div>
+
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        centered
+        withCloseButton={false}
+        radius="md"
+        size="90%"
+      >
+        <div className="flex justify-center font-bold text-lg text-gray-800 mt-0.5 mb-3">
+          削除しますか？
+        </div>
+        <div className="mx-1.5">
+          <div className="text-sm text-gray-600 mb-8">
+            削除した投稿は元に戻すことができません。よろしいですか？
+          </div>
+          <div className="flex justify-between">
+            <Button
+              onClick={() => setOpened(false)}
+              variant="light"
+              color="green"
+            >
+              キャンセル
+            </Button>
+            <Button
+              onClick={() => handleDelete(router.query.id)}
+              variant="outline"
+              color="red"
+            >
+              削除する
+            </Button>
+          </div>
+        </div>
+      </Modal>
 
       <TypographyStylesProvider className={classes.body}>
         <div className="w-full break-all text-gray-500">{body}</div>
