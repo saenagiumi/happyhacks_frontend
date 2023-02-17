@@ -5,10 +5,12 @@ import { API_URL } from "utils/const";
 
 type Post = {
   id: number;
+  sub: string;
   title: string;
   body: string;
   name: string;
   picture: string;
+  accessToken: string;
   created_at: string;
   comments_count: number;
 };
@@ -34,10 +36,12 @@ export const PostsOrderByCommentsLength = () => {
             <Link href={`/posts/${post.id}`} className="no-underline">
               <div className="mx-1.5">
                 <Post
+                  sub={post.sub}
                   title={post.title}
                   body={post.body}
                   name={post.name}
                   iconSrc={post.picture}
+                  accessToken={post.accessToken}
                   postedAt={post.created_at}
                   comments_count={post.comments_count}
                 />
