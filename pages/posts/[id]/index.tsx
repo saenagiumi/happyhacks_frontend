@@ -48,7 +48,7 @@ const PostsId = () => {
 
   return (
     <div className="mx-1.5">
-      <PostDetail />
+      <PostDetail accessToken={accessToken} />
       <CommentListByPostId id={data.id} />
       <Modal centered opened={opened} onClose={() => modalHandlers.close()}>
         <CommentForm accessToken={accessToken} userId={user?.sub} postId={router.query.id} modalHandlers={modalHandlers} />
