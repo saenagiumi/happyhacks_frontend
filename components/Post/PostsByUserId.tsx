@@ -1,6 +1,5 @@
 import { useFetchArray } from "hooks/useFetchArray";
 import { API_URL } from "utils/const";
-import { useRouter } from "next/router";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Modal, Button } from "@mantine/core";
@@ -30,13 +29,14 @@ type AccessToken = {
 };
 
 const PostsByUserId = ({ accessToken }: AccessToken) => {
-  const { mutate } = useSWRConfig();
-  const [opened, setOpened] = useState(false);
-  const [targetPost, setTargetPost] = useState({ title: "", PostId: "" });
   const { user } = useAuth0();
+  const { mutate } = useSWRConfig();
   const { data, error, isLoading, isEmpty } = useFetchArray(
     `${API_URL}/posts/`
   );
+
+  const [opened, setOpened] = useState(false);
+  const [targetPost, setTargetPost] = useState({ title: "", postId: "" });
 
   const handleDelete = async (postId: string) => {
     try {
@@ -54,7 +54,7 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
 
         showNotification({
           title: "投稿完了",
-          message: "投稿を削除しました",
+          message: "質問を削除しました",
           color: "green.4",
           icon: <MdCheckCircle size={30} />,
         });
@@ -67,14 +67,27 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
   };
 
   // data配列から、ログインしているユーザーの投稿だけを抽出する
-  const userPosts = user
-    ? data?.filter((post: Post) => post.sub === user.sub)
-    : [];
+  const userPosts = data?.filter((post: Post) => post.sub === user?.sub);
 
   return (
     <div>
       <h2 className="mx-3 mb-3  text-gray-800 text-[20px]">質問の管理</h2>
-      {userPosts?.length > 0 && (
+
+      {userPosts !== undefined && userPosts.length === 0 && (
+        // まだ投稿がない場合
+        <div>
+          <p className="pl-3 mb-5">気軽に質問してみましょう</p>
+          <div className="flex justify-center">
+            <Button size="md" color="green.4">
+              <Link href={"/posts/new"} className="no-underline">
+                投稿する
+              </Link>
+            </Button>
+          </div>
+        </div>
+      )}
+      
+      {userPosts && userPosts.length > 0 && (
         // 投稿がある場合
         <ul className="mx-3">
           {userPosts?.map((post: Post) => (
@@ -89,7 +102,7 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
                   <UnstyledButton
                     onClick={() => {
                       setOpened(true),
-                        setTargetPost({ title: post.title, PostId: post.id });
+                        setTargetPost({ title: post.title, postId: post.id });
                     }}
                     className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100"
                   >
@@ -124,7 +137,7 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
                   キャンセル
                 </Button>
                 <Button
-                  onClick={() => handleDelete(targetPost.PostId)}
+                  onClick={() => handleDelete(targetPost.postId)}
                   variant="outline"
                   color="red"
                 >
@@ -135,20 +148,6 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
           </Modal>
         </ul>
       )}
-      {userPosts?.length == 0 && (
-        // まだ投稿がない場合
-        <div>
-          <p className="pl-3 mb-5">気軽に質問してみましょう</p>
-          <div className="flex justify-center">
-            <Button size="md" color="green.4">
-              <Link href={"/posts/new"} className="no-underline">
-                投稿する
-              </Link>
-            </Button>
-          </div>
-        </div>
-      )}
-      
     </div>
   );
 };
