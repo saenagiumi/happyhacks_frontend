@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from 'react'
+import { useAuth0 } from '@auth0/auth0-react';
+import CommentsByUserId from 'components/Comment/CommentsByUserId';
 
-const comments = () => {
+const CommentsDashBoard = () => {
+  const { getAccessTokenSilently } = useAuth0();
+  const [accessToken, setAccessToken] = useState("");
+
+  // アクセストークン取得
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const token = await getAccessTokenSilently({});
+        setAccessToken(token);
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    getToken();
+  }, []);
+
   return (
     <div>
-      <h2 className="text-gray-800 text-md">投稿した回答</h2>
+      <CommentsByUserId accessToken={accessToken} />
     </div>
-  );
-};
+  )
+}
 
-export default comments;
+export default CommentsDashBoard
