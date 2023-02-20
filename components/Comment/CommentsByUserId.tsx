@@ -12,6 +12,7 @@ import axios from "axios";
 import { MdCheckCircle } from "react-icons/md";
 import { showNotification } from "@mantine/notifications";
 import { useSWRConfig } from "swr";
+import Link from "next/link";
 
 type Comment = {
   id: string;
@@ -67,7 +68,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
       // エラーが発生した場合の処理を実行する
     }
   };
-
+  
   return (
     <div>
       <h2 className="mx-3 mb-3  text-gray-800 text-[20px]">回答の管理</h2>
@@ -78,18 +79,25 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
           <p className="pl-3 mb-5">まだ回答がありません</p>
         </div>
       )}
-      
+
       {data?.length > 0 && (
         // 投稿がある場合
         <ul className="mx-3">
           {data?.map((comment: Comment) => (
-            <li key={comment.id}>
-              <div className="flex items-center justify-between pt-2 pb-2">
+            <li key={comment.id} className="border-0 border-b-[0.5px] border-gray-200 border-solid">
+              <div className="flex items-center justify-between pt-2 pb-3">
                 <h3 className=" text-[16px] text-gray-800">{comment.title}</h3>
                 <div className="flex">
-                  <UnstyledButton className="mr-2 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100">
-                    <HiOutlinePencilAlt className="text-gray-500" />
-                  </UnstyledButton>
+                  <Link
+                    href={{
+                      pathname: "/comments/[id]/edit",
+                      query: { id: comment.id },
+                    }}
+                  >
+                    <UnstyledButton className="mr-2 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100">
+                      <HiOutlinePencilAlt className="text-gray-500" />
+                    </UnstyledButton>
+                  </Link>
 
                   <UnstyledButton
                     onClick={() => {
@@ -106,7 +114,6 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
                 </div>
               </div>
               <p>{comment.body}</p>
-              <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
             </li>
           ))}
           <Modal
