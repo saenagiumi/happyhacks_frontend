@@ -5,8 +5,8 @@ import { toZenkaku } from "components/libs/toZenkaku";
 
 export const CommentListByPostId = (props: { id: string }) => {
   const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_URL}/posts/${props.id}/comments`
-  );
+    `${API_URL}/posts/${props.id}/comments_with_user`
+  );  
 
   if (isLoading) {
     return <p>Loading...</p>;

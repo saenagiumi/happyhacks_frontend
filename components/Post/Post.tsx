@@ -20,6 +20,7 @@ import { MdCheckCircle } from "react-icons/md";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth0 } from "@auth0/auth0-react";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -110,7 +111,15 @@ export const Post = ({
               </UnstyledButton>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item>編集する</Menu.Item>
+              <Link
+                className="no-underline"
+                href={{
+                  pathname: "/posts/[id]/edit",
+                  query: { id: router.query.id },
+                }}
+              >
+                <Menu.Item>編集する</Menu.Item>
+              </Link>
 
               <Menu.Item
                 onClick={() => setOpened(true)}

@@ -69,6 +69,10 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
   // data配列から、ログインしているユーザーの投稿だけを抽出する
   const userPosts = data?.filter((post: Post) => post.sub === user?.sub);
 
+  const sortedUserPosts = userPosts
+    ? [...userPosts].sort((a, b) => b.id - a.id)
+    : [];
+
   return (
     <div>
       <h2 className="mx-3 mb-3  text-gray-800 text-[20px]">質問の管理</h2>
@@ -86,18 +90,25 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
           </div>
         </div>
       )}
-      
+
       {userPosts && userPosts.length > 0 && (
         // 投稿がある場合
         <ul className="mx-3">
-          {userPosts?.map((post: Post) => (
-            <li key={post.id}>
-              <div className="flex items-center justify-between pt-2 pb-10">
+          {sortedUserPosts?.map((post: Post) => (
+            <li key={post.id} className="border-0 border-b-[0.5px] border-gray-200 border-solid">
+              <div className="flex items-center justify-between pt-2 pb-3">
                 <h3 className=" text-[16px] text-gray-800">{post.title}</h3>
                 <div className="flex">
-                  <UnstyledButton className="mr-2 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100">
-                    <HiOutlinePencilAlt className="text-gray-500" />
-                  </UnstyledButton>
+                  <Link
+                    href={{
+                      pathname: "/posts/[id]/edit",
+                      query: { id: post.id },
+                    }}
+                  >
+                    <UnstyledButton className="mr-2 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100">
+                      <HiOutlinePencilAlt className="text-gray-500" />
+                    </UnstyledButton>
+                  </Link>
 
                   <UnstyledButton
                     onClick={() => {
@@ -110,7 +121,7 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
                   </UnstyledButton>
                 </div>
               </div>
-              <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+              <p>{post.body}</p>
             </li>
           ))}
           <Modal
