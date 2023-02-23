@@ -13,14 +13,17 @@ import { MdCheckCircle } from "react-icons/md";
 import { showNotification } from "@mantine/notifications";
 import { useSWRConfig } from "swr";
 import Link from "next/link";
+import { useAtomValue } from "jotai";
+import { currentUserAtom } from "state/currentUser";
+import { usePostArray } from "features/posts/hooks/usePostArray";
 
 type Post = {
   id: string;
   title: string;
   body: string;
   name: string;
+  user_id: string;
   picture: string;
-  sub: string;
   created_at: string;
 };
 
@@ -29,9 +32,10 @@ type AccessToken = {
 };
 
 const PostsByUserId = ({ accessToken }: AccessToken) => {
-  const { user } = useAuth0();
+  const user = useAtomValue(currentUserAtom);
+  // const { user } = useAuth0();
   const { mutate } = useSWRConfig();
-  const { data, error, isLoading, isEmpty } = useFetchArray(
+  const { posts, postsError, postsIsLoading, postsIsEmpty } = usePostArray(
     `${API_URL}/posts/`
   );
 
@@ -66,8 +70,9 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
     }
   };
 
+
   // data配列から、ログインしているユーザーの投稿だけを抽出する
-  const userPosts = data?.filter((post: Post) => post.sub === user?.sub);
+  const userPosts = posts?.filter((post: Post) => post.user_id === user?.id);
 
   const sortedUserPosts = userPosts
     ? [...userPosts].sort((a, b) => b.id - a.id)
@@ -95,7 +100,10 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
         // 投稿がある場合
         <ul className="mx-3">
           {sortedUserPosts?.map((post: Post) => (
-            <li key={post.id} className="border-0 border-b-[0.5px] border-gray-200 border-solid">
+            <li
+              key={post.id}
+              className="border-0 border-b-[0.5px] border-gray-200 border-solid"
+            >
               <div className="flex items-center justify-between pt-2 pb-3">
                 <h3 className=" text-[16px] text-gray-800">{post.title}</h3>
                 <div className="flex">

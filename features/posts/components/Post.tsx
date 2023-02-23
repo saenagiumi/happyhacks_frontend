@@ -21,6 +21,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth0 } from "@auth0/auth0-react";
 import Link from "next/link";
+import { useAtomValue } from "jotai";
+import { currentUserAtom } from "state/currentUser";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -42,7 +44,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface PostProps {
-  sub: string;
+  userId: string;
   title: string;
   body: string;
   name: string;
@@ -53,7 +55,7 @@ interface PostProps {
 }
 
 export const Post = ({
-  sub,
+  userId,
   title,
   body,
   name,
@@ -61,9 +63,9 @@ export const Post = ({
   postedAt,
   accessToken,
   comments_count,
-}: PostProps) => {
+}: PostProps) => {  
   const { classes } = useStyles();
-  const { user } = useAuth0();
+  const user = useAtomValue(currentUserAtom);
   const router = useRouter();
   const [opened, setOpened] = useState(false);
 
@@ -101,9 +103,10 @@ export const Post = ({
         <Text className="mr-1" size={15.5}>
           {title}
         </Text>
+        
 
-        {accessToken && user?.sub == sub && (
-          // ログインユーザーのsubと参照している投稿のsubが一致したらメニューを表示
+        {accessToken && user?.id == userId && (
+          // ログインユーザーのidと参照している投稿のuser_idが一致したらメニューを表示
           <Menu position="bottom-end" offset={5} width={180} shadow="md">
             <Menu.Target>
               <UnstyledButton>

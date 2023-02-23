@@ -35,10 +35,13 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const PostForm = ({ accessToken, postData, commentData }: any) => {
-  
   // どちらかのpropsが渡ってくれば編集モード
   const submitMode = {
-    mode: postData ? "postEditMode" : commentData ? "commentEditMode" : "default",
+    mode: postData
+      ? "postEditMode"
+      : commentData
+      ? "commentEditMode"
+      : "createMode",
     data: postData || commentData || null,
   };
 
@@ -58,7 +61,7 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
         return updatePost(postData.id, PostData);
       case "commentEditMode":
         return updateComment(commentData.id, PostData);
-      default:
+      case "createMode":
         return createPost(PostData);
     }
   };

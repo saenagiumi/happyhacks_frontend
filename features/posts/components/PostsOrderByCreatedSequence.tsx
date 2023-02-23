@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Post } from "components/Post/Post";
+import { Post } from "features/posts/components/Post";
 import { useFetchArray } from "hooks/useFetchArray";
 import { API_URL } from "utils/const";
 
@@ -9,6 +9,7 @@ type Post = {
   title: string;
   body: string;
   name: string;
+  user_id: string;
   picture: string;
   accessToken: string;
   created_at: string;
@@ -34,7 +35,7 @@ export const PostsOrderByCreatedSequence = () => {
             <Link href={`/posts/${post.id}`} className="no-underline">
               <div className="mx-1.5">
                 <Post
-                  sub={post.sub}
+                  userId={post.user_id}
                   title={post.title}
                   body={post.body}
                   name={post.name}

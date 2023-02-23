@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import PostForm from "components/Post/PostForm";
+import PostForm from "features/posts/components/PostForm";
+import AuthGuard from "features/auth/components/AuthGuard";
 import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 
@@ -7,12 +8,6 @@ type Post = {
   title: string;
   body: string;
   user_id: string;
-};
-
-const RedirectToLogin = () => {
-  const { loginWithRedirect } = useAuth0();
-  loginWithRedirect();
-  return <></>;
 };
 
 const EditPost = ({ post }: any) => {
@@ -34,19 +29,9 @@ const EditPost = ({ post }: any) => {
   }, []);
 
   return (
-    <div>
-      {isAuthenticated ? (
-        <div>
-          <div>EditPost</div>
-          <PostForm accessToken={accessToken} postData={post} />
-        </div>
-      ) : isLoading ? (
-        <div>isLoading</div>
-      ) : (
-        //未認証時はAuth0のログイン画面にリダイレクト
-        <RedirectToLogin />
-      )}
-    </div>
+    <AuthGuard>
+      <PostForm accessToken={accessToken} postData={post} />
+    </AuthGuard>
   );
 };
 

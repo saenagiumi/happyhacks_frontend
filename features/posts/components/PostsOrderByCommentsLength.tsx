@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Post } from "components/Post/Post";
+import { Post } from "features/posts/components/Post";
 import { useFetchArray } from "hooks/useFetchArray";
 import { API_URL } from "utils/const";
 
@@ -9,6 +9,7 @@ type Post = {
   title: string;
   body: string;
   name: string;
+  user_id: string;
   picture: string;
   accessToken: string;
   created_at: string;
@@ -20,13 +21,18 @@ export const PostsOrderByCommentsLength = () => {
     `${API_URL}/posts_with_comments_count`
   );
 
+  console.log({data});
+  
+
   // postに紐づいたcommentsの件数で降順ソート
   const sortedData = data
     ? [...data].sort((a, b) => b.comments_count - a.comments_count)
     : [];
 
-  return (
-    <ol>
+    
+    
+    return (
+      <ol>
       {sortedData.map((post: Post) => {
         return (
           <li
@@ -36,7 +42,7 @@ export const PostsOrderByCommentsLength = () => {
             <Link href={`/posts/${post.id}`} className="no-underline">
               <div className="mx-1.5">
                 <Post
-                  sub={post.sub}
+                  userId={post.user_id}
                   title={post.title}
                   body={post.body}
                   name={post.name}

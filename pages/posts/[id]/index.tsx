@@ -1,4 +1,4 @@
-import { PostDetail } from "components/Post/PostDetail";
+import { PostDetail } from "features/posts/components/PostDetail";
 
 import { useFetch } from "hooks/useFetch";
 import { useRouter } from "next/router";
@@ -7,23 +7,23 @@ import { API_URL } from "utils/const";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Avatar, Button } from "@mantine/core";
 import CommentForm from "components/Comment/CommentForm";
-import { CommentListByPostId } from "components/Comment/CommentListByPostId";
+import { CommentsByPostId } from "components/Comment/CommentsByPostId";
 import { useAuth0 } from "@auth0/auth0-react";
 
 // アクセストークンの取得
 import { useEffect, useState } from "react";
+import { getPostUser } from "features/posts/api/getUser";
+import { Post } from "features/posts/types";
+import { usePostUser } from "features/posts/hooks/usePostUser";
+import { usePost } from "features/posts/hooks/usePost";
 
 const PostsId = () => {
+  const { user, isLoading, loginWithPopup, getAccessTokenSilently } =
+    useAuth0();
+  const [accessToken, setAccessToken] = useState("");
   const router = useRouter();
   const [opened, modalHandlers] = useDisclosure(false);
 
-  const { data, error, isLoading } = useFetch(
-    router.query.id ? `${API_URL}/posts/${router.query.id}` : null
-  );
-
-  const { user, loginWithPopup, getAccessTokenSilently } = useAuth0();
-  const [accessToken, setAccessToken] = useState("");
-  
   // アクセストークン取得
   useEffect(() => {
     const getToken = async () => {
@@ -34,29 +34,30 @@ const PostsId = () => {
         console.log(e.message);
       }
     };
-    getToken();    
+    getToken();
   }, []);
-  
-
-  if (isLoading) {
-    return <div>ローディング中</div>;
-  }
-
-  if (error) {
-    return <div>{error.message}</div>;
-  }
 
   return (
     <div className="mx-1.5">
       <PostDetail accessToken={accessToken} />
-      <CommentListByPostId id={data.id} />
+      <CommentsByPostId id={router.query.id} accessToken={accessToken} />
       <Modal centered opened={opened} onClose={() => modalHandlers.close()}>
-        <CommentForm accessToken={accessToken} userId={user?.sub} postId={router.query.id} modalHandlers={modalHandlers} />
+        <CommentForm
+          accessToken={accessToken}
+          userId={user?.sub}
+          postId={router.query.id}
+          modalHandlers={modalHandlers}
+        />
       </Modal>
 
-      {user === undefined && !isLoading && (
+      {user === undefined && (
         <div className="flex justify-center my-10">
-          <Button className="text-emerald-50" onClick={() => loginWithPopup()} color="green.4" size="md">
+          <Button
+            className="text-emerald-50"
+            onClick={() => loginWithPopup()}
+            color="green.4"
+            size="md"
+          >
             ログインして回答する
           </Button>
         </div>
