@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // Mantine
 import {
@@ -26,6 +26,10 @@ dayjs.extend(relativeTime);
 import { LikeButton } from "./LikeButton";
 import { BookmarkButton } from "./BookmarkButton";
 
+import { HiOutlineShare } from "react-icons/hi";
+import axios from "axios";
+import { API_URL } from "utils/const";
+
 const useStyles = createStyles((theme) => ({
   comment: {
     padding: `${theme.spacing.lg}px ${theme.spacing.xl}px`,
@@ -34,7 +38,7 @@ const useStyles = createStyles((theme) => ({
   body: {
     paddingLeft: 5,
     paddingTop: 5,
-    paddingBottom: 5,
+    paddingBottom: 12,
     fontSize: theme.fontSizes.sm,
   },
 
@@ -46,22 +50,46 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface CommentProps {
+  id: number;
   title: string;
   body: string;
   name: string;
   iconSrc: string;
   postedAt: string;
+  accessToken: string;
 }
 
 export const Comment = ({
+  id,
   title,
   body,
   name,
   iconSrc,
   postedAt,
+  accessToken,
 }: CommentProps) => {
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+
+  const postLike = async ({ id }: any) => {
+    const config = {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    };
+    return await axios.post(
+      `${API_URL}/comments/${id}/likes`,
+      {
+        comment_id: id,
+      },
+      config
+    );
+  };
+
+  const handleClick = async (id: number) => {
+    setLiked(!liked);
+    await postLike({ id }); // call postLike after updating the state
+  };
 
   const { classes } = useStyles();
   return (
@@ -83,8 +111,27 @@ export const Comment = ({
               </div>
             </Text>
           </Group>
+          <div className="mr-2 pt-1">
+            <UnstyledButton onClick={() => handleClick(id)}>
+              <div className="flex items-center">
+                <div
+                  className={`border-[0.9px] border-solid  ${
+                    liked ? "border-rose-400" : "border-gray-100"
+                  } bg-gray-100 w-[38px] h-[38px] rounded-full flex justify-center items-center font-bold text-sm text-gray-400 mr-2`}
+                >
+                  {/* <div className="mr-[-6px]">いいね</div> */}
+                  <div>
+                    <LikeButton on={liked ? true : false}></LikeButton>
+                  </div>
+                </div>
+                <div className="text-gray-400 font-bold text-sm mt-[1px]">
+                  3
+                </div>
+              </div>
+            </UnstyledButton>
+          </div>
         </Group>
-        <Text className="px-2 pt-1 pb-3 text-gray-600 font-bold" size="md">
+        <Text className="px-1.5 pt-1 pb-2 text-gray-600 font-bold" size="md">
           {title}
         </Text>
 
@@ -92,28 +139,30 @@ export const Comment = ({
           <div className="w-full break-all text-gray-500">{body}</div>
         </div>
 
-        <hr className="mb-[1px] mx-[3px] h-[1px] bg-gray-200 border-0 dark:bg-gray-700" />
-
-        <div className="mb-[-8px] flex justify-center items-center gap-x-[17%]">
-          <UnstyledButton onClick={() => setLiked(!liked)}>
-            <div className="flex justify-center items-center font-bold text-sm text-gray-400">
-              <div className="mr-[-6px]">いいね</div>
-              <div className=" mb-[2px]">
-                <LikeButton on={liked ? true : false}></LikeButton>
+        <div className="mb-[-8px] flex flex-row items-center border-0 border-t-[1px] border-solid border-gray-200">
+          <div className="flex justify-center basis-1/2">
+            <UnstyledButton>
+              <div className="flex items-center">
+                <div className="font-bold text-xs text-gray-400 mr-2">
+                  共有する
+                </div>
+                <HiOutlineShare className="text-gray-400" />
               </div>
-              <div className="ml-[-5px] text-gray-400">3</div>
-            </div>
-          </UnstyledButton>
-
-          <UnstyledButton onClick={() => setBookmarked(!bookmarked)}>
-            <div className="flex justify-center items-center font-bold text-sm text-gray-400">
-              <div className="mr-[-6px]">マイリスト</div>
-              <div>
-                <BookmarkButton on={bookmarked ? true : false} />
+            </UnstyledButton>
+          </div>
+          <div className="flex justify-center basis-1/2">
+            <UnstyledButton
+              className="mr-1"
+              onClick={() => setBookmarked(!bookmarked)}
+            >
+              <div className="flex items-center font-bold text-sm text-gray-400">
+                <div className="mr-[-2px] text-xs">ブックマーク</div>
+                <div>
+                  <BookmarkButton on={bookmarked ? true : false} />
+                </div>
               </div>
-              <div className="ml-[-5px] text-gray-400">3</div>
-            </div>
-          </UnstyledButton>
+            </UnstyledButton>
+          </div>
         </div>
       </Paper>
     </div>

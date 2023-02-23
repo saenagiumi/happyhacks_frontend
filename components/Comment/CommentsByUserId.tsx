@@ -13,6 +13,8 @@ import { MdCheckCircle } from "react-icons/md";
 import { showNotification } from "@mantine/notifications";
 import { useSWRConfig } from "swr";
 import Link from "next/link";
+import { useAtom, useAtomValue } from "jotai";
+import { currentUserAtom } from "state/currentUser";
 
 type Comment = {
   id: string;
@@ -20,7 +22,6 @@ type Comment = {
   body: string;
   name: string;
   picture: string;
-  sub: string;
   created_at: string;
 };
 
@@ -29,10 +30,10 @@ type AccessToken = {
 };
 
 const CommentsByUserId = ({ accessToken }: AccessToken) => {
-  const { user } = useAuth0();
+  const user = useAtomValue(currentUserAtom) 
   const { mutate } = useSWRConfig();
   const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_URL}/users/${user?.sub}/comments`
+    `${API_URL}/users/${user.id}/comments`
   );
 
   const [opened, setOpened] = useState(false);
@@ -53,7 +54,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
         setOpened(false);
 
         // 一覧の更新処理
-        mutate(`${API_URL}/users/${user?.sub}/comments`);
+        mutate(`${API_URL}/users/${user?.id}/comments`);
 
         showNotification({
           title: "削除完了",
