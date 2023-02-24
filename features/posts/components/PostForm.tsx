@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import { Textarea, TextInput, Button, UnstyledButton } from "@mantine/core";
 import { createStyles, Paper, Group, Text } from "@mantine/core";
 
@@ -69,7 +69,7 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
   const createPost = async (postInputData: Post) => {
     try {
       const response = await axios.post(
-        `${API_URL}/posts`,
+        `${API_BASE_URL}/posts`,
         { post: postInputData },
         {
           headers: {
@@ -102,7 +102,7 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
   const updatePost = async (id: string, postInputData: Post) => {
     try {
       const response = await axios.patch(
-        `${API_URL}/posts/${id}`,
+        `${API_BASE_URL}/posts/${id}`,
         { post: postInputData },
         {
           headers: {
@@ -135,7 +135,7 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
   const updateComment = async (id: string, commentInputData: Post) => {
     try {
       const response = await axios.patch(
-        `${API_URL}/comments/${id}`,
+        `${API_BASE_URL}/comments/${id}`,
         { comment: commentInputData },
         {
           headers: {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Post } from "features/posts/components/Post";
 import { useFetchArray } from "hooks/useFetchArray";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 
 type Post = {
   id: number;
@@ -18,21 +18,18 @@ type Post = {
 
 export const PostsOrderByCommentsLength = () => {
   const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_URL}/posts_with_comments_count`
+    `${API_BASE_URL}/posts_with_comments_count`
   );
 
-  console.log({data});
-  
+  console.log({ data });
 
   // postに紐づいたcommentsの件数で降順ソート
   const sortedData = data
     ? [...data].sort((a, b) => b.comments_count - a.comments_count)
     : [];
 
-    
-    
-    return (
-      <ol>
+  return (
+    <ol>
       {sortedData.map((post: Post) => {
         return (
           <li

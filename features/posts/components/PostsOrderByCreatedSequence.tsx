@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Post } from "features/posts/components/Post";
 import { useFetchArray } from "hooks/useFetchArray";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 
 type Post = {
   id: number;
@@ -18,7 +18,7 @@ type Post = {
 
 export const PostsOrderByCreatedSequence = () => {
   const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_URL}/posts_with_comments_count`
+    `${API_BASE_URL}/posts_with_comments_count`
   );
 
   // postの作成順で降順ソート

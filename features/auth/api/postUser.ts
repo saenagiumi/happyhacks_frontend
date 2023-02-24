@@ -1,5 +1,5 @@
 import { User, UserPostData } from "features/users/types";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import axios from "axios";
 
 export const postUser = async (
@@ -11,7 +11,7 @@ export const postUser = async (
   }
 ) => {
   const response = await axios.post(
-    `${API_URL}/users`,
+    `${API_BASE_URL}/users`,
     { user: postUserData },
     config
   );

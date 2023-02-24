@@ -2,12 +2,12 @@ import { PostDetail } from "features/posts/components/PostDetail";
 
 import { useFetch } from "hooks/useFetch";
 import { useRouter } from "next/router";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Avatar, Button } from "@mantine/core";
-import CommentForm from "components/Comment/CommentForm";
-import { CommentsByPostId } from "components/Comment/CommentsByPostId";
+import CommentForm from "features/comments/components/CommentForm";
+import { CommentsByPostId } from "features/comments/components/CommentsByPostId";
 import { useAuth0 } from "@auth0/auth0-react";
 
 // アクセストークンの取得

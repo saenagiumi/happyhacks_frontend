@@ -59,7 +59,7 @@ const RegistrationForm = ({ user }: any) => {
 
   //   try {
   //     const response = await axios.post(
-  //       `${API_URL}/users`,
+  //       `${API_BASE_URL}/users`,
   //       { user: postUserData },
   //       {
   //         headers: { Authorization: `Bearer ${token}` },

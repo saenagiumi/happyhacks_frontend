@@ -14,7 +14,7 @@ import {
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import axios from "axios";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import { showNotification } from "@mantine/notifications";
 import { MdCheckCircle } from "react-icons/md";
 import { useState } from "react";
@@ -63,7 +63,7 @@ export const Post = ({
   postedAt,
   accessToken,
   comments_count,
-}: PostProps) => {  
+}: PostProps) => {
   const { classes } = useStyles();
   const user = useAtomValue(currentUserAtom);
   const router = useRouter();
@@ -71,7 +71,7 @@ export const Post = ({
 
   const handleDelete = async (postId: string | string[] | undefined) => {
     try {
-      const response = await axios.delete(`${API_URL}/posts/${postId}`, {
+      const response = await axios.delete(`${API_BASE_URL}/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -103,7 +103,6 @@ export const Post = ({
         <Text className="mr-1" size={15.5}>
           {title}
         </Text>
-        
 
         {accessToken && user?.id == userId && (
           // ログインユーザーのidと参照している投稿のuser_idが一致したらメニューを表示

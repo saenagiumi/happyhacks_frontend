@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
 import { currentUserAtom } from "state/currentUser";
 
-// import { API_URL } from "utils/const";
+// import { API_BASE_URL } from "utils/const";
 
 const RedirectToLogin = () => {
   const { loginWithRedirect } = useAuth0();

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import { Post } from "./Post";
 import { usePost } from "features/posts/hooks/usePost";
 import { usePostUser } from "features/posts/hooks/usePostUser";
@@ -12,10 +12,10 @@ type Props = {
 export const PostDetail = (props: Props) => {
   const router = useRouter();
   const { post, postError, postIsLoading } = usePost(
-    router.query.id ? `${API_URL}/posts/${router.query.id}` : null
+    router.query.id ? `${API_BASE_URL}/posts/${router.query.id}` : null
   );
   const { postUser, postUserError, postUserIsLoading } = usePostUser(
-    router.query.id ? `${API_URL}/posts/${router.query.id}/user` : null
+    router.query.id ? `${API_BASE_URL}/posts/${router.query.id}/user` : null
   );
 
   if (postIsLoading) {

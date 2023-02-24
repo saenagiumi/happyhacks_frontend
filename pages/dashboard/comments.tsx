@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import CommentsByUserId from "components/Comment/CommentsByUserId";
+import CommentsByUserId from "features/comments/components/CommentsByUserId";
 import AuthGuard from "features/auth/components/AuthGuard";
 
 const CommentsDashBoard = () => {

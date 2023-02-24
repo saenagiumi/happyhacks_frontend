@@ -1,5 +1,5 @@
 import { useFetchArray } from "hooks/useFetchArray";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Modal, Button } from "@mantine/core";
@@ -36,7 +36,7 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
   // const { user } = useAuth0();
   const { mutate } = useSWRConfig();
   const { posts, postsError, postsIsLoading, postsIsEmpty } = usePostArray(
-    `${API_URL}/posts/`
+    `${API_BASE_URL}/posts/`
   );
 
   const [opened, setOpened] = useState(false);
@@ -44,7 +44,7 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
 
   const handleDelete = async (postId: string) => {
     try {
-      const response = await axios.delete(`${API_URL}/posts/${postId}`, {
+      const response = await axios.delete(`${API_BASE_URL}/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -54,7 +54,7 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
         setOpened(false);
 
         // 一覧の更新処理
-        mutate(`${API_URL}/posts/`);
+        mutate(`${API_BASE_URL}/posts/`);
 
         showNotification({
           title: "投稿完了",
@@ -69,7 +69,6 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
       // エラーが発生した場合の処理を実行する
     }
   };
-
 
   // data配列から、ログインしているユーザーの投稿だけを抽出する
   const userPosts = posts?.filter((post: Post) => post.user_id === user?.id);

@@ -1,5 +1,5 @@
 import { User } from "features/users/types";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import axios from "axios";
 
 export const getUser = async (sub: string | undefined) => {
@@ -7,7 +7,7 @@ export const getUser = async (sub: string | undefined) => {
     throw new Error("subが必要です");
   }
   if (sub) {
-    const res = await axios.get<User>(`${API_URL}/users/${sub}`, {
+    const res = await axios.get<User>(`${API_BASE_URL}/users/${sub}`, {
       params: { sub: sub },
     });
     if (res.status !== 200) {
