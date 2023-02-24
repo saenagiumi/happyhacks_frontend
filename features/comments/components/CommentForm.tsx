@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import { Textarea, TextInput, UnstyledButton } from "@mantine/core";
 import { createStyles, Paper } from "@mantine/core";
 import { useSWRConfig } from "swr";
@@ -69,7 +69,7 @@ const CommentForm = (props: Props) => {
   const createComment = async (commentInputData: Comment) => {
     try {
       const response = await axios.post(
-        `${API_URL}/posts/${props.postId}/comments`,
+        `${API_BASE_URL}/posts/${props.postId}/comments`,
         {
           comment: commentInputData,
         },
@@ -85,7 +85,7 @@ const CommentForm = (props: Props) => {
         props.modalHandlers.close();
 
         // 一覧の更新処理
-        mutate(`${API_URL}/posts/${props.postId}/comments`);
+        mutate(`${API_BASE_URL}/posts/${props.postId}/comments`);
 
         router.push(`/posts/${props.postId}`);
         showNotification({

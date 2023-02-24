@@ -28,7 +28,7 @@ import { BookmarkButton } from "./BookmarkButton";
 
 import { HiOutlineShare } from "react-icons/hi";
 import axios from "axios";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -78,7 +78,7 @@ export const Comment = ({
       },
     };
     return await axios.post(
-      `${API_URL}/comments/${id}/likes`,
+      `${API_BASE_URL}/comments/${id}/likes`,
       {
         comment_id: id,
       },

@@ -1,18 +1,17 @@
 import { useFetchArray } from "hooks/useFetchArray";
-import { API_URL } from "utils/const";
-import { Comment } from "components/Comment/Comment";
-import { toZenkaku } from "components/libs/toZenkaku";
+import { API_BASE_URL } from "const/const";
+import { Comment } from "features/comments/components/Comment";
+import { toZenkaku } from "utils/toZenkaku";
 
 export const CommentsByPostId = (props: {
   id: string | string[] | undefined;
   accessToken: string;
 }) => {
   const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_URL}/posts/${props.id}/comments_with_user`
+    `${API_BASE_URL}/posts/${props.id}/comments_with_user`
   );
 
-  console.log({data});
-  
+  console.log({ data });
 
   if (isLoading) {
     return <p>Loading...</p>;

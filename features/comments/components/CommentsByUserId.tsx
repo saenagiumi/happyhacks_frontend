@@ -1,5 +1,5 @@
 import { useFetchArray } from "hooks/useFetchArray";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Modal, Button } from "@mantine/core";
@@ -30,10 +30,10 @@ type AccessToken = {
 };
 
 const CommentsByUserId = ({ accessToken }: AccessToken) => {
-  const user = useAtomValue(currentUserAtom) 
+  const user = useAtomValue(currentUserAtom);
   const { mutate } = useSWRConfig();
   const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_URL}/users/${user.id}/comments`
+    `${API_BASE_URL}/users/${user.id}/comments`
   );
 
   const [opened, setOpened] = useState(false);
@@ -44,7 +44,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
 
   const handleDelete = async (commentId: string) => {
     try {
-      const response = await axios.delete(`${API_URL}/comments/${commentId}`, {
+      const response = await axios.delete(`${API_BASE_URL}/comments/${commentId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -54,7 +54,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
         setOpened(false);
 
         // 一覧の更新処理
-        mutate(`${API_URL}/users/${user?.id}/comments`);
+        mutate(`${API_BASE_URL}/users/${user?.id}/comments`);
 
         showNotification({
           title: "削除完了",
@@ -69,7 +69,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
       // エラーが発生した場合の処理を実行する
     }
   };
-  
+
   return (
     <div>
       <h2 className="mx-3 mb-3  text-gray-800 text-[20px]">回答の管理</h2>
@@ -85,7 +85,10 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
         // 投稿がある場合
         <ul className="mx-3">
           {data?.map((comment: Comment) => (
-            <li key={comment.id} className="border-0 border-b-[0.5px] border-gray-200 border-solid">
+            <li
+              key={comment.id}
+              className="border-0 border-b-[0.5px] border-gray-200 border-solid"
+            >
               <div className="flex items-center justify-between pt-2 pb-3">
                 <h3 className=" text-[16px] text-gray-800">{comment.title}</h3>
                 <div className="flex">
