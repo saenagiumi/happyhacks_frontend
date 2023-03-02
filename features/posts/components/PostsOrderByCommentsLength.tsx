@@ -21,8 +21,6 @@ export const PostsOrderByCommentsLength = () => {
     `${API_BASE_URL}/posts_with_comments_count`
   );
 
-  console.log({ data });
-
   // postに紐づいたcommentsの件数で降順ソート
   const sortedData = data
     ? [...data].sort((a, b) => b.comments_count - a.comments_count)
