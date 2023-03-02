@@ -1,12 +1,17 @@
 import { useFetchArray } from "hooks/useFetchArray";
-import { API_URL } from "utils/const";
-import { Comment } from "components/Comment/Comment";
-import { toZenkaku } from "components/libs/toZenkaku";
+import { API_BASE_URL } from "const/const";
+import { Comment } from "features/comments/components/Comment";
+import { toZenkaku } from "utils/toZenkaku";
 
-export const CommentListByPostId = (props: { id: string }) => {
+export const CommentsByPostId = (props: {
+  id: string | string[] | undefined;
+  accessToken: string;
+}) => {
   const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_URL}/posts/${props.id}/comments_with_user`
-  );  
+    `${API_BASE_URL}/posts/${props.id}/comments_with_user`
+  );
+
+  console.log({ data });
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -17,7 +22,11 @@ export const CommentListByPostId = (props: { id: string }) => {
   }
 
   if (isEmpty) {
-    return <p className=" text-gray-500 my-4 ml-1">あなたの経験や対策を教えてあげましょう</p>;
+    return (
+      <p className=" text-gray-500 my-4 ml-1">
+        あなたの経験や対策を教えてあげましょう
+      </p>
+    );
   }
 
   return (
@@ -34,11 +43,13 @@ export const CommentListByPostId = (props: { id: string }) => {
           return (
             <li key={comment.id}>
               <Comment
+                id={comment.id}
                 title={comment.title}
                 body={comment.body}
                 name={comment.name}
                 iconSrc={comment.picture}
                 postedAt={comment.created_at}
+                accessToken={props.accessToken}
               />
             </li>
           );

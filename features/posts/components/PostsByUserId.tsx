@@ -1,5 +1,5 @@
 import { useFetchArray } from "hooks/useFetchArray";
-import { API_URL } from "utils/const";
+import { API_BASE_URL } from "const/const";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Modal, Button } from "@mantine/core";
@@ -13,14 +13,17 @@ import { MdCheckCircle } from "react-icons/md";
 import { showNotification } from "@mantine/notifications";
 import { useSWRConfig } from "swr";
 import Link from "next/link";
+import { useAtomValue } from "jotai";
+import { currentUserAtom } from "state/currentUser";
+import { usePostArray } from "features/posts/hooks/usePostArray";
 
-type Comment = {
+type Post = {
   id: string;
   title: string;
   body: string;
   name: string;
+  user_id: string;
   picture: string;
-  sub: string;
   created_at: string;
 };
 
@@ -28,22 +31,20 @@ type AccessToken = {
   accessToken: string;
 };
 
-const CommentsByUserId = ({ accessToken }: AccessToken) => {
-  const { user } = useAuth0();
+const PostsByUserId = ({ accessToken }: AccessToken) => {
+  const user = useAtomValue(currentUserAtom);
+  // const { user } = useAuth0();
   const { mutate } = useSWRConfig();
-  const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_URL}/users/${user?.sub}/comments`
+  const { posts, postsError, postsIsLoading, postsIsEmpty } = usePostArray(
+    `${API_BASE_URL}/posts/`
   );
 
   const [opened, setOpened] = useState(false);
-  const [targetComment, setTargetComment] = useState({
-    title: "",
-    commentId: "",
-  });
+  const [targetPost, setTargetPost] = useState({ title: "", postId: "" });
 
-  const handleDelete = async (commentId: string) => {
+  const handleDelete = async (postId: string) => {
     try {
-      const response = await axios.delete(`${API_URL}/comments/${commentId}`, {
+      const response = await axios.delete(`${API_BASE_URL}/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -53,11 +54,11 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
         setOpened(false);
 
         // 一覧の更新処理
-        mutate(`${API_URL}/users/${user?.sub}/comments`);
+        mutate(`${API_BASE_URL}/posts/`);
 
         showNotification({
-          title: "削除完了",
-          message: "回答を削除しました",
+          title: "投稿完了",
+          message: "質問を削除しました",
           color: "green.4",
           icon: <MdCheckCircle size={30} />,
         });
@@ -68,30 +69,47 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
       // エラーが発生した場合の処理を実行する
     }
   };
-  
+
+  // data配列から、ログインしているユーザーの投稿だけを抽出する
+  const userPosts = posts?.filter((post: Post) => post.user_id === user?.id);
+
+  const sortedUserPosts = userPosts
+    ? [...userPosts].sort((a, b) => b.id - a.id)
+    : [];
+
   return (
     <div>
-      <h2 className="mx-3 mb-3  text-gray-800 text-[20px]">回答の管理</h2>
+      <h2 className="mx-3 mb-3  text-gray-800 text-[20px]">質問の管理</h2>
 
-      {data?.length == 0 && (
+      {userPosts !== undefined && userPosts.length === 0 && (
         // まだ投稿がない場合
         <div>
-          <p className="pl-3 mb-5">まだ回答がありません</p>
+          <p className="pl-3 mb-5">気軽に質問してみましょう</p>
+          <div className="flex justify-center">
+            <Button size="md" color="green.4">
+              <Link href={"/posts/new"} className="no-underline">
+                投稿する
+              </Link>
+            </Button>
+          </div>
         </div>
       )}
 
-      {data?.length > 0 && (
+      {userPosts && userPosts.length > 0 && (
         // 投稿がある場合
         <ul className="mx-3">
-          {data?.map((comment: Comment) => (
-            <li key={comment.id} className="border-0 border-b-[0.5px] border-gray-200 border-solid">
+          {sortedUserPosts?.map((post: Post) => (
+            <li
+              key={post.id}
+              className="border-0 border-b-[0.5px] border-gray-200 border-solid"
+            >
               <div className="flex items-center justify-between pt-2 pb-3">
-                <h3 className=" text-[16px] text-gray-800">{comment.title}</h3>
+                <h3 className=" text-[16px] text-gray-800">{post.title}</h3>
                 <div className="flex">
                   <Link
                     href={{
-                      pathname: "/comments/[id]/edit",
-                      query: { id: comment.id },
+                      pathname: "/posts/[id]/edit",
+                      query: { id: post.id },
                     }}
                   >
                     <UnstyledButton className="mr-2 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100">
@@ -102,10 +120,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
                   <UnstyledButton
                     onClick={() => {
                       setOpened(true),
-                        setTargetComment({
-                          title: comment.title,
-                          commentId: comment.id,
-                        });
+                        setTargetPost({ title: post.title, postId: post.id });
                     }}
                     className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100"
                   >
@@ -113,7 +128,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
                   </UnstyledButton>
                 </div>
               </div>
-              <p>{comment.body}</p>
+              <p>{post.body}</p>
             </li>
           ))}
           <Modal
@@ -129,7 +144,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
             </div>
             <div className="mx-1.5">
               <div className="text-sm text-gray-600 mb-8">
-                {`「${targetComment.title}」を削除しようとしています。元に戻すことができませんが、よろしいですか？`}
+                {`「${targetPost.title}」を削除しようとしています。元に戻すことができませんが、よろしいですか？`}
               </div>
               <div className="flex justify-between">
                 <Button
@@ -140,7 +155,7 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
                   キャンセル
                 </Button>
                 <Button
-                  onClick={() => handleDelete(targetComment.commentId)}
+                  onClick={() => handleDelete(targetPost.postId)}
                   variant="outline"
                   color="red"
                 >
@@ -155,4 +170,4 @@ const CommentsByUserId = ({ accessToken }: AccessToken) => {
   );
 };
 
-export default CommentsByUserId;
+export default PostsByUserId;

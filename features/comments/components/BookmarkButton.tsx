@@ -20,7 +20,7 @@ export const BookmarkButton = ({ on }: BookmarkButtonProps) => {
       speed={2}
       keepLastFrame
       src={BookmarkJson}
-      style={{ height: "36px", width: "36px" }}
+      style={{ height: "32px", width: "32px" }}
     ></Player>
   );
 };

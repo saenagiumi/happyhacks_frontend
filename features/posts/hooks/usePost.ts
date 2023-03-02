@@ -6,15 +6,14 @@ const fetcher = async (url: string) => {
   return json;
 };
 
-export const useFetchArray = (url: string) => {
+export const usePost = (url: string | null) => {
   const { data, error } = useSWR(
     url,
     fetcher
   );
   return {
-    data,
-    error,
-    isLoading: !data && !error,
-    isEmpty: data && data.length === 0,
+    post: data,
+    postError: error,
+    postIsLoading: !data && !error,
   };
 };

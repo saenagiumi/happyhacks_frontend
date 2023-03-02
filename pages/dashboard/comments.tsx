@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { useAuth0 } from '@auth0/auth0-react';
-import CommentsByUserId from 'components/Comment/CommentsByUserId';
+import React, { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import CommentsByUserId from "features/comments/components/CommentsByUserId";
+import AuthGuard from "features/auth/components/AuthGuard";
 
 const CommentsDashBoard = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -20,10 +21,12 @@ const CommentsDashBoard = () => {
   }, []);
 
   return (
-    <div>
-      <CommentsByUserId accessToken={accessToken} />
-    </div>
-  )
-}
+    <AuthGuard>
+      <div>
+        <CommentsByUserId accessToken={accessToken} />
+      </div>
+    </AuthGuard>
+  );
+};
 
-export default CommentsDashBoard
+export default CommentsDashBoard;

@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { Tabs } from "@mantine/core";
 
 // ソート済みのpost一覧
-import { PostsOrderByCreatedSequence } from "components/Post/PostsOrderByCreatedSequence";
-import { PostsOrderByCommentsLength } from "components/Post/PostsOrderByCommentsLength";
+import { PostsOrderByCreatedSequence } from "features/posts/components/PostsOrderByCreatedSequence";
+import { PostsOrderByCommentsLength } from "features/posts/components/PostsOrderByCommentsLength";
 
 const ActiveTab = () => {
   const router = useRouter();
