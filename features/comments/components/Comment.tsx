@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // Mantine
 import {
@@ -27,8 +27,11 @@ import { LikeButton } from "./LikeButton";
 import { BookmarkButton } from "./BookmarkButton";
 
 import { HiOutlineShare } from "react-icons/hi";
-import axios from "axios";
-import { API_BASE_URL } from "const/const";
+import useToggleLike from "../hooks/useToggleLike";
+import { useAtom } from "jotai";
+import { currentUserAtom } from "state/currentUser";
+
+const LOCAL_STORAGE_KEY = "currentUser";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -66,30 +69,20 @@ export const Comment = ({
   name,
   iconSrc,
   postedAt,
-  accessToken,
 }: CommentProps) => {
-  const [liked, setLiked] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
-
-  const postLike = async ({ id }: any) => {
-    const config = {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    };
-    return await axios.post(
-      `${API_BASE_URL}/comments/${id}/likes`,
-      {
-        comment_id: id,
-      },
-      config
-    );
-  };
-
-  const handleClick = async (id: number) => {
-    setLiked(!liked);
-    await postLike({ id }); // call postLike after updating the state
-  };
+  const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
+  const { isLiked, likesData, likeError, toggleLikes, likeIsLoading } = useToggleLike({
+    commentId: id.toString(),
+    userId: currentUser.id,
+  });
+  
+  useEffect(() => {
+    // ローカルストレージからcurrentUserを取得する
+    const storedCurrentUser = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedCurrentUser) {
+      setCurrentUser(JSON.parse(storedCurrentUser));
+    }
+  }, []);
 
   const { classes } = useStyles();
   return (
@@ -112,20 +105,22 @@ export const Comment = ({
             </Text>
           </Group>
           <div className="mr-2 pt-1">
-            <UnstyledButton onClick={() => handleClick(id)}>
+            <UnstyledButton onClick={() => toggleLikes()}>
               <div className="flex items-center">
                 <div
-                  className={`border-[0.9px] border-solid  ${
-                    liked ? "border-rose-400" : "border-gray-100"
+                  className={`border-[1px] border-solid  ${
+                    isLiked ? "border-rose-400" : "border-gray-100"
                   } bg-gray-100 w-[38px] h-[38px] rounded-full flex justify-center items-center font-bold text-sm text-gray-400 mr-2`}
                 >
-                  {/* <div className="mr-[-6px]">いいね</div> */}
                   <div>
-                    <LikeButton on={liked ? true : false}></LikeButton>
+                    <LikeButton
+                      isLiked={isLiked ? true : false}
+                      likeIsLoading={likeIsLoading}
+                    ></LikeButton>
                   </div>
                 </div>
                 <div className="text-gray-400 font-bold text-sm mt-[1px]">
-                  3
+                  {likesData?.counts}
                 </div>
               </div>
             </UnstyledButton>
@@ -153,12 +148,12 @@ export const Comment = ({
           <div className="flex justify-center basis-1/2">
             <UnstyledButton
               className="mr-1"
-              onClick={() => setBookmarked(!bookmarked)}
+              // onClick={() => setBookmarked(!bookmarked)}
             >
               <div className="flex items-center font-bold text-sm text-gray-400">
                 <div className="mr-[-2px] text-xs">ブックマーク</div>
                 <div>
-                  <BookmarkButton on={bookmarked ? true : false} />
+                  {/* <BookmarkButton on={bookmarked ? true : false} /> */}
                 </div>
               </div>
             </UnstyledButton>
