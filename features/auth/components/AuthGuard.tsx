@@ -8,6 +8,8 @@ import { currentUserAtom } from "state/currentUser";
 
 // import { API_BASE_URL } from "utils/const";
 
+const LOCAL_STORAGE_KEY = "currentUser";
+
 const RedirectToLogin = () => {
   const { loginWithRedirect } = useAuth0();
   loginWithRedirect();
@@ -26,22 +28,28 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isCheckingRegistration, setIsCheckingRegistration] = useState(true);
 
-  console.log({ currentUser });
 
   useEffect(() => {
     const checkIsRegistered = async (sub: string | undefined) => {
       // 初回アクセスかどうかを判断する
       if (isAuthenticated && user) {
         const res = await getUser(user.sub);
-        console.log({ res });
 
         if (res?.sub) {
           setIsRegistered(true);
           setCurrentUser(res);
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(res)); // ローカルストレージに保存
         }
         setIsCheckingRegistration(false);
       }
     };
+
+    // ローカルストレージから値を取得する
+    const storedCurrentUser = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedCurrentUser) {
+      setCurrentUser(JSON.parse(storedCurrentUser));
+    }
+
     if (user) {
       checkIsRegistered(user.sub);
     }
