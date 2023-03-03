@@ -54,66 +54,41 @@ const RegistrationForm = ({ user }: any) => {
     }
   };
 
-  //   // 初回アクセスの場合は、新規作成のリクエストを投げる
-  //   const token = await getAccessTokenSilently();
-
-  //   try {
-  //     const response = await axios.post(
-  //       `${API_BASE_URL}/users`,
-  //       { user: postUserData },
-  //       {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       }
-  //     );
-  //     if (response.status === 200) {
-  //       router.push("/");
-  //       showNotification({
-  //         title: "登録完了",
-  //         message: "ユーザー登録が完了しました",
-  //         color: "green.4",
-  //         icon: <MdCheckCircle size={30} />,
-  //       });
-  //       return response.data;
-  //     }
-  //   } catch (error) {
-  //     let message;
-  //     if (axios.isAxiosError(error) && error.response) {
-  //       console.error(error.response.data.message);
-  //     } else {
-  //       message = String(error);
-  //       console.error(message);
-  //     }
-  //   }
-  // };
-
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
-          classNames={{
-            input: "pl-2.5 text-gray-600",
-            label: "text-gray-500 font-bold mb-1",
-          }}
-          placeholder=""
-          label="ニックネーム"
-          radius="xs"
-          size="md"
-          {...register("name", { required: true })}
-        />
-        {errors.name && (
-          <span className="text-xs font-bold text-red-400">
-            ニックネームを入力してください
-          </span>
-        )}
-        <div className="text-center">
-          <UnstyledButton
-            type="submit"
-            className="w-[175px] h-[48px] rounded-[3px] text-center font-bold text-emerald-50 bg-main-green"
-          >
-            登録する
-          </UnstyledButton>
-        </div>
-      </form>
+      <h2 className="mx-4 mt-20 mb-5 px-5 text-[1.1rem] text-gray-800">
+        Webサイトで表示されるあなたの名前を入力してください
+      </h2>
+      <div className="mx-4 px-5">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-4">
+            <TextInput
+              classNames={{
+                input: "pl-2.5 text-gray-600",
+                label: "text-gray-800 font-bold mb-1",
+              }}
+              placeholder=""
+              label="ニックネーム"
+              radius="xs"
+              size="sm"
+              {...register("name", { required: true })}
+            />
+            {errors.name && (
+              <span className="text-[0.7rem] font-bold text-red-500">
+                ニックネームを入力してください
+              </span>
+            )}
+          </div>
+          <div className="text-center">
+            <UnstyledButton
+              type="submit"
+              className="w-full h-[40px] rounded-[3px] text-[0.9rem] text-center font-bold text-emerald-50 bg-main-green"
+            >
+              登録する
+            </UnstyledButton>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
