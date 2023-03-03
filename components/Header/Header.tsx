@@ -81,13 +81,15 @@ export const Header = () => {
                     投稿した回答
                   </Link>
                 </Menu.Item>
-                <Menu.Item>マイリスト</Menu.Item>
+                <Menu.Item>
+                  <Link href="/dashboard/bookmarks" className="no-underline">
+                    ブックマーク
+                  </Link>
+                </Menu.Item>
 
                 <Menu.Divider />
 
-                <Menu.Item onClick={() => handleLogout()}>
-                  ログアウト
-                </Menu.Item>
+                <Menu.Item onClick={() => handleLogout()}>ログアウト</Menu.Item>
               </Menu.Dropdown>
             </Menu>
           </li>

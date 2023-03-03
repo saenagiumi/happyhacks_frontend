@@ -99,7 +99,7 @@ export const Comment = ({
 
   const { classes } = useStyles();
   return (
-    <div>
+    <div id={`comments/${id}`}>
       <Paper
         shadow="sm"
         radius="xs"
@@ -132,8 +132,8 @@ export const Comment = ({
                     ></LikeButton>
                   </div>
                 </div>
-                <div className="text-gray-400 font-bold text-sm mt-[1px]">
-                  {likesData?.counts}
+                <div className="text-gray-400 font-bold text-sm mr-2 mt-[1px] w-[10px]">
+                  {likesData ? likesData.counts : 0}
                 </div>
               </div>
             </UnstyledButton>
