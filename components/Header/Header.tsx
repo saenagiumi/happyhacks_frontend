@@ -9,6 +9,16 @@ import { MdNotificationsNone } from "react-icons/md";
 export const Header = () => {
   const { user, isLoading, loginWithRedirect, logout } = useAuth0();
 
+  const handleLogout = () => {
+    logout({
+      logoutParams: {
+        returnTo:
+          typeof window === "undefined" ? undefined : window.location.origin,
+      },
+    }),
+      localStorage.clear();
+  };
+
   return (
     <div className="h-12 flex justify-between items-center pt-1 pl-2 pr-2.5">
       <Link href="/">
@@ -71,24 +81,15 @@ export const Header = () => {
                     投稿した回答
                   </Link>
                 </Menu.Item>
-                <Menu.Item>マイリスト</Menu.Item>
+                <Menu.Item>
+                  <Link href="/dashboard/bookmarks" className="no-underline">
+                    ブックマーク
+                  </Link>
+                </Menu.Item>
 
                 <Menu.Divider />
 
-                <Menu.Item
-                  onClick={() =>
-                    logout({
-                      logoutParams: {
-                        returnTo:
-                          typeof window === "undefined"
-                            ? undefined
-                            : window.location.origin,
-                      },
-                    })
-                  }
-                >
-                  ログアウト
-                </Menu.Item>
+                <Menu.Item onClick={() => handleLogout()}>ログアウト</Menu.Item>
               </Menu.Dropdown>
             </Menu>
           </li>
