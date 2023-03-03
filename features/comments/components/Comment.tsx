@@ -30,12 +30,14 @@ import { HiOutlineShare } from "react-icons/hi";
 import useToggleLike from "../hooks/useToggleLike";
 import { useAtom } from "jotai";
 import { currentUserAtom } from "state/currentUser";
+import useToggleBookmark from "../hooks/useToggleBookmark";
 
 const LOCAL_STORAGE_KEY = "currentUser";
 
 const useStyles = createStyles((theme) => ({
   comment: {
     padding: `${theme.spacing.lg}px ${theme.spacing.xl}px`,
+    backgroundColor: "#FDFCF4"
   },
 
   body: {
@@ -71,11 +73,22 @@ export const Comment = ({
   postedAt,
 }: CommentProps) => {
   const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
-  const { isLiked, likesData, likeError, toggleLikes, likeIsLoading } = useToggleLike({
+  const { isLiked, likesData, likeError, toggleLikes, likeIsLoading } =
+    useToggleLike({
+      commentId: id.toString(),
+      userId: currentUser.id,
+    });
+  const {
+    isBookmarked,
+    bookmarksData,
+    bookmarkError,
+    toggleBookmarks,
+    bookmarkIsLoading,
+  } = useToggleBookmark({
     commentId: id.toString(),
     userId: currentUser.id,
   });
-  
+
   useEffect(() => {
     // ローカルストレージからcurrentUserを取得する
     const storedCurrentUser = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -92,7 +105,7 @@ export const Comment = ({
         radius="xs"
         p="xs"
         withBorder
-        className={classes.comment}
+        className={isBookmarked? classes.comment : ""}
       >
         <Group className="mb-2 pt-1" position="apart">
           <Group spacing="xs" className="px-[5px]">
@@ -109,8 +122,8 @@ export const Comment = ({
               <div className="flex items-center">
                 <div
                   className={`border-[1px] border-solid  ${
-                    isLiked ? "border-rose-400" : "border-gray-100"
-                  } bg-gray-100 w-[38px] h-[38px] rounded-full flex justify-center items-center font-bold text-sm text-gray-400 mr-2`}
+                    isLiked ? "border-rose-100 bg-red-50" : "border-gray-100 bg-gray-50"
+                  }   w-[38px] h-[38px] rounded-full flex justify-center items-center font-bold text-sm text-gray-400 mr-2`}
                 >
                   <div>
                     <LikeButton
@@ -146,14 +159,11 @@ export const Comment = ({
             </UnstyledButton>
           </div>
           <div className="flex justify-center basis-1/2">
-            <UnstyledButton
-              className="mr-1"
-              // onClick={() => setBookmarked(!bookmarked)}
-            >
+            <UnstyledButton className="mr-1" onClick={() => toggleBookmarks()}>
               <div className="flex items-center font-bold text-sm text-gray-400">
                 <div className="mr-[-2px] text-xs">ブックマーク</div>
                 <div>
-                  {/* <BookmarkButton on={bookmarked ? true : false} /> */}
+                  <BookmarkButton isBookmarked={isBookmarked ? true : false} bookmarkIsLoading={bookmarkIsLoading} />
                 </div>
               </div>
             </UnstyledButton>
