@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { API_BASE_URL } from "const/const";
 
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, Avatar, Button } from "@mantine/core";
+import { Modal, Button, Avatar } from "@mantine/core";
 import CommentForm from "features/comments/components/CommentForm";
 import { CommentsByPostId } from "features/comments/components/CommentsByPostId";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -90,7 +90,7 @@ const PostsId = () => {
 
       {user && !isLoading && (
         <div className="flex my-2.5 mx-0.5">
-          <Avatar src={user.picture} radius="xl" size="md" />
+          <Avatar src={currentUser.picture} radius={50} size={38} />
           <div
             onClick={() => modalHandlers.open()}
             className="w-full box-border ml-2 pl-3.5 pt-1.5 border-solid border border-gray-300 rounded-full  text-gray-400"

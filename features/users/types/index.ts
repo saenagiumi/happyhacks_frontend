@@ -3,7 +3,7 @@ export type User = {
   sub: string;
   name: string;
   email: string;
-  picture: string;
+  picture: string | undefined;
   created_at: string,
   updated_at: string,
 };
@@ -12,5 +12,5 @@ export type UserPostData = {
   sub: string;
   name: string;
   email: string;
-  picture: string;
+  picture: string | undefined;
 }

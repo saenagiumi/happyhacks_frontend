@@ -7,9 +7,9 @@ export const getUser = async (id: string) => {
     data: User;
   }>(`${API_BASE_URL}/users/${id}`);
   return {
-    sub: res.data.data.sub,
-    name: res.data.data.name,
-    email: res.data.data.email,
-    picture: res.data.data.picture,
+    sub: res.data?.data.sub,
+    name: res.data?.data.name,
+    email: res.data?.data.email,
+    picture: res.data?.data.picture,
   };
 };
