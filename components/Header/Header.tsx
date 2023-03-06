@@ -5,9 +5,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { MdNotificationsNone } from "react-icons/md";
+import { useAtomValue } from "jotai";
+import { currentUserAtom } from "state/currentUser";
 
 export const Header = () => {
-  const { user, isLoading, loginWithRedirect, logout } = useAuth0();
+  const { loginWithRedirect, logout } = useAuth0();
+  const currentUser = useAtomValue(currentUserAtom);
 
   const handleLogout = () => {
     logout({
@@ -25,7 +28,7 @@ export const Header = () => {
         <Logo className="w-[170px] h-full" />
       </Link>
 
-      {user === undefined && !isLoading && (
+      {currentUser.name === "" && (
         // ログアウト時の表示
         <ul className="flex items-center">
           <li className="mr-1">
@@ -58,7 +61,7 @@ export const Header = () => {
         </ul>
       )}
 
-      {user && (
+      {currentUser.name !== "" && (
         // ログイン時の表示
         <ul className="flex items-center">
           <li className="flex text-gray-400 mr-3">
@@ -67,7 +70,13 @@ export const Header = () => {
           <li className="mr-3">
             <Menu shadow="md" width={200}>
               <Menu.Target>
-                <Avatar radius="xl" size={32} src={user.picture} />
+                <div>
+                  <Avatar
+                    radius={50}
+                    size={32}
+                    src={currentUser.picture}
+                  />
+                </div>
               </Menu.Target>
 
               <Menu.Dropdown>
@@ -84,6 +93,11 @@ export const Header = () => {
                 <Menu.Item>
                   <Link href="/dashboard/bookmarks" className="no-underline">
                     ブックマーク
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link href="/profile" className="no-underline">
+                    プロフィール編集
                   </Link>
                 </Menu.Item>
 

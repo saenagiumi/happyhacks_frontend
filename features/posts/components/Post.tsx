@@ -173,7 +173,7 @@ export const Post = ({
       </TypographyStylesProvider>
       <Group position="apart" className="mt-1 mb-0.5">
         <Group className="ml-1.5" spacing="xs">
-          <Avatar src={iconSrc} alt={"author.name"} radius="xl" size={26} />
+          <Avatar src={iconSrc} radius={50} size={26} />
           <Text className="ml-[-3.5px] text-gray-600" size="sm">
             {name}
           </Text>

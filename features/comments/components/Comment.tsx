@@ -109,7 +109,7 @@ export const Comment = ({
       >
         <Group className="mb-2 pt-1" position="apart">
           <Group spacing="xs" className="px-[5px]">
-            <Avatar src={iconSrc} alt={name} radius="xl" />
+            <Avatar src={iconSrc} radius={50} size={38} />
             <Text className="pt-0.5" size="sm">
               <div className="text-gray-700 font-bold">{name}</div>
               <div className="text-gray-400 text-xs">
