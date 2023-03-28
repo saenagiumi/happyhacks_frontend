@@ -79,7 +79,7 @@ const PostsByUserId = () => {
           {data?.map((post: PostType) => (
             <li
               key={post.id}
-              className="flex justify-between border-0 border-b-[0.5px] xs:px-7 pt-4 pb-6 border-gray-200 border-solid hover:bg-slate-50"
+              className="flex justify-between border-0 border-b-[0.5px] xs:px-7 pt-4 pb-6 border-gray-200 border-solid xs:hover:bg-slate-50"
             >
               <Link className="no-underline w-[80%]" href={`/posts/${post.id}`}>
                 <div className="flex items-center justify-between">
