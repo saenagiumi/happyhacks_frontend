@@ -51,10 +51,10 @@ const CommentListByPostId = (props: Props) => {
       {!isLoading && user === undefined && (
         <div className="flex justify-center mt-2.5 mb-5">
           <Button
-            className="text-emerald-50 font-sans text-[15px] h-[38px] px-[24.6px]"
+            className="text-emerald-50 font-sans mr-0.2 text-[15px] h-[38px] px-[25px]"
             onClick={() => loginWithPopup()}
             color="green.4"
-            // size="sm"
+            size="sm"
             radius={4}
           >
             ログインして回答する
