@@ -32,7 +32,7 @@ export const TwitterIntentTweet = forwardRef<
 
     return (
       <a
-        className="flex items-center bg-blue-400 hover:bg-blue-500 text-sky-50 text-[15px] font-[600] pl-4 pr-[18px] py-2 rounded-[4px] no-underline"
+        className="flex items-center font-sans bg-blue-400 hover:bg-blue-500 text-sky-50 text-[15px] font-[600] pl-4 pr-[18px] py-2 rounded-[4px] no-underline"
         ref={forwardedRef}
         href={_url.toString()}
         target="_blank"
