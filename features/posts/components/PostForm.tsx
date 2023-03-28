@@ -1,40 +1,18 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
 import { useRouter } from "next/router";
-import { API_BASE_URL } from "const/const";
 import { Textarea, TextInput, Button, UnstyledButton } from "@mantine/core";
-import { createStyles, Paper, Group, Text } from "@mantine/core";
-
-// Toast
+import { Paper } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { MdCheckCircle } from "react-icons/md";
+import { usePost } from "../hooks/usePost";
 
-type Post = {
+type FormData = {
   title: string;
   body: string;
   user_id: string;
 };
 
-const useStyles = createStyles((theme) => ({
-  post: {
-    padding: `${theme.spacing.lg}px ${theme.spacing.xl}px`,
-  },
-
-  body: {
-    paddingLeft: 7,
-    paddingTop: 8,
-    paddingBottom: 5,
-    fontSize: theme.fontSizes.sm,
-  },
-
-  content: {
-    "& > p:last-child": {
-      marginBottom: 0,
-    },
-  },
-}));
-
-const PostForm = ({ accessToken, postData, commentData }: any) => {
+const PostForm = ({ postData, commentData, close }: any) => {
   // どちらかのpropsが渡ってくれば編集モード
   const submitMode = {
     mode: postData
@@ -45,135 +23,103 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
     data: postData || commentData || null,
   };
 
+  const { createPost, updatePost, updateComment } = usePost();
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Post>();
+  } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<Post> = (inputData) => {
-    const PostData = {
-      ...inputData,
-    };
+  const onSubmit: SubmitHandler<FormData> = async (inputData) => {
     switch (submitMode?.mode) {
-      case "postEditMode":
-        return updatePost(postData.id, PostData);
-      case "commentEditMode":
-        return updateComment(commentData.id, PostData);
-      case "createMode":
-        return createPost(PostData);
-    }
-  };
+      case "postEditMode": {
+        const isSuccess = await updatePost(postData.id, inputData);
+        if (isSuccess) {
+          showNotification({
+            title: "編集完了",
+            message: "投稿を編集しました",
+            color: "green.4",
+            icon: <MdCheckCircle size={30} />,
+          });
 
-  const createPost = async (postInputData: Post) => {
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}/posts`,
-        { post: postInputData },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+          close();
+          router.replace(router.asPath);
         }
-      );
-
-      if (response.status === 200) {
-        router.push("/new");
-        showNotification({
-          title: "投稿完了",
-          message: "質問を投稿しました",
-          color: "green.4",
-          icon: <MdCheckCircle size={30} />,
-        });
-        return response.data;
+        break;
       }
-    } catch (error) {
-      let message;
-      if (axios.isAxiosError(error) && error.response) {
-        console.error(error.response.data.message);
-      } else {
-        message = String(error);
-        console.error(message);
-      }
-    }
-  };
+      case "commentEditMode": {
+        const isSuccess = await updateComment(commentData.id, inputData);
+        if (isSuccess) {
+          showNotification({
+            title: "編集完了",
+            message: "回答を編集しました",
+            color: "green.4",
+            icon: <MdCheckCircle size={30} />,
+          });
 
-  const updatePost = async (id: string, postInputData: Post) => {
-    try {
-      const response = await axios.patch(
-        `${API_BASE_URL}/posts/${id}`,
-        { post: postInputData },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+          close();
+          router.replace(router.asPath);
         }
-      );
-
-      if (response.status === 200) {
-        router.back();
-        showNotification({
-          title: "編集完了",
-          message: "質問を更新しました",
-          color: "green.4",
-          icon: <MdCheckCircle size={30} />,
-        });
-        return response.data;
+        break;
       }
-    } catch (error) {
-      let message;
-      if (axios.isAxiosError(error) && error.response) {
-        console.error(error.response.data.message);
-      } else {
-        message = String(error);
-        console.error(message);
-      }
-    }
-  };
+      case "createMode": {
+        const isSuccess = await createPost(inputData);
+        if (isSuccess) {
+          showNotification({
+            title: "投稿完了",
+            message: "投稿が完了しました",
+            color: "green.4",
+            icon: <MdCheckCircle size={30} />,
+          });
 
-  const updateComment = async (id: string, commentInputData: Post) => {
-    try {
-      const response = await axios.patch(
-        `${API_BASE_URL}/comments/${id}`,
-        { comment: commentInputData },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+          close();
+          router.push("/recent");
         }
-      );
-
-      if (response.status === 200) {
-        router.back();
-        showNotification({
-          title: "編集完了",
-          message: "回答を更新しました",
-          color: "green.4",
-          icon: <MdCheckCircle size={30} />,
-        });
-        return response.data;
-      }
-    } catch (error) {
-      let message;
-      if (axios.isAxiosError(error) && error.response) {
-        console.error(error.response.data.message);
-      } else {
-        message = String(error);
-        console.error(message);
+        break;
       }
     }
   };
 
-  const { classes } = useStyles();
   return (
-    <div>
-      <Paper p="xs" radius="xs" className={classes.post}>
+    <div className="max-w-screen-sm mx-auto">
+      <Paper p="0" radius="xs">
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-5">
+            <div className="flex justify-between items-center">
+              <UnstyledButton
+                className=" text-gray-600 underline"
+                onClick={() => close()}
+              >
+                キャンセル
+              </UnstyledButton>
+              <div>
+                <Button
+                  radius="xl"
+                  size="sm"
+                  type="submit"
+                  color="green.4"
+                  className="w-full text-[0.9rem] text-center font-bold text-emerald-50 bg-main-green"
+                >
+                  {postData || commentData ? "編集完了" : "投稿する"}
+                </Button>
+              </div>
+            </div>
+
+            {postData || commentData ? null : (
+              <div className="mt-5">
+                <h3 className="text-md text-gray-600">質問内容の入力</h3>
+                <p className="text-sm text-gray-600">
+                  気軽に質問してみましょう
+                </p>
+              </div>
+            )}
+          </div>
+
           <div className="mb-4">
             <TextInput
               defaultValue={submitMode.data?.title || ""}
-              className=""
               classNames={{
                 input: "pl-2.5 text-gray-600",
                 label: "text-gray-500 font-bold mb-1",
@@ -182,7 +128,7 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
               label="タイトル"
               radius="xs"
               size="md"
-              withAsterisk
+              autoFocus
               {...register("title", { required: true })}
             />
             {errors.title && (
@@ -191,7 +137,7 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
               </span>
             )}
           </div>
-          <div className="mb-10">
+          <div className="mb-5">
             <Textarea
               defaultValue={submitMode.data?.body || ""}
               classNames={{
@@ -199,13 +145,11 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
                 label: "text-gray-500 font-bold mb-1",
               }}
               placeholder="どんなシチュエーションで何に困っているのか、詳しく記載することで回答してもらいやすくなります"
-              label="質問の内容"
+              label="本文の内容"
               size="md"
               radius="xs"
               autosize
-              minRows={6}
-              maxRows={6}
-              withAsterisk
+              minRows={8}
               {...register("body", { required: true })}
             />
             {errors.body && (
@@ -213,14 +157,6 @@ const PostForm = ({ accessToken, postData, commentData }: any) => {
                 質問の内容を入力してください
               </span>
             )}
-          </div>
-          <div className="text-center">
-            <UnstyledButton
-              type="submit"
-              className="w-[175px] h-[48px] rounded-[3px] text-center font-bold text-emerald-50 bg-main-green"
-            >
-              {postData || commentData ? "更新する" : "投稿する"}
-            </UnstyledButton>
           </div>
         </form>
       </Paper>

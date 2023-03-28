@@ -1,143 +1,142 @@
 import { useFetchArray } from "hooks/useFetchArray";
 import { API_BASE_URL } from "const/const";
-import { useAuth0 } from "@auth0/auth0-react";
-
 import { Modal, Button } from "@mantine/core";
-
 import { HiOutlineTrash } from "react-icons/hi";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { UnstyledButton } from "@mantine/core";
 import { useState } from "react";
-import axios from "axios";
 import { MdCheckCircle } from "react-icons/md";
 import { showNotification } from "@mantine/notifications";
-import { useSWRConfig } from "swr";
 import Link from "next/link";
 import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
-import { usePostArray } from "features/posts/hooks/usePostArray";
+import PostForm from "./PostForm";
+import { useDestroyPost } from "../hooks/useDestroyPost";
+import { useRouter } from "next/router";
+import { PostType } from "../types";
 
-type Post = {
-  id: string;
-  title: string;
-  body: string;
-  name: string;
-  user_id: string;
-  picture: string;
-  created_at: string;
-};
-
-type AccessToken = {
-  accessToken: string;
-};
-
-const PostsByUserId = ({ accessToken }: AccessToken) => {
-  const user = useAtomValue(currentUserAtom);
-  // const { user } = useAuth0();
-  const { mutate } = useSWRConfig();
-  const { posts, postsError, postsIsLoading, postsIsEmpty } = usePostArray(
-    `${API_BASE_URL}/posts/`
+const PostsByUserId = () => {
+  const currentUser = useAtomValue(currentUserAtom);
+  const isCurrentUserSet = currentUser.id !== "";
+  const { data } = useFetchArray(
+    isCurrentUserSet ? `${API_BASE_URL}/users/${currentUser.id}/posts` : null
   );
-
+  const router = useRouter();
   const [opened, setOpened] = useState(false);
-  const [targetPost, setTargetPost] = useState({ title: "", postId: "" });
+  const [editOpened, setEditOpened] = useState(false);
+  const [targetPost, setTargetPost] = useState({ id: "", title: "", body: "" });
+  const { destroyPost } = useDestroyPost();
 
-  const handleDelete = async (postId: string) => {
-    try {
-      const response = await axios.delete(`${API_BASE_URL}/posts/${postId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+  const handleDelete = async () => {
+    const isSuccess = await destroyPost(targetPost.id);
+
+    if (isSuccess) {
+      setOpened(false);
+      showNotification({
+        title: "削除完了",
+        message: "投稿を削除しました",
+        color: "green.4",
+        icon: <MdCheckCircle size={30} />,
       });
-      if (response.status === 204) {
-        // モーダルを閉じる処理
-        setOpened(false);
 
-        // 一覧の更新処理
-        mutate(`${API_BASE_URL}/posts/`);
-
-        showNotification({
-          title: "投稿完了",
-          message: "質問を削除しました",
-          color: "green.4",
-          icon: <MdCheckCircle size={30} />,
-        });
-        return response.data;
-      }
-    } catch (error) {
-      console.error(error);
-      // エラーが発生した場合の処理を実行する
+      router.replace(router.asPath);
     }
   };
 
-  // data配列から、ログインしているユーザーの投稿だけを抽出する
-  const userPosts = posts?.filter((post: Post) => post.user_id === user?.id);
-
-  const sortedUserPosts = userPosts
-    ? [...userPosts].sort((a, b) => b.id - a.id)
-    : [];
-
   return (
-    <div>
+    <div className="max-w-screen-sm mx-auto mt-10">
       <h2 className="mx-3 mb-3  text-gray-800 text-[20px]">質問の管理</h2>
 
-      {userPosts !== undefined && userPosts.length === 0 && (
+      {data?.length == 0 && (
         // まだ投稿がない場合
         <div>
           <p className="pl-3 mb-5">気軽に質問してみましょう</p>
           <div className="flex justify-center">
-            <Button size="md" color="green.4">
-              <Link href={"/posts/new"} className="no-underline">
-                投稿する
-              </Link>
+            <Button
+              onClick={() => {
+                setOpened(true);
+              }}
+              size="md"
+              color="green.4"
+            >
+              投稿する
             </Button>
+            <Modal
+              withCloseButton={false}
+              fullScreen
+              opened={opened}
+              onClose={() => setOpened(false)}
+            >
+              <PostForm close={setOpened} />
+            </Modal>
           </div>
         </div>
       )}
 
-      {userPosts && userPosts.length > 0 && (
+      {data?.length > 0 && (
         // 投稿がある場合
         <ul className="mx-3">
-          {sortedUserPosts?.map((post: Post) => (
+          {data?.map((post: PostType) => (
             <li
               key={post.id}
-              className="border-0 border-b-[0.5px] border-gray-200 border-solid"
+              className="flex justify-between border-0 border-b-[0.5px] xs:px-7 pt-4 pb-6 border-gray-200 border-solid hover:bg-slate-50"
             >
-              <div className="flex items-center justify-between pt-2 pb-3">
-                <h3 className=" text-[16px] text-gray-800">{post.title}</h3>
-                <div className="flex">
-                  <Link
-                    href={{
-                      pathname: "/posts/[id]/edit",
-                      query: { id: post.id },
-                    }}
-                  >
-                    <UnstyledButton className="mr-2 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100">
-                      <HiOutlinePencilAlt className="text-gray-500" />
-                    </UnstyledButton>
-                  </Link>
-
-                  <UnstyledButton
-                    onClick={() => {
-                      setOpened(true),
-                        setTargetPost({ title: post.title, postId: post.id });
-                    }}
-                    className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100"
-                  >
-                    <HiOutlineTrash className="text-gray-500" />
-                  </UnstyledButton>
+              <Link className="no-underline w-[80%]" href={`/posts/${post.id}`}>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-[16px] text-gray-800">{post.title}</h3>
                 </div>
+                <p>{post.body}</p>
+              </Link>
+              <div className="flex">
+                <UnstyledButton
+                  onClick={() => {
+                    setEditOpened(true),
+                      setTargetPost({
+                        id: post.id.toString(),
+                        title: post.title,
+                        body: post.body,
+                      });
+                  }}
+                  className="mr-2 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100"
+                >
+                  <HiOutlinePencilAlt className="text-gray-500" />
+                </UnstyledButton>
+
+                <UnstyledButton
+                  onClick={() => {
+                    setOpened(true),
+                      setTargetPost({
+                        id: post.id.toString(),
+                        title: post.title,
+                        body: post.body,
+                      });
+                  }}
+                  className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100"
+                >
+                  <HiOutlineTrash className="text-gray-500" />
+                </UnstyledButton>
               </div>
-              <p>{post.body}</p>
             </li>
           ))}
+          <Modal
+            withCloseButton={false}
+            fullScreen
+            opened={editOpened}
+            onClose={() => setEditOpened(false)}
+          >
+            <PostForm
+              close={setEditOpened}
+              // accessToken={accessToken}
+              postData={targetPost}
+            />
+          </Modal>
           <Modal
             opened={opened}
             onClose={() => setOpened(false)}
             centered
             withCloseButton={false}
             radius="md"
-            size="90%"
+            size="xs"
           >
             <div className="flex justify-center font-bold text-lg text-gray-800 mt-0.5 mb-3">
               削除しますか？
@@ -155,7 +154,7 @@ const PostsByUserId = ({ accessToken }: AccessToken) => {
                   キャンセル
                 </Button>
                 <Button
-                  onClick={() => handleDelete(targetPost.postId)}
+                  onClick={() => handleDelete()}
                   variant="outline"
                   color="red"
                 >

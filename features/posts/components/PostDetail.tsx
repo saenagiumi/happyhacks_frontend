@@ -1,47 +1,51 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { API_BASE_URL } from "const/const";
 import { Post } from "./Post";
-import { usePost } from "features/posts/hooks/usePost";
-import { usePostUser } from "features/posts/hooks/usePostUser";
+import { useFetch } from "hooks/useFetch";
+import { NextSeo } from "next-seo";
+import { useAtomValue } from "jotai";
+import { currentUserAtom } from "state/currentUser";
+import { TwitterIntentTweet } from "components/TwitterIntentTweet";
 
-type Props = {
-  accessToken: string | undefined;
-};
-
-export const PostDetail = (props: Props) => {
+export const PostDetail = () => {
+  const currentUser = useAtomValue(currentUserAtom);
   const router = useRouter();
-  const { post, postError, postIsLoading } = usePost(
+  const { data: postData } = useFetch(
     router.query.id ? `${API_BASE_URL}/posts/${router.query.id}` : null
   );
-  const { postUser, postUserError, postUserIsLoading } = usePostUser(
+  const { data: postUserData } = useFetch(
     router.query.id ? `${API_BASE_URL}/posts/${router.query.id}/user` : null
   );
 
-  if (postIsLoading) {
-    return <div>ローディング中</div>;
-  }
-
-  if (postError) {
-    return <div>{postError.message}</div>;
-  }
-
-  if (post && postUser) {
+  if (postData && postUserData) {
     return (
-      <div>
-        <Head>
-          <title>{post.title}</title>
-        </Head>
+      <div className="pl-1.5 pt-3 pr-2">
+        <NextSeo
+          title={`${postData.title} | HappyHacks`}
+          description={`${postData.title} | HappyHacks`}
+          openGraph={{
+            url: `https://www.happyhacks.app/posts/${postData.id}`,
+            title: `${postData.title} | HappyHacks`,
+            description: `${postData.title} | HappyHacks`,
+          }}
+        />
         <div>
           <Post
-            userId={postUser.id}
-            name={postUser.name}
-            iconSrc={postUser.picture}
-            title={post.title}
-            body={post.body}
-            postedAt={post.created_at}
+            id={postData.id}
+            userId={postUserData.id}
+            name={postUserData.name}
+            iconSrc={postUserData.picture}
+            title={postData.title}
+            body={postData.body}
+            postedAt={postData.created_at}
             comments_count={0}
-            accessToken={props.accessToken}
+          />
+        </div>
+        <div className="flex justify-center my-5 xs:my-6">
+          <TwitterIntentTweet
+            text={postData.title}
+            url={`https://www.happyhacks.app/posts/${postData.id}`}
+            hashtags={["ADHD対策", "HappyHacks"]}
           />
         </div>
       </div>
