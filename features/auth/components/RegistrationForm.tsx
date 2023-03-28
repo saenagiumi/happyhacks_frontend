@@ -1,65 +1,58 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { TextInput, UnstyledButton } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { User, UserPostData } from "features/users/types";
+import { UserPostData } from "features/auth/types";
+import { useAtomValue } from "jotai";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MdCheckCircle } from "react-icons/md";
-import postUser from "../api/postUser";
+import { currentUserAtom } from "state/currentUser";
+import { useCreateUser } from "../hooks/useCreateUser";
 
-const RegistrationForm = ({ user }: any) => {
-  const { getAccessTokenSilently } = useAuth0();
-  const [accessToken, setAccessToken] = useState("");
+const RegistrationForm = () => {
+  const { user } = useAuth0();
+  const currentUser = useAtomValue(currentUserAtom);
+  const { createUser } = useCreateUser();
   const router = useRouter();
 
-  // アクセストークン取得
-  useEffect(() => {
-    const getToken = async () => {
-      try {
-        const token = await getAccessTokenSilently({});
-        setAccessToken(token);
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    getToken();
-  }, []);
+  if (currentUser.name !== "") {
+    router.push("/");
+  }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<User>();
+  } = useForm<UserPostData>();
 
   const onSubmit: SubmitHandler<UserPostData> = async (inputData) => {
-    const postData = {
-      sub: user.sub,
+    const postData: UserPostData = {
       name: inputData.name,
-      email: user.email,
-      picture: user.picture,
+      sub: user?.sub,
+      picture: user?.picture,
     };
-    const config = {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    };
-    const created = await postUser(postData, config);
-    if (created) {
-      router.push("/");
+
+    const isSuccess = await createUser(postData);
+
+    if (isSuccess) {
       showNotification({
         title: "登録完了",
         message: "ユーザー登録が完了しました",
         color: "green.4",
         icon: <MdCheckCircle size={30} />,
       });
+
+      router.push("/");
     }
   };
 
   return (
     <div>
-      <h2 className="mx-4 mt-20 mb-5 px-5 text-[1.1rem] text-gray-800">
-        Webサイトで表示されるあなたの名前を入力してください
+      <h2 className="mt-20 text-[1.1rem] text-gray-800">
+        はじめに、ニックネームを入力してください
       </h2>
-      <div className="mx-4 px-5">
+      <p className="mb-5">※プロフィール編集ページから変更可能です</p>
+      <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <TextInput
@@ -68,7 +61,7 @@ const RegistrationForm = ({ user }: any) => {
                 label: "text-gray-800 font-bold mb-1",
               }}
               placeholder=""
-              label="ニックネーム"
+              label="ニックネーム (最長12文字)"
               radius="xs"
               size="sm"
               {...register("name", { required: true })}
