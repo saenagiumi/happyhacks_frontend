@@ -1,29 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import PostsByUserId from 'components/Post/PostsByUserId';
-import { useAuth0 } from '@auth0/auth0-react';
+import PostsByUserId from "features/posts/components/PostsByUserId";
+import AuthGuard from "features/auth/components/AuthGuard";
+import { NextSeo } from "next-seo";
 
 const DashBoard = () => {
-  const { getAccessTokenSilently } = useAuth0();
-  const [accessToken, setAccessToken] = useState("");
-
-  // アクセストークン取得
-  useEffect(() => {
-    const getToken = async () => {
-      try {
-        const token = await getAccessTokenSilently({});
-        setAccessToken(token);
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    getToken();
-  }, []);
-
   return (
-    <div>
-      <PostsByUserId accessToken={accessToken} />
-    </div>
-  )
-}
+    <>
+      <NextSeo
+        title={`質問の管理 | HappyHacks`}
+        description={`質問の管理 | HappyHacks`}
+        openGraph={{
+          url: `https://www.happyhacks.app/dashboard`,
+          title: `質問の管理 | HappyHacks`,
+          description: `質問の管理 | HappyHacks`,
+        }}
+      />
+      <AuthGuard>
+        <div className="max-w-screen-md mx-auto">
+          <PostsByUserId />
+        </div>
+      </AuthGuard>
+    </>
+  );
+};
 
-export default DashBoard
+export default DashBoard;
