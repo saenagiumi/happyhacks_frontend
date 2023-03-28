@@ -3,18 +3,22 @@ import { API_BASE_URL } from "const/const";
 import Link from "next/link";
 import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
+import { Comment } from "../types";
 
 const BookmarksByUserId = () => {
-  const user = useAtomValue(currentUserAtom);
+  const currentUser = useAtomValue(currentUserAtom);
+  const isCurrentUserSet = currentUser.id !== "";
 
-  const { data, error, isLoading, isEmpty } = useFetchArray(
-    `${API_BASE_URL}/users/${user.id}/bookmarks`
+  const { data } = useFetchArray(
+    isCurrentUserSet
+      ? `${API_BASE_URL}/users/${currentUser.id}/bookmarks`
+      : null
   );
 
   return (
-    <div>
+    <div className="max-w-screen-md mx-auto mt-10">
       <h2 className="mx-3 mb-3  text-gray-800 text-[20px]">
-        ブックマークしたコメント
+        ブックマークした回答
       </h2>
 
       {data?.length == 0 && (
@@ -27,12 +31,13 @@ const BookmarksByUserId = () => {
       {data?.length > 0 && (
         // 投稿がある場合
         <ul className="mx-3">
-          {data?.map((comment: any) => (
-            <Link className="no-underline" href={`/posts/${comment.post_id}#comments/${comment.id}`}>
-              <li
-                key={comment.id}
-                className="border-0 border-b-[1px] border-gray-200 border-solid"
-              >
+          {data?.map((comment: Comment) => (
+            <Link
+              className="no-underline"
+              href={`/posts/${comment.post_id}#comments/${comment.id}`}
+              key={comment.id}
+            >
+              <li className="border-0 border-b-[1px] pb-6 xs:px-7 py-2 xs:py-5  border-gray-200 border-solid hover:bg-slate-100">
                 <div className="flex items-center justify-between pt-2 pb-3">
                   <h3 className="text-[16px] text-gray-800">{comment.title}</h3>
                 </div>
