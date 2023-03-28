@@ -4,6 +4,7 @@ import { PostsOrderByCreatedSequence } from "features/posts/components/PostsOrde
 import { PostsOrderByCommentsLength } from "features/posts/components/PostsOrderByCommentsLength";
 import Link from "next/link";
 import Image from "next/image";
+import { RiSearch2Line } from "react-icons/ri"; 
 import { NextSeo } from "next-seo";
 export const ActiveTab = () => {
   const router = useRouter();
@@ -28,16 +29,17 @@ export const ActiveTab = () => {
             <div className="sm:flex flex-row max-w-[900px]">
               <div className="flex-col sm:w-[50%] flex justify-center items-center">
                 <div className="flex-col justify-center items-center">
-                  <h1 className="font-sans inline-block font-[500] text-[7.3vw] xs:text-[2.1rem] md:text-[2.5rem] text-center leading-tight mb-5">
-                    <span className="inline-block font-sans">ADHDの日常生活の困難</span>
-                    <span className="inline-block font-sans">を環境調整でハックする</span>
+                  <h1 className="font-sans inline-block font-[400] text-[7.3vw] xs:text-[2.1rem] md:text-[2.5rem] text-center leading-tight mb-5">
+                    <span className="inline-block font-sans">環境調整でハックする</span>
+                    <span className="inline-block font-sans">ADHDの日常生活</span>
                   </h1>
 
                   <div className="flex">
                     <Link href={"/about"} legacyBehavior>
-                      <UnstyledButton className="flex justify-end items-center group text-[1.1rem] xs:text-[1.1rem] md:text-[1.2rem] xs:w-[300px] h-[3.5rem] md:h-[3.5rem] text-gray-700 font-sans font-[600] border-2 border-solid border-amber-300 rounded-full bg-white hover:bg-amber-300 w-[76vw]  md:w-[300px] pl-5 md:pl-6 pr-1 md:pr-[5px] mx-auto">
-                        <p className="mx-auto xs:pr-2">HappyHacksについて</p>
-                        <span className="px-[12px] py-[10px] mr-0.5 rounded-full text-white bg-amber-400 group-hover:text-gray-700">
+                      <UnstyledButton className="flex justify-end items-center group text-[1.1rem] xs:text-[1.1rem] md:text-[1.2rem] xs:w-[300px] h-[3.5rem] md:h-[3.5rem] text-gray-700 font-sans font-[600] border-2 border-solid border-amber-300 rounded-full bg-white hover:bg-amber-300 w-[75vw]  md:w-[300px] pl-5 md:pl-6 pr-1 md:pr-[5px] mx-auto">
+                        <RiSearch2Line />
+                        <p className="mx-auto text-[1.12rem] xs:pr-2">HappyHacksとは？</p>
+                        <span className="px-[10px] py-[8px] mr-0.5 rounded-full text-white bg-amber-400 group-hover:text-gray-700">
                           →
                         </span>
                       </UnstyledButton>
@@ -48,7 +50,7 @@ export const ActiveTab = () => {
               <div className="sm:w-[50%] mb-[-50px] xs:mb-0">
                 <div className="flex justify-center items-center sm:justify-center w-[80%] sm:w-[100%] h-[70%] sm:h-[100%]  m-0 mx-auto">
                   <Image
-                    src={"/girl.png"}
+                    src={"/cup.png"}
                     width={450}
                     height={450}
                     sizes="100vw"
