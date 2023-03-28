@@ -57,7 +57,7 @@ const RegistrationForm = () => {
           <div className="mb-4">
             <TextInput
               classNames={{
-                input: "pl-2.5 text-gray-600",
+                input: "pl-2.5 text-gray-600 text-[16px]",
                 label: "text-gray-800 font-bold mb-1",
               }}
               placeholder=""
