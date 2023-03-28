@@ -23,7 +23,7 @@ export const PostsOrderByCommentsLength = () => {
             className="border-0 border-b-[0.5px] border-gray-200 border-solid"
           >
             <Link href={`/posts/${post.id}`} className="no-underline pb-1.5">
-              <div className="px-1.5 hover:bg-slate-100">
+              <div className="px-1.5 xs:hover:bg-slate-100">
                 <Post
                   id={post.id.toString()}
                   userId={post.user_id.toString()}
