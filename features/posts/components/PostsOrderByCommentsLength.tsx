@@ -2,22 +2,10 @@ import Link from "next/link";
 import { Post } from "features/posts/components/Post";
 import { useFetchArray } from "hooks/useFetchArray";
 import { API_BASE_URL } from "const/const";
-
-type Post = {
-  id: number;
-  sub: string;
-  title: string;
-  body: string;
-  name: string;
-  user_id: string;
-  picture: string;
-  accessToken: string;
-  created_at: string;
-  comments_count: number;
-};
+import { PostWithCommentsCountType } from "../types";
 
 export const PostsOrderByCommentsLength = () => {
-  const { data, error, isLoading, isEmpty } = useFetchArray(
+  const { data } = useFetchArray(
     `${API_BASE_URL}/posts_with_comments_count`
   );
 
@@ -27,22 +15,22 @@ export const PostsOrderByCommentsLength = () => {
     : [];
 
   return (
-    <ol>
-      {sortedData.map((post: Post) => {
+    <ol className="m-0 p-0">
+      {sortedData.map((post: PostWithCommentsCountType) => {
         return (
           <li
             key={post.id}
-            className="pb-1.5 border-0 border-b-4  border-gray-200 border-solid"
+            className="border-0 border-b-[0.5px] border-gray-200 border-solid"
           >
-            <Link href={`/posts/${post.id}`} className="no-underline">
-              <div className="mx-1.5">
+            <Link href={`/posts/${post.id}`} className="no-underline pb-1.5">
+              <div className="px-1.5 hover:bg-slate-100">
                 <Post
-                  userId={post.user_id}
+                  id={post.id.toString()}
+                  userId={post.user_id.toString()}
                   title={post.title}
                   body={post.body}
                   name={post.name}
                   iconSrc={post.picture}
-                  accessToken={post.accessToken}
                   postedAt={post.created_at}
                   comments_count={post.comments_count}
                 />

@@ -2,30 +2,36 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { useEffect, useRef, useState } from "react";
 import BookmarkJson from "public/bookmark.json";
 import { useRouter } from "next/router";
+import { UnstyledButton } from "@mantine/core";
 
-type BookmarkButtonProps = {
+type Props = {
   isBookmarked: boolean;
-  bookmarkIsLoading: any;
+  commentBookmarksIsLoading: boolean;
+  onClick: () => {};
 };
 
-export const BookmarkButton = ({ isBookmarked, bookmarkIsLoading }: BookmarkButtonProps) => {
+const BookmarkButton = ({
+  isBookmarked,
+  commentBookmarksIsLoading,
+  onClick,
+}: Props) => {
   const playerRef = useRef<Player>(null);
   const [initialState, setInitialState] = useState<boolean | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (playerRef.current && !bookmarkIsLoading) {
-      // likeが最初からtrueの場合はアニメーション固定
+    if (playerRef.current && !commentBookmarksIsLoading) {
+      // 最初からtrueの場合はアニメーション静止
       if (isBookmarked === true && initialState === null) {
         playerRef.current.setSeeker(50, false);
         setInitialState(true);
       }
-      // likeがfalseからtrueになるときにアニメーション開始
+      // falseからtrueになるときにアニメーション再生
       if (isBookmarked === true && initialState === false) {
         playerRef.current.play();
       }
 
-      // likeがfalsyであればアニメーション静止
+      // falseであればアニメーション静止
       if (isBookmarked === false) {
         playerRef.current.stop();
         setInitialState(false);
@@ -34,9 +40,9 @@ export const BookmarkButton = ({ isBookmarked, bookmarkIsLoading }: BookmarkButt
   }, [playerRef.current, isBookmarked, initialState]);
 
   useEffect(() => {
-    // URLパスに変更があった場合、再レンダリング
-    if (!bookmarkIsLoading) {
-      // likeがfalsyの場合アニメーションの再生準備
+    // URLに変更があった場合、再レンダリング
+    if (!commentBookmarksIsLoading) {
+      // アニメーションの再生準備
       if (isBookmarked === false) {
         setInitialState(false);
       }
@@ -44,15 +50,29 @@ export const BookmarkButton = ({ isBookmarked, bookmarkIsLoading }: BookmarkButt
         setInitialState(null);
       }
     }
-  }, [router.asPath, bookmarkIsLoading]);
+  }, [router.asPath, commentBookmarksIsLoading]);
 
   return (
-    <Player
-      ref={playerRef}
-      speed={2}
-      keepLastFrame
-      src={BookmarkJson}
-      style={{ height: "32px", width: "32px" }}
-    ></Player>
+    <UnstyledButton onClick={onClick}>
+      <div className="flex justify-center items-center font-bold text-sm text-gray-800">
+        <div
+          className={`border-[0.5px] border-solid pt-[2px]  ${
+            isBookmarked
+              ? " border-main-green bg-green-50"
+              : "border-gray-100 bg-gray-100"
+          }   w-[38px] h-[38px] rounded-full flex justify-center items-center font-bold text-sm text-gray-400`}
+        >
+          <Player
+            ref={playerRef}
+            speed={2}
+            keepLastFrame
+            src={BookmarkJson}
+            style={{ height: "32px", width: "32px" }}
+          ></Player>
+        </div>
+      </div>
+    </UnstyledButton>
   );
 };
+
+export default BookmarkButton;

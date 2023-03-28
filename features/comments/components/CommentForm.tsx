@@ -1,17 +1,15 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
 import { useRouter } from "next/router";
-import { API_BASE_URL } from "const/const";
-import { Textarea, TextInput, UnstyledButton } from "@mantine/core";
-import { createStyles, Paper } from "@mantine/core";
-import { useSWRConfig } from "swr";
+import { Button, Textarea, TextInput, UnstyledButton } from "@mantine/core";
 
 // Toast
 import { showNotification } from "@mantine/notifications";
 import { MdCheckCircle } from "react-icons/md";
 
+import { useCreateComment } from "../hooks/useCreateComment";
+import { CommentData } from "../types";
+
 type Props = {
-  accessToken: string | undefined;
   userId: string | undefined;
   postId: string | string[] | undefined;
   modalHandlers: {
@@ -21,97 +19,61 @@ type Props = {
   };
 };
 
-type Comment = {
-  user_id: string | undefined;
-  post_id: string | string[] | undefined;
-  title: string;
-  body: string;
-};
-
-const useStyles = createStyles((theme) => ({
-  comment: {
-    padding: `${theme.spacing.lg}px ${theme.spacing.xl}px`,
-  },
-
-  body: {
-    paddingLeft: 7,
-    paddingTop: 8,
-    paddingBottom: 5,
-    fontSize: theme.fontSizes.sm,
-  },
-
-  content: {
-    "& > p:last-child": {
-      marginBottom: 0,
-    },
-  },
-}));
-
 const CommentForm = (props: Props) => {
+  const { createComment } = useCreateComment();
   const router = useRouter();
-  const { mutate } = useSWRConfig();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Comment>();
+  } = useForm<CommentData>();
 
-  const onSubmit: SubmitHandler<Comment> = (InputData) => {
-    const CommentData = {
-      ...InputData,
+  const onSubmit: SubmitHandler<CommentData> = async (inputData) => {
+    const commentData: CommentData = {
+      title: inputData.title,
+      body: inputData.body,
       user_id: props.userId,
       post_id: props.postId,
     };
-    createComment(CommentData);
-  };
 
-  const createComment = async (commentInputData: Comment) => {
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}/posts/${props.postId}/comments`,
-        {
-          comment: commentInputData,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${props.accessToken}`,
-          },
-        }
-      );
+    const isSuccess = await createComment(props.postId, commentData);
 
-      if (response.status === 200) {
-        // モーダルを閉じる処理
-        props.modalHandlers.close();
-
-        // 一覧の更新処理
-        mutate(`${API_BASE_URL}/posts/${props.postId}/comments`);
-
-        router.push(`/posts/${props.postId}`);
-        showNotification({
-          title: "投稿完了",
-          message: "回答を投稿しました",
-          color: "green.4",
-          icon: <MdCheckCircle size={30} />,
-        });
-        return response.data;
-      }
-    } catch (error) {
-      let message;
-      if (axios.isAxiosError(error) && error.response) {
-        console.error(error.response.data.message);
-      } else {
-        message = String(error);
-        console.error(message);
-      }
+    if (isSuccess) {
+      showNotification({
+        title: "投稿完了",
+        message: "回答を投稿しました",
+        color: "green.4",
+        icon: <MdCheckCircle size={30} />,
+      });
+      props.modalHandlers.close();
+      router.replace(router.asPath);
     }
   };
 
-  const { classes } = useStyles();
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
+        <div className="mb-5">
+          <div className="flex justify-between items-center mb-5">
+            <UnstyledButton
+              className=" text-gray-600 underline"
+              onClick={() => props.modalHandlers.close()}
+            >
+              キャンセル
+            </UnstyledButton>
+            <div>
+              <Button
+                radius="xl"
+                size="sm"
+                type="submit"
+                color="green.4"
+                className="w-full text-[0.9rem] text-center font-bold text-emerald-50 bg-main-green"
+              >
+                回答する
+              </Button>
+            </div>
+          </div>
           <TextInput
             data-autofocus
             className=""
@@ -119,11 +81,10 @@ const CommentForm = (props: Props) => {
               input: "pl-2.5 text-gray-600",
               label: "text-gray-500 font-bold mb-1",
             }}
-            placeholder="玄関のドアに持ち物リストを吊るしておく"
-            label="対策を簡潔に説明すると？"
+            placeholder="例: 玄関に持ち物リストを設置する"
+            label="対策を簡単に説明すると？"
             radius="xs"
             size="md"
-            withAsterisk
             {...register("title", { required: true })}
           />
           {errors.title && (
@@ -138,14 +99,12 @@ const CommentForm = (props: Props) => {
               input: "pl-2.5 px-2 text-gray-600",
               label: "text-gray-500 font-bold mb-1",
             }}
-            placeholder="紐付きのホワイトボードに次の日の持ち物を記入し、前日のうちに玄関のドアノブに吊るしておくことで、次の日出かける前に必ず持ち物を確認する動線ができます。うまくいくといいですね💪"
-            label="具体的な内容"
+            placeholder="例: 紐付きのホワイトボードに翌日の持ち物リストを記入し、前日のうちに玄関のドアノブに吊るしておくことで、次の日出かける前に必ず持ち物を確認する動線ができます。よかったら試してみてください！"
+            label="具体的な方法"
             size="md"
             radius="xs"
             autosize
-            minRows={6}
-            maxRows={6}
-            withAsterisk
+            minRows={8}
             {...register("body", { required: true })}
           />
           {errors.body && (
@@ -153,14 +112,6 @@ const CommentForm = (props: Props) => {
               回答の内容を入力してください
             </span>
           )}
-        </div>
-        <div className="text-center">
-          <UnstyledButton
-            type="submit"
-            className="w-[175px] h-[48px] rounded-[3px] text-center font-bold text-emerald-50 bg-main-green"
-          >
-            投稿する
-          </UnstyledButton>
         </div>
       </form>
     </div>

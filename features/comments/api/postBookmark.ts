@@ -1,16 +1,12 @@
-import { Comment } from "../types";
 import axios from "axios";
 import { API_BASE_URL } from "const/const";
 
-interface PostBookmarkArgs {
+type Props = {
   commentId: string | string[] | undefined;
   accessToken: string;
-}
+};
 
-export const postBookmark = async ({
-  commentId,
-  accessToken,
-}: PostBookmarkArgs) => {
+export const postBookmark = async ({ commentId, accessToken }: Props) => {
   const config = {
     headers: {
       authorization: `Bearer ${accessToken}`,

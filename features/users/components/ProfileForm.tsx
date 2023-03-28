@@ -7,129 +7,64 @@ import {
   TextInput,
   UnstyledButton,
 } from "@mantine/core";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { currentUserAtom } from "state/currentUser";
 import { TbCameraPlus } from "react-icons/tb";
-import axios from "axios";
-import { API_BASE_URL } from "const/const";
 import { showNotification } from "@mantine/notifications";
 import { MdCheckCircle } from "react-icons/md";
-
-type User = {
-  id: string;
-  name: string;
-  email: string;
-  picture: string | undefined;
-};
-
-const animals = [
-  "rabbit",
-  "dog",
-  "cat",
-  "bear",
-  "elephant",
-  "chicken",
-  "cow",
-  "mouse",
-  "panda",
-  "racoon",
-  "penguin",
-];
+import { useUser } from "../hooks/useUser";
+import { UserFormValue } from "../types";
+import { ANIMALS } from "const/const";
 
 const ProfileForm = () => {
-  const { user, getAccessTokenSilently } = useAuth0();
-  const [accessToken, setAccessToken] = useState("");
-  const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
+  const { user } = useAuth0();
+  const currentUser = useAtomValue(currentUserAtom);
   const [opened, setOpened] = useState(false);
+  const { updateUser } = useUser();
   const [targetSrc, setTargetSrc] = useState<string | undefined>(
     currentUser.picture
   );
-
-  // アクセストークン取得
-  useEffect(() => {
-    const getToken = async () => {
-      try {
-        const token = await getAccessTokenSilently({});
-        setAccessToken(token);
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    getToken();
-  }, []);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<User>({ defaultValues: { name: currentUser?.name || "" } });
+    reset,
+  } = useForm<UserFormValue>({ defaultValues: { name: currentUser.name } });
 
-  const onSubmit: SubmitHandler<User> = (InputData) => {
+  useEffect(() => {
+    setTargetSrc(currentUser.picture);
+  }, [currentUser]);
+
+  // defaultValuesに非同期の初期値を適用し直す
+  useEffect(() => {
+    reset({
+      ...currentUser,
+      name: currentUser?.name.toString(),
+    });
+  }, [currentUser, reset]);
+
+  const onSubmit: SubmitHandler<UserFormValue> = async (InputData) => {
     const patchUserData = {
+      userId: currentUser.id,
       ...InputData,
       picture: targetSrc,
     };
 
-    updateUser(patchUserData);
-  };
+    const isSuccess = await updateUser(patchUserData);
 
-  const updateUser = async (userInputData: {name: string, picture: string | undefined}) => {
-    try {
-      const response = await axios.patch(
-        `${API_BASE_URL}/users/${currentUser.id}`,
-        {
-          user: userInputData,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        const updatedCurrentUser ={
-          id: currentUser.id,
-          sub: currentUser.sub,
-          email: currentUser.email,
-          created_at: currentUser.created_at,
-          updated_at: currentUser.updated_at,
-          ...userInputData,
-        }
-        
-        // currentUserAtom を更新する
-        setCurrentUser(updatedCurrentUser);
-
-        // // モーダルを閉じる処理
-        if (opened) {
-          setOpened(false);
-        }
-
-        // router.push(`/posts/${props.postId}`);
-        showNotification({
-          title: "更新完了",
-          message: "プロフィールを更新しました",
-          color: "green.4",
-          icon: <MdCheckCircle size={30} />,
-        });
-        return response.data;
-      }
-    } catch (error) {
-      let message;
-      if (axios.isAxiosError(error) && error.response) {
-        console.error(error.response.data.message);
-      } else {
-        message = String(error);
-        console.error(message);
-      }
+    if (isSuccess) {
+      showNotification({
+        title: "更新完了",
+        message: "プロフィールを更新しました",
+        color: "green.4",
+        icon: <MdCheckCircle size={30} />,
+      });
     }
-  };
 
-  const animalsAvatar = animals.map((animal) => {
-    <Avatar src={`/userAvatar/${animal}.svg`} radius={50} size={56} />;
-  });
+    setOpened(false);
+  };
 
   return (
     <div>
@@ -170,24 +105,11 @@ const ProfileForm = () => {
             <div className="flex justify-evenly mb-4">
               <ul className="grid grid-cols-4 gap-4">
                 <li className="flex items-center justify-center bg-gray-800/[.3] w-[56px] h-[56px] rounded-full">
-                  {/* {画像アップロード対応したい} */}
-                  {/* <div className="flex absolute items-center justify-center">
-                    <FileButton
-                      onChange={setFile}
-                      accept="image/png,image/jpeg"
-                    >
-                      {(props) => (
-                        <UnstyledButton {...props}>
-                          <TbCameraPlus className="flex text-zinc-100 text-[1.5rem] z-50" />
-                        </UnstyledButton>
-                      )}
-                    </FileButton>
-                  </div> */}
                   <UnstyledButton onClick={() => setTargetSrc(user?.picture)}>
                     <Avatar src={user?.picture} radius={50} size={56} />
                   </UnstyledButton>
                 </li>
-                {animals.map((animal) => {
+                {ANIMALS.map((animal) => {
                   return (
                     <li key={animal}>
                       <UnstyledButton
@@ -234,17 +156,14 @@ const ProfileForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <TextInput
-            data-autofocus
-            className=""
             classNames={{
               input: "pl-2.5 text-gray-600",
               label: "text-gray-800 font-bold mb-1",
             }}
-            placeholder="田中たろう"
-            label="表示名"
+            label="表示名 (最長12文字)"
             radius="xs"
             size="sm"
-            withAsterisk
+            maxLength={12}
             {...register("name", { required: true })}
           />
           {errors.name && (

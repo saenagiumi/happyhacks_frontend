@@ -1,93 +1,54 @@
 import { useEffect } from "react";
 
 // Mantine
-import {
-  createStyles,
-  Text,
-  Avatar,
-  Group,
-  TypographyStylesProvider,
-  Paper,
-  UnstyledButton,
-} from "@mantine/core";
+import { Text, Avatar, Group } from "@mantine/core";
 
-// Day.js
+// 日付
 import dayjs from "dayjs";
-
-// 日本語対応
 import "dayjs/locale/ja";
 dayjs.locale("ja");
 
-// 相対日時のプラグイン
+// 相対日時
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 // お気に入りボタン
-import { LikeButton } from "./LikeButton";
-import { BookmarkButton } from "./BookmarkButton";
+import LikeButton from "./LikeButton";
+import BookmarkButton from "./BookmarkButton";
 
-import { HiOutlineShare } from "react-icons/hi";
+// お気に入り、ブックマーク操作のカスタムフック
 import useToggleLike from "../hooks/useToggleLike";
-import { useAtom } from "jotai";
-import { currentUserAtom } from "state/currentUser";
 import useToggleBookmark from "../hooks/useToggleBookmark";
 
-const LOCAL_STORAGE_KEY = "currentUser";
+// 状態管理
+import { useAtom } from "jotai";
+import { currentUserAtom } from "state/currentUser";
 
-const useStyles = createStyles((theme) => ({
-  comment: {
-    padding: `${theme.spacing.lg}px ${theme.spacing.xl}px`,
-    backgroundColor: "#FDFCF4"
-  },
+import { LOCAL_STORAGE_KEY } from "const/const";
 
-  body: {
-    paddingLeft: 5,
-    paddingTop: 5,
-    paddingBottom: 12,
-    fontSize: theme.fontSizes.sm,
-  },
-
-  content: {
-    "& > p:last-child": {
-      marginBottom: 0,
-    },
-  },
-}));
-
-interface CommentProps {
+type Props = {
   id: number;
+  post_id: string;
   title: string;
   body: string;
   name: string;
   iconSrc: string;
   postedAt: string;
-  accessToken: string;
-}
+};
 
-export const Comment = ({
-  id,
-  title,
-  body,
-  name,
-  iconSrc,
-  postedAt,
-}: CommentProps) => {
+export const Comment = (props: Props) => {
   const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
-  const { isLiked, likesData, likeError, toggleLikes, likeIsLoading } =
-    useToggleLike({
-      commentId: id.toString(),
-      userId: currentUser.id,
-    });
-  const {
-    isBookmarked,
-    bookmarksData,
-    bookmarkError,
-    toggleBookmarks,
-    bookmarkIsLoading,
-  } = useToggleBookmark({
-    commentId: id.toString(),
+  const { isLiked, likesCount, toggleLike, commentLikesIsloading } = useToggleLike({
+    postId: props.post_id,
+    commentId: props.id.toString(),
     userId: currentUser.id,
   });
+  const { isBookmarked, commentBookmarksIsLoading, toggleBookmark } =
+    useToggleBookmark({
+      postId: props.post_id,
+      commentId: props.id.toString(),
+      userId: currentUser.id,
+    });
 
   useEffect(() => {
     // ローカルストレージからcurrentUserを取得する
@@ -97,79 +58,59 @@ export const Comment = ({
     }
   }, []);
 
-  const { classes } = useStyles();
   return (
-    <div id={`comments/${id}`}>
-      <Paper
-        shadow="sm"
-        radius="xs"
-        p="xs"
-        withBorder
-        className={isBookmarked? classes.comment : ""}
-      >
-        <Group className="mb-2 pt-1" position="apart">
-          <Group spacing="xs" className="px-[5px]">
-            <Avatar src={iconSrc} radius={50} size={38} />
-            <Text className="pt-0.5" size="sm">
-              <div className="text-gray-700 font-bold">{name}</div>
-              <div className="text-gray-400 text-xs">
-                {dayjs(postedAt).fromNow()}
+    <div
+      className="border-0 border-t-[0px] mb-3 xs:mb-5 mx-1.5 border-li-separator-gray border-solid text-main-black"
+      id={`comments/${props.id}`}
+    >
+      <div>
+        <div
+          className={
+            isBookmarked ? "bg-amber-100 pb-1 mb-2 xs:p-7" : "pb-1 mb-2 xs:p-7"
+          }
+        >
+          <Group className="pl-3.5 pt-3 pr-1.5" position="apart">
+            <Group spacing="xs">
+              <Avatar src={props.iconSrc} radius={50} size={38} />
+              <Text className="pt-0.5" size="sm">
+                <div className="text-gray-700 font-bold">{props.name}</div>
+                <div className="text-gray-400 text-xs">
+                  {dayjs(props.postedAt).fromNow()}
+                </div>
+              </Text>
+            </Group>
+
+            <div className="flex items-center">
+              <div className="mr-2 mt-[1px]">
+                <BookmarkButton
+                  onClick={() => toggleBookmark()}
+                  isBookmarked={isBookmarked}
+                  commentBookmarksIsLoading={commentBookmarksIsLoading}
+                />
               </div>
-            </Text>
+
+              <div className="pt-1">
+                <LikeButton
+                  onClick={() => toggleLike()}
+                  likesCount={likesCount}
+                  isLiked={isLiked}
+                  commentLikesIsLoading={commentLikesIsloading}
+                />
+              </div>
+            </div>
           </Group>
-          <div className="mr-2 pt-1">
-            <UnstyledButton onClick={() => toggleLikes()}>
-              <div className="flex items-center">
-                <div
-                  className={`border-[1px] border-solid  ${
-                    isLiked ? "border-rose-100 bg-red-50" : "border-gray-100 bg-gray-50"
-                  }   w-[38px] h-[38px] rounded-full flex justify-center items-center font-bold text-sm text-gray-400 mr-2`}
-                >
-                  <div>
-                    <LikeButton
-                      isLiked={isLiked ? true : false}
-                      likeIsLoading={likeIsLoading}
-                    ></LikeButton>
-                  </div>
-                </div>
-                <div className="text-gray-400 font-bold text-sm mr-2 mt-[1px] w-[10px]">
-                  {likesData ? likesData.counts : 0}
-                </div>
-              </div>
-            </UnstyledButton>
-          </div>
-        </Group>
-        <Text className="px-1.5 pt-1 pb-2 text-gray-600 font-bold" size="md">
-          {title}
-        </Text>
 
-        <div className={classes.body}>
-          <div className="w-full break-all text-gray-500">{body}</div>
-        </div>
-
-        <div className="mb-[-8px] flex flex-row items-center border-0 border-t-[1px] border-solid border-gray-200">
-          <div className="flex justify-center basis-1/2">
-            <UnstyledButton>
-              <div className="flex items-center">
-                <div className="font-bold text-xs text-gray-400 mr-2">
-                  共有する
-                </div>
-                <HiOutlineShare className="text-gray-400" />
-              </div>
-            </UnstyledButton>
+          <div className="px-3.5 pt-1 xs:text-[1.125rem] text-gray-700 font-bold leading-7 xs:tracking-wide">
+            {props.title}
           </div>
-          <div className="flex justify-center basis-1/2">
-            <UnstyledButton className="mr-1" onClick={() => toggleBookmarks()}>
-              <div className="flex items-center font-bold text-sm text-gray-400">
-                <div className="mr-[-2px] text-xs">ブックマーク</div>
-                <div>
-                  <BookmarkButton isBookmarked={isBookmarked ? true : false} bookmarkIsLoading={bookmarkIsLoading} />
-                </div>
-              </div>
-            </UnstyledButton>
+
+          <div>
+            <div className="w-full mt-2 mb-5 pl-3 pr-2.5 break-all text-[1rem] xs:text-[1.125rem] leading-7 xs:leading-8 text-gray-600">
+              {props.body}
+            </div>
           </div>
         </div>
-      </Paper>
+      </div>
     </div>
   );
 };
