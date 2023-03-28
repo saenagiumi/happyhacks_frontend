@@ -6,11 +6,9 @@ const fetcher = async (url: string) => {
   return json;
 };
 
-export const useFetchArray = (url: string) => {
-  const { data, error } = useSWR(
-    url,
-    fetcher
-  );
+export const useFetchArray = (url: string | null) => {
+  const { data, error } = useSWR(url, fetcher);
+
   return {
     data,
     error,

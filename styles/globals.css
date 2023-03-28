@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-h1, h2, h3, p, ul, ol, li, hr {
+h1, h2, h3, h4, p, ul, li, hr {
   font-style: normal;
   margin: 0;
   padding: 0;
