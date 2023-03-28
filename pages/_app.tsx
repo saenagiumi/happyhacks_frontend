@@ -103,8 +103,10 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       >
           <NotificationsProvider position="top-center">
-            <Header />
-            <Component {...pageProps} />
+            <Auth>
+              <Header />
+              <Component {...pageProps} />
+            </Auth>
           </NotificationsProvider>
       </MantineProvider>
     </Auth0Provider>
