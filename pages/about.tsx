@@ -32,7 +32,7 @@ const AboutPage = () => {
             <div className="mb-[-590px] xs:mt-[-40px] xs:mb-[-580px]">
               <Image
                 className="flex mx-auto"
-                src="/alchol.png"
+                src="/alcohol.png"
                 width={500}
                 height={500}
                 sizes="100vw"
@@ -41,7 +41,7 @@ const AboutPage = () => {
                   height: "100%",
                 }}
                 priority={true}
-                alt="hand-heartの画像"
+                alt="alcoholを持った女の子"
               ></Image>
             </div>
           </div>

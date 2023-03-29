@@ -59,7 +59,7 @@ export const ActiveTab = () => {
                       height: "auto",
                     }}
                     priority={true}
-                    alt="hero-image"
+                    alt="heroエリアの画像"
                   />
                 </div>
               </div>
