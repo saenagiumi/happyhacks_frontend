@@ -25,7 +25,7 @@ export const ActiveTab = () => {
       />
       <div>
         <div>
-          <div className="flex justify-center items-center w-full h-[135vw] xs:h-[70vh] md:h-[52vh] bg-main-green text-white">
+          <div className="flex justify-center items-center w-full mx-auto h-[135vw] xs:h-[70vh] md:h-[52vh] bg-main-green text-white">
             <div className="sm:flex flex-row max-w-[900px]">
               <div className="flex-col sm:w-[50%] flex justify-center items-center">
                 <div className="flex-col justify-center items-center">
@@ -36,10 +36,10 @@ export const ActiveTab = () => {
 
                   <div className="flex">
                     <Link href={"/about"} legacyBehavior>
-                      <UnstyledButton className="flex justify-end items-center group text-[1.1rem] xs:text-[1.1rem] md:text-[1.2rem] xs:w-[300px] h-[3.5rem] md:h-[3.5rem] text-gray-700 font-sans font-[600] border-2 border-solid border-amber-300 rounded-full bg-white hover:bg-amber-300 w-[75vw]  md:w-[300px] pl-5 md:pl-6 pr-1 md:pr-[5px] mx-auto">
+                      <UnstyledButton className="flex justify-end items-center group text-[1.1rem] xs:text-[1.1rem] md:text-[1.2rem] xs:w-[300px] h-[3.5rem] md:h-[3.5rem] text-gray-700 font-sans font-[600] border-2 border-solid border-amber-300 rounded-full bg-white hover:bg-amber-300 w-[73vw]  md:w-[300px] pl-5 md:pl-6 pr-1 md:pr-[5px] mx-auto">
                         <RiSearch2Line />
                         <p className="mx-auto text-[1.12rem] xs:pr-2">HappyHacksとは？</p>
-                        <span className="px-[10px] py-[8px] mr-0.5 rounded-full text-white bg-amber-400 group-hover:text-gray-700">
+                        <span className="px-[10px] py-[8px] mr-1.5 rounded-full text-white bg-amber-400 group-hover:text-gray-700">
                           →
                         </span>
                       </UnstyledButton>
