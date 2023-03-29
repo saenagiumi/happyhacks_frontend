@@ -21,23 +21,23 @@ const AboutPage = () => {
       />
 
       <div className="font-sans text-main-black">
-        <div className="h-[112vw] xs:h-[45vh] md:h-[52vh] w-full bg-amber-300 mb-10 xs:mb-20">
+        <div className="h-[135vw] xs:h-[52vh] md:h-[52vh] w-full bg-amber-300 mb-10 xs:mb-20">
           <div className="flex-col flex justify-center items-center">
             <div>
-              <h1 className="text-[7.3vw] font-body tracking-tight xs:text-[2.1rem] md:text-[2.5rem] font-[500]">
+              <h1 className="text-[7.3vw] font-body tracking-tight xs:mb-5 xs:text-[2.1rem] md:text-[2.5rem] font-[500]">
                 What&apos;s HappyHacks?
               </h1>
             </div>
 
-            <div className="mt-[-100px] mb-[-630px]">
+            <div className="mb-[-590px] xs:mt-[-40px] xs:mb-[-580px]">
               <Image
                 className="flex mx-auto"
-                src="/hand-heart.svg"
-                width={400}
-                height={400}
+                src="/alchol.png"
+                width={500}
+                height={500}
                 sizes="100vw"
                 style={{
-                  maxWidth: "100%",
+                  maxWidth: "80%",
                   height: "100%",
                 }}
                 priority={true}

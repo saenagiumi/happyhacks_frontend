@@ -25,7 +25,7 @@ export const ActiveTab = () => {
       />
       <div>
         <div>
-          <div className="flex justify-center items-center w-full h-[135vw] xs:h-[70vh] md:h-[52vh] bg-main-green text-white">
+          <div className="flex justify-center items-center w-full mx-auto h-[135vw] xs:h-[70vh] md:h-[52vh] bg-main-green text-white">
             <div className="sm:flex flex-row max-w-[900px]">
               <div className="flex-col sm:w-[50%] flex justify-center items-center">
                 <div className="flex-col justify-center items-center">
