@@ -44,7 +44,7 @@ export const TwitterIntentTweet = forwardRef<
           src="/tw-logo-white.svg"
           width="16"
           height="16"
-          alt="twitter-logo"
+          alt="twitterのロゴ"
           priority={true}
         />
         Twitterにシェアする

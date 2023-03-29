@@ -37,7 +37,7 @@ export const Header = () => {
         <Image
           className="ml-2 mr-1.5 xs:mr-2 w-[22px] xs:w-[26px] h-[22px] xs:h-[26px]"
           src="/header-logo.svg"
-          alt="logo"
+          alt="headerのロゴ"
           width={30}
           height={30}
           priority={true}
