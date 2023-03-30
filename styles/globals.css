@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes barstart {
+  from {
+    width: 15%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes barcomp {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 h1, h2, h3, h4, p, ul, li, hr {
   font-style: normal;
   margin: 0;
@@ -14,22 +32,4 @@ li {
 
 a {
   color: inherit;
-}
-
-@keyframes barstart {
-  from {
-    width: 30%;
-  }
-  to {
-    width: 90%;
-  }
-}
-
-@keyframes barcomp {
-  from {
-    width: 90%;
-  }
-  to {
-    width: 100%;
-  }
 }
