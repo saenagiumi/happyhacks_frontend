@@ -15,3 +15,21 @@ li {
 a {
   color: inherit;
 }
+
+@keyframes barstart {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 80%;
+  }
+}
+
+@keyframes barcomp {
+  from {
+    width: 80%;
+  }
+  to {
+    width: 100%;
+  }
+}
