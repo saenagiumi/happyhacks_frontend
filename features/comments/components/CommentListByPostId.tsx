@@ -9,7 +9,6 @@ import CommentFormClickable from "./CommentFormButton";
 import { CommentWithUser } from "../types";
 import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
-import { use } from "react";
 
 type Props = {
   postId: string | string[] | undefined;
@@ -69,16 +68,16 @@ const CommentListByPostId = (props: Props) => {
         />
       )}
 
-      {/* {!commentsDataIsEmpty && (
+      {!commentsDataIsEmpty && (
         <h2 className="font-medium text-base text-gray-600 my-1 xs:my-3 ml-2.5">
           {commentsData.length <= 9
             ? toZenkaku(commentsData.length.toString())
             : commentsData.length.toString()}
           件の回答
         </h2>
-      )} */}
+      )}
 
-      {/* {!commentsDataIsEmpty && (
+      {!commentsDataIsEmpty && (
         <ol className="m-0 p-0">
           {commentsData.map((comment: CommentWithUser) => {
             return (
@@ -96,7 +95,7 @@ const CommentListByPostId = (props: Props) => {
             );
           })}
         </ol>
-      )} */}
+      )}
     </div>
   );
 };

@@ -11,41 +11,39 @@ import { currentUserAtom } from "state/currentUser";
 import { SWRConfig } from "swr";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-//   const id = params?.id;
-//   const post = await fetch(`${API_BASE_URL}/posts/${id}`);
-//   const postUser = await fetch(`${API_BASE_URL}/posts/${id}/user`);
-//   const comments = await fetch(
-//     `${API_BASE_URL}/posts/${id}/comments_with_user`
-//   );
-//   const postData = await post.json();
-//   const postUserData = await postUser.json();
-//   const commentsData = await comments.json();
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const id = params?.id;
+  const post = await fetch(`${API_BASE_URL}/posts/${id}`);
+  const postUser = await fetch(`${API_BASE_URL}/posts/${id}/user`);
+  const comments = await fetch(
+    `${API_BASE_URL}/posts/${id}/comments_with_user`
+  );
+  const postData = await post.json();
+  const postUserData = await postUser.json();
+  const commentsData = await comments.json();
 
-//   return {
-//     props: {
-//       fallback: {
-//         [`${API_BASE_URL}/posts/${id}`]: postData,
-//         [`${API_BASE_URL}/posts/${id}/user`]: postUserData,
-//         [`${API_BASE_URL}/posts/${id}/comments_with_user`]: commentsData,
-//       },
-//     },
-//   };
-// };
+  return {
+    props: {
+      fallback: {
+        [`${API_BASE_URL}/posts/${id}`]: postData,
+        [`${API_BASE_URL}/posts/${id}/user`]: postUserData,
+        [`${API_BASE_URL}/posts/${id}/comments_with_user`]: commentsData,
+      },
+    },
+  };
+};
 
-const PostsId = () =>
-  //   {
-  //   fallback,
-  // }: InferGetServerSidePropsType<typeof getServerSideProps>
-  {
-    const { user } = useAuth0();
-    const currentUser = useAtomValue(currentUserAtom);
-    const router = useRouter();
-    const [opened, modalHandlers] = useDisclosure(false);
+const PostsId = ({
+  fallback,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { user } = useAuth0();
+  const currentUser = useAtomValue(currentUserAtom);
+  const router = useRouter();
+  const [opened, modalHandlers] = useDisclosure(false);
 
-    return (
-      <>
-        {/* <SWRConfig value={{ fallback }}> */}
+  return (
+    <>
+      <SWRConfig value={{ fallback }}>
         <div className="max-w-[900px] mx-auto">
           <PostDetail />
 
@@ -69,9 +67,9 @@ const PostsId = () =>
             </div>
           </Modal>
         </div>
-        {/* </SWRConfig> */}
-      </>
-    );
-  };
+      </SWRConfig>
+    </>
+  );
+};
 
 export default PostsId;

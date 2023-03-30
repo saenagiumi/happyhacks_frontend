@@ -5,7 +5,7 @@ import { useFetch } from "hooks/useFetch";
 import { NextSeo } from "next-seo";
 import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
-// import { TwitterIntentTweet } from "components/TwitterIntentTweet";
+import { TwitterIntentTweet } from "components/TwitterIntentTweet";
 
 export const PostDetail = () => {
   const currentUser = useAtomValue(currentUserAtom);
@@ -42,11 +42,11 @@ export const PostDetail = () => {
           />
         </div>
         <div className="flex justify-center my-5 xs:my-6">
-          {/* <TwitterIntentTweet
+          <TwitterIntentTweet
             text={postData.title}
             url={`https://www.happyhacks.app/posts/${postData.id}`}
             hashtags={["ADHD対策", "HappyHacks"]}
-          /> */}
+          />
         </div>
       </div>
     );
