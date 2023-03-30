@@ -5,9 +5,7 @@ import { API_BASE_URL } from "const/const";
 import { PostWithCommentsCountType } from "../types";
 
 export const PostsOrderByCommentsLength = () => {
-  const { data } = useFetchArray(
-    `${API_BASE_URL}/posts_with_comments_count`
-  );
+  const { data } = useFetchArray(`${API_BASE_URL}/posts_with_comments_count`);
 
   // postに紐づいたcommentsの件数で降順ソート
   const sortedData = data
@@ -22,7 +20,7 @@ export const PostsOrderByCommentsLength = () => {
             key={post.id}
             className="border-0 border-b-[0.5px] border-gray-200 border-solid"
           >
-            <Link href={`/posts/${post.id}`} className="no-underline pb-1.5" prefetch={false}>
+            <Link href={`/posts/${post.id}`} className="no-underline pb-1.5">
               <div className="px-1.5 xs:hover:bg-slate-100">
                 <Post
                   id={post.id.toString()}

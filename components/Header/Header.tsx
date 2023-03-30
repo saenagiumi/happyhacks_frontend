@@ -17,7 +17,7 @@ const montserrat = Montserrat_Alternates({
 });
 
 export const Header = () => {
-  const { loginWithRedirect, logout } = useAuth0();
+  const { loginWithRedirect, logout, isLoading, user } = useAuth0();
   const currentUser = useAtomValue(currentUserAtom);
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -49,7 +49,7 @@ export const Header = () => {
         </h1>
       </Link>
 
-      {currentUser.name === "" && (
+      {!isLoading && user === undefined && (
         <ul className="flex items-center">
           <li className="mr-1">
             <Button
@@ -81,7 +81,7 @@ export const Header = () => {
         </ul>
       )}
 
-      {currentUser.name !== "" && (
+      {user && (
         <ul className="flex items-center">
           {/* <li className="flex text-gray-400 mr-3">
             <MdNotificationsNone size={22} />
