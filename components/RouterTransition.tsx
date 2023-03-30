@@ -6,9 +6,19 @@ export function RouterTransition() {
   const router = useRouter();
 
   useEffect(() => {
-    const handleStart = (url: string) =>
-      url !== router.asPath && nprogress.start();
-    const handleComplete = () => nprogress.complete();
+    let timer: ReturnType<typeof setTimeout>;
+
+    const handleStart = (url: string) => {
+      if (url !== router.asPath) {
+        timer && clearTimeout(timer);
+        nprogress.complete();
+        nprogress.start();
+      }
+    };
+
+    const handleComplete = () => {
+      timer = setTimeout(() => nprogress.complete(), 200);
+    };
 
     router.events.on("routeChangeStart", handleStart);
     router.events.on("routeChangeComplete", handleComplete);
