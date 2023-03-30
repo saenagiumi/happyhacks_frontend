@@ -30,13 +30,15 @@ export const ActiveTab = memo(() => {
               <div className="flex-col sm:w-[50%] flex justify-center items-center">
                 <div className="flex-col justify-center items-center">
                   <h1 className="font-sans inline-block font-[400] text-[7.3vw] xs:text-[2.1rem] md:text-[2.5rem] text-center leading-tight mb-5">
-                    <span className="inline-block font-sans">環境調整でハックする</span>
-                    <span className="inline-block font-sans">ADHDの日常生活</span>
+                    <span className="inline-block font-sans">
+                      環境調整でハックする
+                    </span>
+                    <span className="inline-block font-sans">
+                      ADHDの日常生活
+                    </span>
                   </h1>
 
-                  <div>
-                    <AboutButton />
-                  </div>
+                  <AboutButton />
                 </div>
               </div>
               <div className="sm:w-[50%] mb-[-50px] xs:mb-0">
