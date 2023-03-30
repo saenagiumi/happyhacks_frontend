@@ -18,7 +18,7 @@ a {
 
 @keyframes barstart {
   from {
-    width: 0%;
+    width: 35%;
   }
   to {
     width: 80%;
