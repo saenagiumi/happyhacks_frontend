@@ -8,13 +8,14 @@ import AboutButton from "components/AboutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useWindowSize } from "hooks/useWindowSize";
 export const ActiveTab = () => {
-  const { user } = useAuth0();
+  const { user, isLoading } = useAuth0();
   const [width, _] = useWindowSize();
   const router = useRouter();
   const seo = `${
     router.asPath === "/" ? "HappyHacks" : "/recent" ? "新着 | HappyHacks" : ""
   }`;
-  const showHero = !user || (user && width > 767);
+  const showHero =
+    width > 767 || (!isLoading && user === undefined && width < 768);
 
   return (
     <>
