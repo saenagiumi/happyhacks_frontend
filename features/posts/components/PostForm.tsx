@@ -45,7 +45,6 @@ const PostForm = ({ postData, commentData, close }: any) => {
           });
 
           close();
-          router.replace(router.asPath);
         }
         break;
       }

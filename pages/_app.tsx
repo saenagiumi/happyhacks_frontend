@@ -5,12 +5,14 @@ import {
   NotificationsProvider,
   showNotification,
 } from "@mantine/notifications";
+import { NavigationProgress } from "@mantine/nprogress";
 import { Header } from "components/Header/Header";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { MdCheckCircle } from "react-icons/md";
 import Auth from "features/auth/components/Auth";
 import Head from "next/head";
 import { DefaultSeo } from "next-seo";
+import { RouterTransition } from "components/RouterTransition";
 
 export default function App({ Component, pageProps }: AppProps) {
   const redirectUri = `${process.env["NEXT_PUBLIC_BASE_URL"]}`;
@@ -130,6 +132,7 @@ export default function App({ Component, pageProps }: AppProps) {
         >
           <NotificationsProvider position="top-center">
             <Auth>
+              <RouterTransition />
               <Header />
               <Component {...pageProps} />
             </Auth>
