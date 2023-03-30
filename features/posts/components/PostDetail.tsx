@@ -8,7 +8,6 @@ import { currentUserAtom } from "state/currentUser";
 import { TwitterIntentTweet } from "components/TwitterIntentTweet";
 
 export const PostDetail = () => {
-  const currentUser = useAtomValue(currentUserAtom);
   const router = useRouter();
   const { data: postData } = useFetch(
     router.query.id ? `${API_BASE_URL}/posts/${router.query.id}` : null
@@ -29,7 +28,7 @@ export const PostDetail = () => {
         <div>
           <Post
             id={postData.post.id}
-            userId={postData.post.id}
+            userId={postData.post.user_id}
             name={postData.name}
             iconSrc={postData.picture}
             title={postData.post.title}

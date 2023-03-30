@@ -81,7 +81,7 @@ export const Post = ({
           // ログインユーザーのidと参照している投稿のuser_idが一致し、詳細ページの場合にメニューを表示
           <Menu position="bottom-end" offset={5} width={180} shadow="md">
             <Menu.Target>
-              <UnstyledButton>
+              <UnstyledButton className="flex justify-center items-center bg-gray-100 rounded-full p-2 mr-2">
                 <HiOutlineDotsHorizontal className="text-gray-500" size={18} />
               </UnstyledButton>
             </Menu.Target>
