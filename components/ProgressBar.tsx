@@ -13,11 +13,11 @@ export default function ProgessBar() {
     }
 
     router.events.on("routeChangeStart", (e) => {
-      setBar({ d: "5s", n: "barstart" });
+      setBar({ d: "1s", n: "barstart" });
     });
 
     router.events.on("routeChangeComplete", (e) => {
-      setBar({ d: "0.4s", n: "barcomp" });
+      setBar({ d: "0.3s", n: "barcomp" });
     });
   }, [router.asPath]);
 
@@ -30,7 +30,7 @@ export default function ProgessBar() {
       style={{
         height: "2.5px",
         position: "fixed",
-        backgroundColor: "#1366BA",
+        backgroundColor: "#2d63e4",
         borderRadius: "0px 1px 1px 0px",
         animation: bar.d + " 0s normal backwards running " + bar.n,
       }}

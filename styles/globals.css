@@ -7,13 +7,13 @@
     width: 15%;
   }
   to {
-    width: 100%;
+    width: 90%;
   }
 }
 
 @keyframes barcomp {
   from {
-    width: 100%;
+    width: 90%;
   }
   to {
     width: 100%;
