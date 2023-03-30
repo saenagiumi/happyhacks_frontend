@@ -40,6 +40,7 @@ const CommentListByUserId = () => {
     if (isSuccess) {
       setOpened(false);
       showNotification({
+        autoClose: 3000,
         title: "削除完了",
         message: "回答を削除しました",
         color: "green.4",

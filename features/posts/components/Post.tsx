@@ -61,6 +61,7 @@ export const Post = ({
     if (isSuccess) {
       setOpened(false);
       showNotification({
+        autoClose: 3000,
         title: "削除完了",
         message: "投稿を削除しました",
         color: "green.4",

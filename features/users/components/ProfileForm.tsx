@@ -56,6 +56,7 @@ const ProfileForm = () => {
 
     if (isSuccess) {
       showNotification({
+        autoClose: 3000,
         title: "更新完了",
         message: "プロフィールを更新しました",
         color: "green.4",

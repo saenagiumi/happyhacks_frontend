@@ -36,6 +36,7 @@ const RegistrationForm = () => {
 
     if (isSuccess) {
       showNotification({
+        autoClose: 3000,
         title: "登録完了",
         message: "ユーザー登録が完了しました",
         color: "green.4",
