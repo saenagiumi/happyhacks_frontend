@@ -14,26 +14,21 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params?.id;
   const post = await fetch(`${API_BASE_URL}/posts/${id}`);
-  const postUser = await fetch(`${API_BASE_URL}/posts/${id}/user`);
-  const comments = await fetch(
-    `${API_BASE_URL}/posts/${id}/comments_with_user`
-  );
   const postData = await post.json();
-  const postUserData = await postUser.json();
-  const commentsData = await comments.json();
+  const postUserId = postData.user_id;
 
   return {
     props: {
+      postUserId,
       fallback: {
         [`${API_BASE_URL}/posts/${id}`]: postData,
-        [`${API_BASE_URL}/posts/${id}/user`]: postUserData,
-        [`${API_BASE_URL}/posts/${id}/comments_with_user`]: commentsData,
       },
     },
   };
 };
 
 const PostsId = ({
+  postUserId,
   fallback,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { user } = useAuth0();
@@ -46,8 +41,8 @@ const PostsId = ({
       <SWRConfig value={{ fallback }}>
         <div className="max-w-[900px] mx-auto">
           <PostDetail />
-
           <CommentListByPostId
+            postUserId={postUserId}
             currentUser={currentUser}
             postId={router.query.id}
             modalHandlers={modalHandlers}

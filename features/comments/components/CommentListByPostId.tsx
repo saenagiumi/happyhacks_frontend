@@ -11,6 +11,7 @@ import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
 
 type Props = {
+  postUserId: string;
   postId: string | string[] | undefined;
   currentUser: any;
   modalHandlers: {
@@ -23,9 +24,6 @@ type Props = {
 const CommentListByPostId = (props: Props) => {
   const currentUser = useAtomValue(currentUserAtom);
   const { user, isLoading, loginWithPopup } = useAuth0();
-  const { data, isEmpty } = useFetchArray(
-    props.postId ? `${API_BASE_URL}/posts/${props.postId}` : null
-  );
   const { data: commentsData, isEmpty: commentsDataIsEmpty } = useFetchArray(
     props.postId
       ? `${API_BASE_URL}/posts/${props.postId}/comments_with_user`
@@ -61,14 +59,15 @@ const CommentListByPostId = (props: Props) => {
         </div>
       )}
 
-      {user && currentUser.id !== data.user_id && (
+      {user && currentUser.id !== props.postUserId && (
         <CommentFormClickable
           currentUser={props.currentUser}
           modalHandlers={props.modalHandlers}
         />
       )}
 
-      {!commentsDataIsEmpty && (
+
+      {commentsData && commentsData !== undefined && !commentsDataIsEmpty && (
         <h2 className="font-medium text-base text-gray-600 my-1 xs:my-3 ml-2.5">
           {commentsData.length <= 9
             ? toZenkaku(commentsData.length.toString())
@@ -77,7 +76,7 @@ const CommentListByPostId = (props: Props) => {
         </h2>
       )}
 
-      {!commentsDataIsEmpty && (
+      {commentsData && commentsData !== undefined && !commentsDataIsEmpty && (
         <ol className="m-0 p-0">
           {commentsData.map((comment: CommentWithUser) => {
             return (
