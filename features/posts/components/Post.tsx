@@ -52,8 +52,6 @@ export const Post = ({
   });
   const { destroyPost } = useDestroyPost();
   const router = useRouter();
-  const isRootPath: boolean = router.asPath === "/";
-  const isRecentPath: boolean = router.asPath === "/recent";
 
   const handleDelete = async () => {
     const isSuccess = await destroyPost(id);
@@ -77,7 +75,7 @@ export const Post = ({
       <div className="flex justify-between items-center pl-2 text-gray-700 font-bold">
         <div className="xs:tracking-wide xs:text-[1.125rem]">{title}</div>
 
-        {currentUser.id == userId && !isRootPath && !isRecentPath && (
+        {currentUser.id == userId && router.asPath.includes("posts") && (
           // ログインユーザーのidと参照している投稿のuser_idが一致し、詳細ページの場合にメニューを表示
           <Menu position="bottom-end" offset={5} width={180} shadow="md">
             <Menu.Target>
