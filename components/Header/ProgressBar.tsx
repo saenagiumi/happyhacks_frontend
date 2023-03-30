@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 export default function ProgessBar() {  
     const router = useRouter();
+
     useEffect(() => {
       router.events.on("routeChangeStart", e => {
         setBar({d: "1s", n:"barstart"})
@@ -11,6 +12,7 @@ export default function ProgessBar() {
         setBar({d: "0.2s", n:"barcomp"})
       });
     }, []);
+    
     const [bar, setBar] = useState({d: "5s", n:"barstart"});  
     return (
         <div style={{
