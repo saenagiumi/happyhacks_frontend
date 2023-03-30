@@ -5,8 +5,7 @@ import { PostsOrderByCommentsLength } from "features/posts/components/PostsOrder
 import Image from "next/image";
 import { NextSeo } from "next-seo";
 import AboutButton from "components/AboutButton";
-import { memo } from "react";
-export const ActiveTab = memo(() => {
+export const ActiveTab = () => {
   const router = useRouter();
   const seo = `${
     router.asPath === "/" ? "HappyHacks" : "/recent" ? "新着 | HappyHacks" : ""
@@ -97,6 +96,6 @@ export const ActiveTab = memo(() => {
       </div>
     </>
   );
-});
+};
 
 export default ActiveTab;
