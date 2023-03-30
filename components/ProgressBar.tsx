@@ -19,7 +19,7 @@ export default function ProgessBar() {
       style={{
         height: "2.5px",
         position: "fixed",
-        backgroundColor: "#60a5fa",
+        backgroundColor: "#1366BA",
         borderRadius: "0px 1px 1px 0px",
         animation: bar.d + " 0s normal backwards running " + bar.n,
       }}
