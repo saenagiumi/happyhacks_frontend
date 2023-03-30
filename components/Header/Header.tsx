@@ -107,7 +107,7 @@ export const Header = () => {
                 </Link>
                 <Link href="/dashboard/bookmarks" className="no-underline">
                   <Menu.Item className="text-main-black text-[0.9rem] font-[500]">
-                    ブックマークした回答
+                    ブックマーク
                   </Menu.Item>
                 </Link>
                 <Link href="/profile" className="no-underline">
