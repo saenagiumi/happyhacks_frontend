@@ -19,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const onRedirectCallback = (appState: any) => {
     showNotification({
+      autoClose: 3000,
       title: "ログインしました",
       message: "",
       color: "green.4",

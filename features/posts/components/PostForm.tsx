@@ -38,6 +38,7 @@ const PostForm = ({ postData, commentData, close }: any) => {
         const isSuccess = await updatePost(postData.id, inputData);
         if (isSuccess) {
           showNotification({
+            autoClose: 3000,
             title: "編集完了",
             message: "投稿を編集しました",
             color: "green.4",
@@ -52,6 +53,7 @@ const PostForm = ({ postData, commentData, close }: any) => {
         const isSuccess = await updateComment(commentData.id, inputData);
         if (isSuccess) {
           showNotification({
+            autoClose: 3000,
             title: "編集完了",
             message: "回答を編集しました",
             color: "green.4",
@@ -67,6 +69,7 @@ const PostForm = ({ postData, commentData, close }: any) => {
         const isSuccess = await createPost(inputData);
         if (isSuccess) {
           showNotification({
+            autoClose: 3000,
             title: "投稿完了",
             message: "投稿が完了しました",
             color: "green.4",

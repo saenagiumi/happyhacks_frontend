@@ -41,6 +41,7 @@ const CommentForm = (props: Props) => {
 
     if (isSuccess) {
       showNotification({
+        autoClose: 3000,
         title: "投稿完了",
         message: "回答を投稿しました",
         color: "green.4",
