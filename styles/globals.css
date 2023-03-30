@@ -18,16 +18,16 @@ a {
 
 @keyframes barstart {
   from {
-    width: 20%;
+    width: 0%;
   }
   to {
-    width: 80%;
+    width: 100%;
   }
 }
 
 @keyframes barcomp {
   from {
-    width: 80%;
+    width: 100%;
   }
   to {
     width: 100%;
