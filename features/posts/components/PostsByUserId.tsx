@@ -38,8 +38,6 @@ const PostsByUserId = () => {
         color: "green.4",
         icon: <MdCheckCircle size={30} />,
       });
-
-      router.replace(router.asPath);
     }
   };
 
