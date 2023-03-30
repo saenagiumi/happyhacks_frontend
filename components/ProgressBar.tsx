@@ -8,24 +8,18 @@ export default function ProgessBar() {
 
   useEffect(() => {
     if (ref.current) {
-      console.log("着てるよ");
-
       ref.current = false;
       return;
     }
 
     router.events.on("routeChangeStart", (e) => {
-      console.log("おん");
-
       setBar({ d: "1s", n: "barstart" });
     });
 
     router.events.on("routeChangeComplete", (e) => {
-      console.log("おふ");
-
       setBar({ d: "0.2s", n: "barcomp" });
     });
-  }, []);
+  }, [router.asPath]);
 
   if (ref.current) {
     return null;
