@@ -68,7 +68,7 @@ export const Post = ({
       });
     }
 
-    router.replace(router.asPath);
+    router.back();
   };
 
   return (
