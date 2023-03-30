@@ -18,12 +18,12 @@ export const PostDetail = () => {
     return (
       <div className="pl-1.5 pt-3 pr-2">
         <NextSeo
-          title={`${postData.title} | HappyHacks`}
-          description={`${postData.title} | HappyHacks`}
+          title={`${postData.post.title} | HappyHacks`}
+          description={`${postData.post.title} | HappyHacks`}
           openGraph={{
             url: `https://www.happyhacks.app/posts/${postData.id}`,
-            title: `${postData.title} | HappyHacks`,
-            description: `${postData.title} | HappyHacks`,
+            title: `${postData.post.title} | HappyHacks`,
+            description: `${postData.post.title} | HappyHacks`,
           }}
         />
         <div>
