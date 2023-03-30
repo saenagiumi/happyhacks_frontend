@@ -13,11 +13,8 @@ export const PostDetail = () => {
   const { data: postData } = useFetch(
     router.query.id ? `${API_BASE_URL}/posts/${router.query.id}` : null
   );
-  const { data: postUserData } = useFetch(
-    router.query.id ? `${API_BASE_URL}/posts/${router.query.id}/user` : null
-  );
 
-  if (postData && postUserData) {
+  if (postData) {
     return (
       <div className="pl-1.5 pt-3 pr-2">
         <NextSeo
@@ -31,20 +28,20 @@ export const PostDetail = () => {
         />
         <div>
           <Post
-            id={postData.id}
-            userId={postUserData.id}
-            name={postUserData.name}
-            iconSrc={postUserData.picture}
-            title={postData.title}
-            body={postData.body}
-            postedAt={postData.created_at}
+            id={postData.post.id}
+            userId={postData.post.id}
+            name={postData.name}
+            iconSrc={postData.picture}
+            title={postData.post.title}
+            body={postData.post.body}
+            postedAt={postData.post.created_at}
             comments_count={0}
           />
         </div>
         <div className="flex justify-center my-5 xs:my-6">
           <TwitterIntentTweet
-            text={postData.title}
-            url={`https://www.happyhacks.app/posts/${postData.id}`}
+            text={postData.post.title}
+            url={`https://www.happyhacks.app/posts/${postData.post.id}`}
             hashtags={["ADHD対策", "HappyHacks"]}
           />
         </div>

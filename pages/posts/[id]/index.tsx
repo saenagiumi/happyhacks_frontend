@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params?.id;
   const post = await fetch(`${API_BASE_URL}/posts/${id}`);
   const postData = await post.json();
-  const postUserId = postData.user_id;
+  const postUserId = postData.post.user_id;
 
   return {
     props: {
