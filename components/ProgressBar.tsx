@@ -13,7 +13,7 @@ export default function ProgessBar() {
     }
 
     router.events.on("routeChangeStart", (e) => {
-      setBar({ d: "1s", n: "barstart" });
+      setBar({ d: "5s", n: "barstart" });
     });
 
     router.events.on("routeChangeComplete", (e) => {
