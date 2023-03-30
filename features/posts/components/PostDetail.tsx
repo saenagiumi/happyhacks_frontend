@@ -3,8 +3,6 @@ import { API_BASE_URL } from "const/const";
 import { Post } from "./Post";
 import { useFetch } from "hooks/useFetch";
 import { NextSeo } from "next-seo";
-import { useAtomValue } from "jotai";
-import { currentUserAtom } from "state/currentUser";
 import { TwitterIntentTweet } from "components/TwitterIntentTweet";
 
 export const PostDetail = () => {
