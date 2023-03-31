@@ -77,7 +77,7 @@ const PostForm = ({ postData, commentData, close }: any) => {
           });
 
           close();
-          router.push("/recent");
+          router.push(`posts/${isSuccess.id}`);
         }
         break;
       }
