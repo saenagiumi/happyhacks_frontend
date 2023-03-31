@@ -11,26 +11,28 @@ import { currentUserAtom } from "state/currentUser";
 import { SWRConfig } from "swr";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const id = params?.id;
-  const post = await fetch(`${API_BASE_URL}/posts/${id}`);
-  const postData = await post.json();
-  const postUserId = postData.post.user_id;
+// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+//   const id = params?.id;
+//   const post = await fetch(`${API_BASE_URL}/posts/${id}`);
+//   const postData = await post.json();
+//   const postUserId = postData.post.user_id;
 
-  return {
-    props: {
-      postUserId,
-      fallback: {
-        [`${API_BASE_URL}/posts/${id}`]: postData,
-      },
-    },
-  };
-};
+//   return {
+//     props: {
+//       postUserId,
+//       fallback: {
+//         [`${API_BASE_URL}/posts/${id}`]: postData,
+//       },
+//     },
+//   };
+// };
 
 const PostsId = ({
   postUserId,
   fallback,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+}: any
+// : InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
   const { user } = useAuth0();
   const currentUser = useAtomValue(currentUserAtom);
   const router = useRouter();
@@ -38,7 +40,7 @@ const PostsId = ({
 
   return (
     <>
-      <SWRConfig value={{ fallback }}>
+      {/* <SWRConfig value={{ fallback }}> */}
         <div className="max-w-[900px] mx-auto">
           <PostDetail />
           <CommentListByPostId
@@ -62,7 +64,7 @@ const PostsId = ({
             </div>
           </Modal>
         </div>
-      </SWRConfig>
+      {/* </SWRConfig> */}
     </>
   );
 };
