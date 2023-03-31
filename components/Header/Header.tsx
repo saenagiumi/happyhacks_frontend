@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useDisclosure } from "@mantine/hooks";
 import PostForm from "features/posts/components/PostForm";
 import { Montserrat_Alternates } from "@next/font/google";
+import { useWindowSize } from "hooks/useWindowSize";
 
 const montserrat = Montserrat_Alternates({
   weight: "400",
@@ -20,6 +21,7 @@ export const Header = () => {
   const { loginWithRedirect, logout, isLoading, user } = useAuth0();
   const currentUser = useAtomValue(currentUserAtom);
   const [opened, { open, close }] = useDisclosure(false);
+  const [width, _] = useWindowSize();
 
   const handleLogout = () => {
     logout({
@@ -86,7 +88,7 @@ export const Header = () => {
           {/* <li className="flex text-gray-400 mr-3">
             <MdNotificationsNone size={22} />
           </li> */}
-          <li className="mr-3">
+          <li className="mr-1 mt-0.5 xs:mr-3 xs:mt-0">
             <Menu position="bottom-end" offset={12} shadow="xl" width={220}>
               <Menu.Target>
                 <div>
@@ -132,22 +134,24 @@ export const Header = () => {
               </Menu.Dropdown>
             </Menu>
           </li>
-          <li>
-            <UnstyledButton
-              onClick={open}
-              className="flex items-center justify-center w-[32px] h-[31px] text-emerald-50 bg-main-green rounded-[3px]"
-            >
-              <HiOutlinePencilAlt size={18} />
-            </UnstyledButton>
-            <Modal
-              withCloseButton={false}
-              fullScreen
-              opened={opened}
-              onClose={close}
-            >
-              <PostForm close={close} />
-            </Modal>
-          </li>
+          {user && width > 767 && (
+            <li>
+              <UnstyledButton
+                onClick={open}
+                className="flex items-center justify-center w-[33px] h-[32px] text-emerald-50 bg-main-green rounded-full"
+              >
+                <HiOutlinePencilAlt size={16} />
+              </UnstyledButton>
+              <Modal
+                withCloseButton={false}
+                fullScreen
+                opened={opened}
+                onClose={close}
+              >
+                <PostForm close={close} />
+              </Modal>
+            </li>
+          )}
         </ul>
       )}
     </div>
