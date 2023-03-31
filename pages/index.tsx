@@ -45,7 +45,7 @@ export default function Home() {
             <Tabs defaultValue="hacks" color="green.4" radius="xs">
               <div className="top-0 sticky pt-2 bg-white z-10">
                 <Tabs.List>
-                  <Tabs.Tab value="Hacks">
+                  <Tabs.Tab value="hacks">
                     <span className="font-sans xs:text-[1rem] text-gray-700 font-bold">
                       Hacks
                     </span>
