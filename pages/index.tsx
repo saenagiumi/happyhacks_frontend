@@ -35,7 +35,7 @@ export default function Home() {
           {width < 768 && user && (
             <UnstyledButton
               onClick={open}
-              className="flex fixed z-50 bottom-10 right-7 py-[14px] px-[14.5px]
+              className="flex fixed z-50 bottom-5 right-4 py-[14px] px-[14.5px]
             cursor-pointer text-emerald-50 bg-main-green rounded-full"
             >
               <HiOutlinePencilAlt size={24} />
