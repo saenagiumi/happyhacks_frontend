@@ -11,7 +11,7 @@ export function RouterTransition() {
 
     router.events.on('routeChangeStart', handleStart);
     router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleComplete);
+    // router.events.on('routeChangeError', handleComplete);
 
     return () => {
       router.events.off('routeChangeStart', handleStart);
