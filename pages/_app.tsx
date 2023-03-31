@@ -13,6 +13,7 @@ import Auth from "features/auth/components/Auth";
 import Head from "next/head";
 import { DefaultSeo } from "next-seo";
 import ProgessBar from "components/ProgressBar";
+import { RouterTransition } from "components/RouterTransition";
 
 export default function App({ Component, pageProps }: AppProps) {
   const redirectUri = `${process.env["NEXT_PUBLIC_BASE_URL"]}`;
@@ -133,7 +134,8 @@ export default function App({ Component, pageProps }: AppProps) {
         >
           <NotificationsProvider position="top-center">
             <Auth>
-              <ProgessBar />
+              {/* <ProgessBar /> */}
+              <RouterTransition />
               <Header />
               <Component {...pageProps} />
             </Auth>
