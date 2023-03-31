@@ -4,11 +4,13 @@ import { useFetchArray } from "hooks/useFetchArray";
 import { API_BASE_URL } from "const/const";
 import { PostWithCommentsCountType } from "../types";
 
-export const PostsOrderByCreatedSequence = () => {
+export const PostListTrend = () => {
   const { data } = useFetchArray(`${API_BASE_URL}/posts_with_comments_count`);
 
-  // postの作成順で降順ソート
-  const sortedData = data ? [...data].sort((a, b) => b.id - a.id) : [];
+  // postに紐づいたcommentsの件数で降順ソート
+  const sortedData = data
+    ? [...data].sort((a, b) => b.comments_count - a.comments_count)
+    : [];
 
   return (
     <ol className="m-0 p-0">
@@ -18,8 +20,8 @@ export const PostsOrderByCreatedSequence = () => {
             key={post.id}
             className="border-0 border-b-[0.5px] border-gray-200 border-solid"
           >
-            <Link href={`/posts/${post.id}`} className="no-underline">
-              <div className="px-1.5 xs:hover:bg-slate-100 pb-1.5 ">
+            <Link href={`/posts/${post.id}`} className="no-underline pb-1.5">
+              <div className="px-1.5 xs:hover:bg-slate-100">
                 <Post
                   id={post.id.toString()}
                   userId={post.user_id.toString()}
