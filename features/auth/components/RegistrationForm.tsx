@@ -58,13 +58,13 @@ const RegistrationForm = () => {
           <div className="mb-4">
             <TextInput
               classNames={{
-                input: "pl-2.5 text-gray-600 text-[16px]",
-                label: "text-gray-800 font-bold mb-1",
+                input: "pl-3 text-gray-600 text-[16px]",
+                label: "text-gray-800 ml-0.5 text-[14px] font-bold mb-1.5",
               }}
               placeholder=""
               label="ニックネーム (最長12文字)"
               radius="xs"
-              size="sm"
+              size="md"
               {...register("name", { required: true })}
             />
             {errors.name && (
