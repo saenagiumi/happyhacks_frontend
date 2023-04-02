@@ -31,7 +31,7 @@ export const PostDetail = (props: Props) => {
     return (
       <div>
         <div className="pl-1.5 pt-3 pr-2">
-          <NextSeo
+          {/* <NextSeo
             title={`${props.postData.post.title} | HappyHacks`}
             description={`${props.postData.post.title} | HappyHacks`}
             openGraph={{
@@ -39,7 +39,7 @@ export const PostDetail = (props: Props) => {
               title: `${props.postData.post.title} | HappyHacks`,
               description: `${props.postData.post.title} | HappyHacks`,
             }}
-          />
+          /> */}
           <div>
             <Post
               id={props.postData.post.id}
@@ -54,9 +54,9 @@ export const PostDetail = (props: Props) => {
           </div>
           <div className="flex justify-center my-5 xs:my-6">
             <TwitterIntentTweet
-              // text={props.postData.post.title}
+              text={"#ADHD対策"}
+              // hashtags={["ADHD対策"]}
               url={`https://www.happyhacks.app/posts/${props.postData.post.id}`}
-              hashtags={["ADHD対策"]}
             />
           </div>
         </div>
