@@ -17,7 +17,7 @@ export default function ProgessBar() {
     });
 
     router.events.on("routeChangeComplete", (e) => {
-      setBar({ d: "0.3s", n: "barcomp" });
+      setBar({ d: "0.4s", n: "barcomp" });
     });
   }, [router.asPath]);
 
