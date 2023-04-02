@@ -7,25 +7,28 @@ export default function ProgessBar() {
   const router = useRouter();
 
   useEffect(() => {
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+    };
+  }, [router.events]);
+
+  const handleStart = () => {
     if (ref.current) {
       ref.current = false;
       return;
     }
+    setBar({ d: "1s", n: "barstart" });
+  };
 
-    router.events.on("routeChangeStart", (e) => {
-      setBar({ d: "1s", n: "barstart" });
-    });
+  const handleComplete = () => {
+    setBar({ d: "0.4s", n: "barcomp" });
+  };
 
-    router.events.on("routeChangeComplete", (e) => {
-      setBar({ d: "0.4s", n: "barcomp" });
-    });
-  }, [router.asPath]);
-
-  if (ref.current) {
-    return null;
-  }
-
-  return (
+  return !ref.current ? (
     <div
       style={{
         height: "2.5px",
@@ -35,5 +38,7 @@ export default function ProgessBar() {
         animation: bar.d + " 0s normal backwards running " + bar.n,
       }}
     ></div>
+  ) : (
+    <></>
   );
 }
