@@ -39,14 +39,15 @@ const PostsId = ({
     <>
       <NextSeo
         title={`${postData.post.title} | HappyHacks`}
-        description={`${postData.post.title} | HappyHacks`}
+        description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです"
         openGraph={{
           url: `https://www.happyhacks.app/post/${postId}`,
           title: `${postData.post.title} | HappyHacks`,
-          description: `${postData.post.title} | HappyHacks`,
+          description:
+            "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
           images: [
             {
-              url: `https://www.happyhacks.app/api/og?title=${postData.title}`,
+              url: `https://www.happyhacks.app/api/og?title=${postData.post.title}`,
               width: 1200,
               height: 630,
               alt: "Og Image Alt",
