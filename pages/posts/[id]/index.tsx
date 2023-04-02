@@ -11,6 +11,7 @@ import { currentUserAtom } from "state/currentUser";
 import { SWRConfig } from "swr";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
+import { NextSeo } from "next-seo";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const postId = params?.id;
@@ -36,23 +37,23 @@ const PostsId = ({
 
   return (
     <>
-      <Head>
-        <meta
-          property="og:image"
-          key="ogImage"
-          // content={`${baseUrl}/api/ogp?id=${id}`}
-        />
-        <meta
-          name="twitter:card"
-          key="twitterCard"
-          content="summary_large_image"
-        />
-        <meta
-          name="twitter:image"
-          key="twitterImage"
-          // content={`${baseUrl}/api/ogp?id=${id}`}
-        />
-      </Head>
+      <NextSeo
+        title={`${postData.post.title} | HappyHacks`}
+        description={`${postData.post.title} | HappyHacks`}
+        openGraph={{
+          url: `https://www.happyhacks.app/post/${postId}`,
+          title: `${postData.post.title} | HappyHacks`,
+          description: `${postData.post.title} | HappyHacks`,
+          images: [
+            {
+              url: `https://www.happyhacks.app/api/og?title=${postData.title}`,
+              width: 1200,
+              height: 630,
+              alt: "Og Image Alt",
+            },
+          ],
+        }}
+      />
       <div className="max-w-[900px] mx-auto">
         <PostDetail postId={postId} postData={postData} />
         <CommentListByPostId
