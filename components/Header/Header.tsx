@@ -73,6 +73,7 @@ export const Header = () => {
                 loginWithRedirect({
                   authorizationParams: {
                     screen_hint: "signup",
+                    scope: "openid profile offline_access"
                   },
                 })
               }
