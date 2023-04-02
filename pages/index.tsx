@@ -9,6 +9,7 @@ import { useWindowSize } from "hooks/useWindowSize";
 import HeroAria from "components/HeroAria";
 import { useDisclosure } from "@mantine/hooks";
 import PostForm from "features/posts/components/PostForm";
+import { CURRENT_LOCATION_URL } from "const/const";
 
 export default function Home() {
   const { user, isLoading } = useAuth0();
@@ -21,12 +22,12 @@ export default function Home() {
   return (
     <>
       <NextSeo
-        title={"HappyHacks"}
-        description={"HappyHacks"}
+        title="HappyHacks"
+        description="ADHD対策のナレッジを共有 | HappyHacks"
         openGraph={{
-          url: `${router.asPath}`,
-          title: `${"HappyHacks"}`,
-          description: `${"HappyHacks"}`,
+          url: `${CURRENT_LOCATION_URL}`,
+          title: "HappyHacks",
+          description: "ADHD対策のナレッジを共有 | HappyHacks",
         }}
       />
       <div>
