@@ -11,7 +11,7 @@ import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
 
 type Props = {
-  // postUserId: string;
+  postUserId: string;
   postId: string | string[] | undefined;
   currentUser: any;
   modalHandlers: {
@@ -59,12 +59,12 @@ const CommentListByPostId = (props: Props) => {
         </div>
       )}
 
-      {/* {user && currentUser.id !== props.postUserId && ( */}
+      {user && currentUser.id !== props.postUserId && (
         <CommentFormClickable
           currentUser={props.currentUser}
           modalHandlers={props.modalHandlers}
         />
-      {/* // )} */}
+      )}
 
 
       {commentsData && commentsData !== undefined && !commentsDataIsEmpty && (
