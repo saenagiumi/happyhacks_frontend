@@ -57,7 +57,7 @@ export default function handler(req: NextRequest) {
               lineHeight: 1.3,
             }}
           >
-            ✏️ OG Image Examples
+            {/* ✏️ OG Image Examples */}
           </div>
         </div>
       ),
