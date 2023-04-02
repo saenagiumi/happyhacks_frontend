@@ -74,6 +74,7 @@ export default function App({ Component, pageProps }: AppProps) {
         authorizationParams={{
           redirect_uri: redirectUri,
           audience: process.env["NEXT_PUBLIC_AUTH0_AUDIENCE"]!,
+          scope: "openid profile email offline_access"
         }}
         useRefreshTokens={true}
         cacheLocation="localstorage"

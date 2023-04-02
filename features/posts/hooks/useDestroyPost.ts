@@ -35,10 +35,6 @@ export const useDestroyPost = () => {
         throw new Error("Unauthorized");
       }
 
-      if (e.error === "missing_refresh_token") {
-        throw new Error("Missing refresh token");
-      }
-
       let message;
       if (axios.isAxiosError(e) && e.response) {
         console.error(e.response.data.message);
