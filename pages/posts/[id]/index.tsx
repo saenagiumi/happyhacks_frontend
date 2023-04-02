@@ -14,20 +14,20 @@ import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const postId = params?.id;
-  const post = await fetch(`${API_BASE_URL}/posts/${postId}`);
-  const postData = await post.json();
+  // const post = await fetch(`${API_BASE_URL}/posts/${postId}`);
+  // const postData = await post.json();
 
   return {
     props: {
       postId,
-      postData,
+      // postData,
     },
   };
 };
 
 const PostsId = ({
   postId,
-  postData,
+  // postData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { user } = useAuth0();
   const currentUser = useAtomValue(currentUserAtom);
@@ -54,9 +54,9 @@ const PostsId = ({
         />
       </Head>
       <div className="max-w-[900px] mx-auto">
-        <PostDetail postId={postId} postData={postData} />
+        <PostDetail postId={postId} />
         <CommentListByPostId
-          postUserId={postData.post.user_id}
+          // postUserId={postData.post.user_id}
           currentUser={currentUser}
           postId={router.query.id}
           modalHandlers={modalHandlers}
