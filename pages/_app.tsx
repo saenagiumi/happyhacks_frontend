@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
           url: "https://www.happyhacks.app",
           images: [
             {
-              url: `https://www.happyhacks.com/cup.png`,
+              url: `https://www.happyhacks.app/cup.png`,
               width: 800,
               height: 600,
               alt: "Og Image Alt",
