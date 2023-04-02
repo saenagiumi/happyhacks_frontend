@@ -22,12 +22,14 @@ export default function Home() {
   return (
     <>
       <NextSeo
-        title="HappyHacks"
-        description="ADHD対策のナレッジを共有 | HappyHacks"
+        title="ADHD対策のナレッジを共有 | HappyHacks"
+        description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に
+        取り入れるためのサービスです"
         openGraph={{
           url: `${CURRENT_LOCATION_URL}`,
-          title: "HappyHacks",
-          description: "ADHD対策のナレッジを共有 | HappyHacks",
+          title: "ADHD対策のナレッジを共有 | HappyHacks",
+          description:
+            "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
         }}
       />
       <div>
