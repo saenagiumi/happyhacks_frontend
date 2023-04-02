@@ -10,29 +10,25 @@ import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
 import { SWRConfig } from "swr";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 
-// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-//   const id = params?.id;
-//   const post = await fetch(`${API_BASE_URL}/posts/${id}`);
-//   const postData = await post.json();
-//   const postUserId = postData.post.user_id;
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const postId = params?.id;
+  const post = await fetch(`${API_BASE_URL}/posts/${postId}`);
+  const postData = await post.json();
 
-//   return {
-//     props: {
-//       postUserId,
-//       fallback: {
-//         [`${API_BASE_URL}/posts/${id}`]: postData,
-//       },
-//     },
-//   };
-// };
+  return {
+    props: {
+      postId,
+      postData,
+    },
+  };
+};
 
 const PostsId = ({
-  postUserId,
-  fallback,
-}: any
-// : InferGetServerSidePropsType<typeof getServerSideProps>
-) => {
+  postId,
+  postData,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { user } = useAuth0();
   const currentUser = useAtomValue(currentUserAtom);
   const router = useRouter();
@@ -40,31 +36,46 @@ const PostsId = ({
 
   return (
     <>
-      {/* <SWRConfig value={{ fallback }}> */}
-        <div className="max-w-[900px] mx-auto">
-          <PostDetail />
-          <CommentListByPostId
-            postUserId={postUserId}
-            currentUser={currentUser}
-            postId={router.query.id}
-            modalHandlers={modalHandlers}
-          />
-          <Modal
-            withCloseButton={false}
-            fullScreen
-            opened={opened}
-            onClose={() => modalHandlers.close()}
-          >
-            <div className="max-w-screen-sm mx-auto">
-              <CommentForm
-                userId={user?.sub}
-                postId={router.query.id}
-                modalHandlers={modalHandlers}
-              />
-            </div>
-          </Modal>
-        </div>
-      {/* </SWRConfig> */}
+      <Head>
+        <meta
+          property="og:image"
+          key="ogImage"
+          // content={`${baseUrl}/api/ogp?id=${id}`}
+        />
+        <meta
+          name="twitter:card"
+          key="twitterCard"
+          content="summary_large_image"
+        />
+        <meta
+          name="twitter:image"
+          key="twitterImage"
+          // content={`${baseUrl}/api/ogp?id=${id}`}
+        />
+      </Head>
+      <div className="max-w-[900px] mx-auto">
+        <PostDetail postId={postId} postData={postData} />
+        <CommentListByPostId
+          postUserId={postData.post.user_id}
+          currentUser={currentUser}
+          postId={router.query.id}
+          modalHandlers={modalHandlers}
+        />
+        <Modal
+          withCloseButton={false}
+          fullScreen
+          opened={opened}
+          onClose={() => modalHandlers.close()}
+        >
+          <div className="max-w-screen-sm mx-auto">
+            <CommentForm
+              userId={user?.sub}
+              postId={router.query.id}
+              modalHandlers={modalHandlers}
+            />
+          </div>
+        </Modal>
+      </div>
     </>
   );
 };
