@@ -47,7 +47,7 @@ export const TwitterIntentTweet = forwardRef<
           alt="twitterのロゴ"
           priority={true}
         />
-        アイデアを募集する
+        回答を募集する
       </a>
     );
   }
