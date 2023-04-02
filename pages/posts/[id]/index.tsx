@@ -38,21 +38,27 @@ const PostsId = ({
   return (
     <>
       <NextSeo
-        title={`${postData.post.title} | HappyHacks`}
+        title="ADHD対策のナレッジ共有 | HappyHacks"
         description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです"
         openGraph={{
-          url: `https://www.happyhacks.app/post/${postId}`,
-          title: `${postData.post.title} | HappyHacks`,
+          type: "website",
+          title: `ADHD対策のナレッジ共有 | HappyHacks`,
           description:
             "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
+          site_name: "HappyHacks",
+          url: `https://www.happyhacks.app/post/${postId}`,
           images: [
             {
               url: `https://www.happyhacks.app/api/og?title=${postData.post.title}`,
               width: 1200,
               height: 630,
-              alt: "Og Image Alt",
             },
           ],
+        }}
+        twitter={{
+          handle: "@handle",
+          site: "@site",
+          cardType: "summary_large_image",
         }}
       />
       <div className="max-w-[900px] mx-auto">
