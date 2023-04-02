@@ -45,18 +45,18 @@ export default function Home() {
             <Tabs defaultValue="hacks" color="green.4" radius="xs">
               <div className="top-0 sticky pt-2 bg-white z-10">
                 <Tabs.List>
-                  <Tabs.Tab value="hacks">
-                    <span className="font-sans xs:text-[1rem] text-gray-700 font-bold">
+                  <Tabs.Tab value="hacks" className="text-[16px] pb-3 pl-5">
+                    <span className="font-sans xs:text-[1rem] text-main-black tracking-wide font-[600]">
                       Hacks
                     </span>
                   </Tabs.Tab>
-                  <Tabs.Tab value="trend">
-                    <span className="font-sans xs:text-[1rem] text-gray-700 font-bold">
+                  <Tabs.Tab value="trend" className="text-[16px] pb-3">
+                    <span className="font-sans xs:text-[1rem] text-main-black font-bold">
                       トレンド
                     </span>
                   </Tabs.Tab>
-                  <Tabs.Tab value="unanswered">
-                    <span className="font-sans xs:text-[1rem] text-gray-700 font-bold">
+                  <Tabs.Tab value="unanswered" className="text-[16px] pb-3">
+                    <span className="font-sans xs:text-[1rem] text-main-black font-bold">
                       未回答
                     </span>
                   </Tabs.Tab>

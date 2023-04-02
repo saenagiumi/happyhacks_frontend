@@ -4,16 +4,16 @@
 
 @keyframes barstart {
   from {
-    width: 15%;
+    width: 5%;
   }
   to {
-    width: 90%;
+    width: 100%;
   }
 }
 
 @keyframes barcomp {
   from {
-    width: 90%;
+    width: 100%;
   }
   to {
     width: 100%;
