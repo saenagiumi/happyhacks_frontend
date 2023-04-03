@@ -17,18 +17,23 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const postId = params?.id;
   const post = await fetch(`${API_BASE_URL}/posts/${postId}`);
   const postData = await post.json();
+  const postUserId = postData.post.user_id;
 
   return {
     props: {
-      postId,
+      postUserId,
       postData,
+      fallback: {
+        [`${API_BASE_URL}/posts/${postId}`]: postData,
+      },
     },
   };
 };
 
 const PostsId = ({
-  postId,
+  postUserId,
   postData,
+  fallback,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { user } = useAuth0();
   const currentUser = useAtomValue(currentUserAtom);
@@ -37,53 +42,55 @@ const PostsId = ({
 
   return (
     <>
-      <NextSeo
-        title="HappyHacks"
-        description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです"
-        openGraph={{
-          type: "website",
-          title: `ADHD対策のナレッジを共有 | HappyHacks`,
-          description:
-            "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
-          site_name: "HappyHacks",
-          url: `https://www.happyhacks.app/post/${postId}`,
-          images: [
-            {
-              url: `https://www.happyhacks.app/api/og?title=${postData.post.title}`,
-              width: 1200,
-              height: 630,
-            },
-          ],
-        }}
-        twitter={{
-          handle: "@handle",
-          site: "@site",
-          cardType: "summary_large_image",
-        }}
-      />
-      <div className="max-w-[900px] mx-auto">
-        <PostDetail postId={postId} postData={postData} />
-        <CommentListByPostId
-          postUserId={postData.post.user_id}
-          currentUser={currentUser}
-          postId={router.query.id}
-          modalHandlers={modalHandlers}
+      <SWRConfig value={{ fallback }}>
+        <NextSeo
+          title="HappyHacks"
+          description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです"
+          openGraph={{
+            type: "website",
+            title: `ADHD対策のナレッジを共有 | HappyHacks`,
+            description:
+              "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
+            site_name: "HappyHacks",
+            url: `https://www.happyhacks.app/post/${postData.post.id}`,
+            images: [
+              {
+                url: `https://www.happyhacks.app/api/og?title=${postData.post.title}`,
+                width: 1200,
+                height: 630,
+              },
+            ],
+          }}
+          twitter={{
+            handle: "@handle",
+            site: "@site",
+            cardType: "summary_large_image",
+          }}
         />
-        <Modal
-          withCloseButton={false}
-          fullScreen
-          opened={opened}
-          onClose={() => modalHandlers.close()}
-        >
-          <div className="max-w-screen-sm mx-auto">
-            <CommentForm
-              userId={user?.sub}
-              postId={router.query.id}
-              modalHandlers={modalHandlers}
-            />
-          </div>
-        </Modal>
-      </div>
+        <div className="max-w-[900px] mx-auto">
+          <PostDetail />
+          <CommentListByPostId
+            postUserId={postUserId}
+            currentUser={currentUser}
+            postId={router.query.id}
+            modalHandlers={modalHandlers}
+          />
+          <Modal
+            withCloseButton={false}
+            fullScreen
+            opened={opened}
+            onClose={() => modalHandlers.close()}
+          >
+            <div className="max-w-screen-sm mx-auto">
+              <CommentForm
+                userId={user?.sub}
+                postId={router.query.id}
+                modalHandlers={modalHandlers}
+              />
+            </div>
+          </Modal>
+        </div>
+      </SWRConfig>
     </>
   );
 };
