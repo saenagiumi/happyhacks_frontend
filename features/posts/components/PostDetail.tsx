@@ -44,7 +44,7 @@ export const PostDetail = (props: Props) => {
           </div>
           <div className="flex justify-center my-5 xs:my-6">
             <TwitterIntentTweet
-              text={"\n\n#ADHD対策"}
+              // text={"\n\n#ADHD対策"}
               url={`https://www.happyhacks.app/posts/${props.postData.post.id}`}
             />
           </div>
