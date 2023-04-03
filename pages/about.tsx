@@ -124,8 +124,12 @@ const AboutPage = () => {
               <p className="mt-6">
                 現在は最低限の機能しか提供していませんが、利用者からの要望を随時受け付けており、新しい機能の開発にも取り組んでいきます。以下のアンケートフォームからのご意見をお待ちしています。
               </p>
-              <div className="mt-5">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScwDydKCzK9mBGLMCPpA3VyOx8-3yApIfIoaoFh67wGikBrTQ/viewform">
+              <div className="my-5">
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScwDydKCzK9mBGLMCPpA3VyOx8-3yApIfIoaoFh67wGikBrTQ/viewform"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   アンケートフォーム
                 </a>
               </div>
