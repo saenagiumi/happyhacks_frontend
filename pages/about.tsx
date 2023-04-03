@@ -7,16 +7,11 @@ const AboutPage = () => {
     <>
       <NextSeo
         title={`HappyHacksについて | HappyHacks`}
-        description={`HappyHacksについて | HappyHacks`}
+        description={`HappyHacksは、大人のADHDや、グレーゾーンと呼ばれる方々が生活環境を工夫するアイデアを共有して、ユーザー同士がQOLを高め合うことを主な目的としたサービスですが、症状の程度や診断の有無を問わず、「ADHD」をきっかけにした困りごとを抱えている方であれば、どなたでもご活用いただけます。`}
         openGraph={{
           url: `https://www.happyhacks.app/about`,
           title: `HappyHacksについて | HappyHacks`,
-          description: `HappyHacksについて | HappyHacks`,
-          images: [
-            {
-              url: "https://www.example.ie/og-image-01.jpg",
-            },
-          ],
+          description: `HappyHacksは、大人のADHDや、グレーゾーンと呼ばれる方々が生活環境を工夫するアイデアを共有して、ユーザー同士がQOLを高め合うことを主な目的としたサービスですが、症状の程度や診断の有無を問わず、「ADHD」をきっかけにした困りごとを抱えている方であれば、どなたでもご活用いただけます。`,
         }}
       />
 
