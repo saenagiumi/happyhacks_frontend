@@ -15,7 +15,7 @@ export const TwitterIntentTweet = forwardRef<
   TwitterIntentTweetProps
 >(
   (
-    { text, url, hashtags, via, related, in_reply_to, ...intrinsicProps },
+    { text, hashtags, url, via, related, in_reply_to, ...intrinsicProps },
     forwardedRef
   ) => {
     const _url = new URL("https://twitter.com/intent/tweet");
