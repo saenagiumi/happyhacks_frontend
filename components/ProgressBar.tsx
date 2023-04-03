@@ -29,6 +29,7 @@ export default function ProgessBar() {
     <div
       style={{
         height: "2.5px",
+        zIndex: "100",
         position: "fixed",
         backgroundColor: "#2d63e4",
         borderRadius: "0px 1px 1px 0px",
