@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }: AppProps) {
         description="ADHDの日常生活の困難を環境調整でハックする"
         openGraph={{
           type: "website",
-          title: "ADHD対策のナレッジ共有",
+          title: "ADHD対策のナレッジを共有",
           description: "ADHDの日常生活の困難を環境調整でハックする",
           site_name: "HappyHacks",
           url: "https://www.happyhacks.app",
