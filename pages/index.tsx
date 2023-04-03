@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       <NextSeo
-        title="ADHD対策のナレッジを共有 | HappyHacks"
+        title="HappyHacks"
         description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に
         取り入れるためのサービスです"
         openGraph={{
