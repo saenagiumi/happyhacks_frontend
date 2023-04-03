@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { API_BASE_URL } from "const/const";
 import { Post } from "./Post";
 import { useFetch } from "hooks/useFetch";
-import { NextSeo } from "next-seo";
 import { TwitterIntentTweet } from "components/TwitterIntentTweet";
 
 type Props = {
@@ -31,15 +30,6 @@ export const PostDetail = (props: Props) => {
     return (
       <div>
         <div className="pl-1.5 pt-3 pr-2">
-          {/* <NextSeo
-            title={`${props.postData.post.title} | HappyHacks`}
-            description={`${props.postData.post.title} | HappyHacks`}
-            openGraph={{
-              url: `https://www.happyhacks.app/posts/${props.postId}`,
-              title: `${props.postData.post.title} | HappyHacks`,
-              description: `${props.postData.post.title} | HappyHacks`,
-            }}
-          /> */}
           <div>
             <Post
               id={props.postData.post.id}
@@ -54,8 +44,7 @@ export const PostDetail = (props: Props) => {
           </div>
           <div className="flex justify-center my-5 xs:my-6">
             <TwitterIntentTweet
-              text={"#ADHD対策"}
-              // hashtags={["ADHD対策"]}
+              text={"\n\n#ADHD対策"}
               url={`https://www.happyhacks.app/posts/${props.postData.post.id}`}
             />
           </div>
