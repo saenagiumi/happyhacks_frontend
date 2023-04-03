@@ -38,11 +38,11 @@ const PostsId = ({
   return (
     <>
       <NextSeo
-        title="ADHD対策のナレッジ共有 | HappyHacks"
+        title="ADHD対策のナレッジを共有 | HappyHacks"
         description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです"
         openGraph={{
           type: "website",
-          title: `ADHD対策のナレッジ共有 | HappyHacks`,
+          title: `ADHD対策のナレッジを共有 | HappyHacks`,
           description:
             "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
           site_name: "HappyHacks",
