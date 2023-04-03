@@ -50,19 +50,19 @@ export default function Home() {
                 <Tabs.List>
                   <Tabs.Tab value="hacks" className="text-[16px] pb-3 pl-5">
                     <span className="font-sans xs:text-[1.0rem] text-gray-700 font-[700]">
-                      Hacks
+                      対策
                     </span>
                   </Tabs.Tab>
                   <Tabs.Tab value="trend" className="text-[16px] pb-3">
                     <span className="font-sans xs:text-[1rem] text-gray-700 font-bold">
-                      トレンド
+                      質問
                     </span>
                   </Tabs.Tab>
-                  <Tabs.Tab value="unanswered" className="text-[16px] pb-3">
+                  {/* <Tabs.Tab value="unanswered" className="text-[16px] pb-3">
                     <span className="font-sans xs:text-[1rem] text-gray-700 font-bold">
                       未回答
                     </span>
-                  </Tabs.Tab>
+                  </Tabs.Tab> */}
                 </Tabs.List>
               </div>
 
