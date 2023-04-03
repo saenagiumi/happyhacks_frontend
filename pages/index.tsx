@@ -9,7 +9,7 @@ import { useWindowSize } from "hooks/useWindowSize";
 import HeroAria from "components/HeroAria";
 import { useDisclosure } from "@mantine/hooks";
 import PostForm from "features/posts/components/PostForm";
-import HackList from "features/hacks/components/HackList";
+// import HackList from "features/hacks/components/HackList";
 import { useState } from "react";
 
 export default function Home() {
