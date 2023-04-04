@@ -61,7 +61,7 @@ export const Comment = (props: Props) => {
 
   return (
     <div
-      className="border-0 border-t-[0px] mb-3 xs:mb-5 mx-1.5 border-li-separator-gray border-solid text-main-black"
+      className="border-0 border-t-[0px] mb-3 xs:mb-5 border-li-separator-gray border-solid text-main-black"
       id={`comments/${props.id}`}
     >
       <div>
@@ -70,7 +70,7 @@ export const Comment = (props: Props) => {
             isBookmarked ? "bg-amber-100 pb-1 mb-2 xs:p-7" : "pb-1 mb-2 xs:p-7"
           }
         >
-          <Group className="pl-3.5 pt-3 pr-1.5" position="apart">
+          <Group className="pl-3 pt-4 pr-1.5" position="apart">
             <Group spacing="xs">
               <Avatar src={props.iconSrc} radius={50} size={38} />
               <Text className="pt-0.5" size="sm">
@@ -102,12 +102,12 @@ export const Comment = (props: Props) => {
           </Group>
 
           <div className="ml-12">
-            <div className="px-3.5 pt-1 xs:text-[1.125rem] text-gray-700 font-bold leading-7 xs:tracking-wide">
+            <div className="pl-2.5 pt-1 pr-3.5 text-[14px] xs:text-[1.125rem] text-main-black font-bold leading-6 tracking-wide">
               {props.title}
             </div>
 
             <div>
-              <div className="w-full mt-2 mb-5 pl-3 pr-2.5 break-all text-[1rem] xs:text-[1.125rem] leading-7 xs:leading-8 text-gray-600">
+              <div className="w-full pl-2.5 mt-2 pr-3.5 pb-5 break-all text-[14px] xs:text-[1.125rem] leading-7 tracking-wide xs:leading-8 text-main-black">
                 {props.body}
               </div>
             </div>
