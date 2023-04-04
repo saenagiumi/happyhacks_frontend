@@ -4,22 +4,6 @@ import { Post } from "./Post";
 import { useFetch } from "hooks/useFetch";
 import { TwitterIntentTweet } from "components/TwitterIntentTweet";
 
-type Props = {
-  // postId: string;
-  // postData: {
-  //   post: {
-  //     id: string;
-  //     title: string;
-  //     body: string;
-  //     user_id: string;
-  //     created_at: string;
-  //     updated_at: string;
-  //   };
-  //   name: string;
-  //   picture: string;
-  // };
-};
-
 export const PostDetail = () => {
   const router = useRouter();
   const { data: postData } = useFetch(

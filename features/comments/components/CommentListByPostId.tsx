@@ -5,7 +5,7 @@ import { toZenkaku } from "utils/toZenkaku";
 import { mutate } from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Skeleton } from "@mantine/core";
-import CommentFormClickable from "./CommentFormButton";
+import CommentFormButton from "./CommentFormButton";
 import { CommentWithUser } from "../types";
 import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
@@ -59,8 +59,8 @@ const CommentListByPostId = (props: Props) => {
         </div>
       )}
 
-      {user && currentUser.id !== props.postUserId && (
-        <CommentFormClickable
+      {user && currentUser.id.toString() !== props.postUserId && (
+        <CommentFormButton
           currentUser={props.currentUser}
           modalHandlers={props.modalHandlers}
         />
