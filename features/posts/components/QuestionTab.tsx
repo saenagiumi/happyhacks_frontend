@@ -26,7 +26,7 @@ export const QuestionTabPanel = () => {
                 <Tabs.Tab
                   key={item.value}
                   value={item.value}
-                  className="w-[5.5rem] h-[2.2rem] mr-[-4px] xs:mr-2"
+                  className="w-[5.5rem] h-[2.2rem] mr-[-6px] xs:mr-2"
                 >
                   <span
                     className={`flex items-center font-sans text-[14px] xs:text-[15px] ${
