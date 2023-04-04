@@ -17,6 +17,7 @@ export default function Home() {
   const [width, _] = useWindowSize();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<string | null>("trend");
+  const [activeTabParent, setActiveTabParent] = useState<string | null>("hacks");
   const [opened, { open, close }] = useDisclosure(false);
   const showHero =
     width > 767 || (!isLoading && user === undefined && width < 768);
@@ -47,16 +48,17 @@ export default function Home() {
             </UnstyledButton>
           )}
           <div className="max-w-[900px] mx-auto">
-            <Tabs defaultValue="hacks" color="green.4" radius="xs">
-              <div className="top-0 sticky pt-2 bg-white z-10">
-                <Tabs.List>
-                  <Tabs.Tab value="hacks" className="text-[16px] pb-2 pl-5">
-                    <span className="font-sans xs:text-[1rem] text-gray-700 font-[700]">
-                      対策
+            <Tabs value={activeTabParent} onTabChange={setActiveTabParent} color="green.4" radius="xs">
+              {/* <div className="top-0 sticky pt-1 bg-white z-10"> */}
+              <div>
+                <Tabs.List className="pt-1">
+                  <Tabs.Tab value="hacks" className="text-[15px] pb-2 pl-4">
+                    <span className={`font-sans ${activeTabParent !== "hacks" ? "text-gray-400" : "text-gray-700"} font-[700]`}>
+                      Hacks
                     </span>
                   </Tabs.Tab>
-                  <Tabs.Tab value="question" className="text-[16px] pb-2">
-                    <span className="font-sans xs:text-[1rem] text-gray-700 font-bold">
+                  <Tabs.Tab value="question" className="text-[15px] pb-2">
+                    <span className={`font-sans ${activeTabParent !== "question" ? "text-gray-400" : "text-gray-700"} font-[700]`}>
                       質問
                     </span>
                   </Tabs.Tab>
@@ -73,29 +75,29 @@ export default function Home() {
                   color="green.4"
                   radius="xl"
                 >
-                  <div className="top-11 pt-2 sticky xs:pt-4 bg-white z-10">
-                    <Tabs.List pl="xs" pb="xs">
-                      <Tabs.Tab value="trend" className="w-[5.5rem] h-[2rem]">
+                  <div className="top-0 sticky bg-white z-10 flex items-center">
+                    <Tabs.List pl="xs" py={8}>
+                      <Tabs.Tab value="trend" className="w-[5rem] h-[1.8rem]">
                         <span
-                          className={`flex items-center font-sans text-[0.875rem] ${
+                          className={`flex items-center font-sans text-[12px] ${
                             activeTab !== "trend"
-                              ? "text-gray-700"
+                              ? "text-gray-400"
                               : "text-white"
-                          } font-[700]`}
+                          } font-[600]`}
                         >
                           トレンド
                         </span>
                       </Tabs.Tab>
                       <Tabs.Tab
                         value="unanswered"
-                        className="w-[5.5rem] h-[2rem]"
+                        className="w-[5rem] h-[1.7rem]"
                       >
                         <span
-                          className={`flex items-center font-sans text-[0.875rem] ${
+                          className={`flex items-center font-sans text-[12px] ${
                             activeTab !== "unanswered"
-                              ? "text-gray-700"
+                              ? "text-gray-400"
                               : "text-white"
-                          } font-[700]`}
+                          } font-[600]`}
                         >
                           未回答
                         </span>
