@@ -18,9 +18,12 @@ const PostTabIndex = () => {
         color="green.4"
         radius="xs"
       >
-        <Tabs.List className="pt-1">
+        <Tabs.List className="pt-1 xs:pt-2.5">
           {TAB_ITEMS.map((item) => (
-            <Tabs.Tab value={item.value} className="text-[15px] pb-2 pl-4">
+            <Tabs.Tab
+              value={item.value}
+              className="text-[15px] xs:text-[17px] pb-2 pl-4 xs:pl-5"
+            >
               <span
                 className={`font-sans ${
                   activeTab !== item.value ? "text-gray-400" : "text-gray-700"
