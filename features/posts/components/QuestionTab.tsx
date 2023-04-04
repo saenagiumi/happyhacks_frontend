@@ -21,15 +21,15 @@ export const QuestionTabPanel = () => {
           radius="xl"
         >
           <div className="top-0 sticky bg-white z-10 flex items-center">
-            <Tabs.List className="py-2 xs:py-3 pl-1 xs:pl-5">
+            <Tabs.List className="my-3.5 xs:my-0 xs:py-5 pl-4 xs:pl-5">
               {TAB_ITEMS.map((item) => (
                 <div>
                   <Tabs.Tab
                     value={item.value}
-                    className="w-[5rem] xs:w-[5.5rem] h-[1.8rem] xs:h-[2.2rem] xs:mr-2"
+                    className="w-[5.5rem] h-[2.2rem] xs:mr-2"
                   >
                     <span
-                      className={`flex items-center font-sans text-[12px] xs:text-[15px] ${
+                      className={`flex items-center font-sans text-[14px] xs:text-[15px] ${
                         activeTab !== item.value
                           ? "text-gray-400"
                           : "text-white"
