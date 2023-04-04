@@ -71,7 +71,7 @@ export const Post = ({
   };
 
   return (
-    <div className="pt-5 pb-1 xs:p-5 xs:pt-7">
+    <div className="pt-3.5 pb-2 xs:p-5 xs:pt-7">
       <div className="flex justify-between items-center pl-2 text-gray-700 font-bold">
         <div className="xs:tracking-wide xs:text-[1.125rem]">{title}</div>
 
@@ -149,7 +149,7 @@ export const Post = ({
         </div>
       </Modal>
 
-      <div className="px-2 pt-3 pb-2.5">
+      <div className="px-2 pt-1.5 pb-1">
         <div className="w-full break-all xs:text-[1.125rem] leading-7 xs:leading-8 text-gray-600 xs:tracking-wide">
           {body}
         </div>
@@ -165,8 +165,8 @@ export const Post = ({
           {comments_count && (
             // コメントがあればアイコンと件数を表示
             <div className=" text-gray-500 flex items-center">
-              <HiOutlineChatBubbleOvalLeft className="mr-0.5" />
-              <div className="mt-0.5">{comments_count}</div>
+              <HiOutlineChatBubbleOvalLeft className="mr-1" />
+              <div>{comments_count}</div>
             </div>
           )}
         </Group>

@@ -20,8 +20,8 @@ export const QuestionTabPanel = () => {
           color="green.4"
           radius="xl"
         >
-          <div className="top-0 sticky bg-white z-10 flex items-center">
-            <Tabs.List className="my-3.5 xs:my-0 xs:py-5 pl-4 xs:pl-5">
+          <div className="top-0 sticky bg-white z-10 flex items-center border-0 border-b-[0.5px] border-gray-200 border-solid">
+            <Tabs.List className="my-2 xs:my-0 xs:py-4 pl-4 xs:pl-5">
               {TAB_ITEMS.map((item) => (
                 <Tabs.Tab
                   key={item.value}
