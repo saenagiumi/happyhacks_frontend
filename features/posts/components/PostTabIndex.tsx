@@ -21,6 +21,7 @@ const PostTabIndex = () => {
         <Tabs.List className="pt-1 xs:pt-2.5">
           {TAB_ITEMS.map((item) => (
             <Tabs.Tab
+              key={item.value}
               value={item.value}
               className="text-[16px] xs:text-[17px] pb-3 px-5 xs:pl-5"
             >

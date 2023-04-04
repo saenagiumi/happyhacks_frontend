@@ -27,30 +27,31 @@ export const HacksTabPanel = () => {
             <div className="top-0 sticky bg-white z-10 flex items-center w-[700px] xs:w-full">
               <Tabs.List className="my-3.5 xs:my-0 xs:py-5 pl-4 xs:pl-5">
                 {TAB_ITEMS.map((item) => (
-                  <div>
-                    <Tabs.Tab
-                      value={item.value}
-                      className="w-[5.5rem] h-[2.2rem] xs:mr-2"
+                  <Tabs.Tab
+                    key={item.value}
+                    value={item.value}
+                    className="w-[5.5rem] h-[2.2rem] xs:mr-2"
+                  >
+                    <span
+                      className={`flex items-center font-sans text-[14px] xs:text-[15px] ${
+                        activeTab !== item.value
+                          ? "text-gray-400"
+                          : "text-white"
+                      } font-[600]`}
                     >
-                      <span
-                        className={`flex items-center font-sans text-[14px] xs:text-[15px] ${
-                          activeTab !== item.value
-                            ? "text-gray-400"
-                            : "text-white"
-                        } font-[600]`}
-                      >
-                        {item.label}
-                      </span>
-                    </Tabs.Tab>
-                  </div>
+                      {item.label}
+                    </span>
+                  </Tabs.Tab>
                 ))}
               </Tabs.List>
             </div>
           </ScrollArea>
 
           <>
-            {TAB_ITEMS.map((item) => (
-              <Tabs.Panel value={item.value}>{item.label}</Tabs.Panel>
+            {TAB_ITEMS.map((item, index) => (
+              <Tabs.Panel key={index} value={item.value}>
+                {item.label}
+              </Tabs.Panel>
             ))}
           </>
         </Tabs>
