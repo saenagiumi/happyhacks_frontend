@@ -38,11 +38,12 @@ type Props = {
 
 export const Comment = (props: Props) => {
   const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
-  const { isLiked, likesCount, toggleLike, commentLikesIsloading } = useToggleLike({
-    postId: props.post_id,
-    commentId: props.id.toString(),
-    userId: currentUser.id,
-  });
+  const { isLiked, likesCount, toggleLike, commentLikesIsloading } =
+    useToggleLike({
+      postId: props.post_id,
+      commentId: props.id.toString(),
+      userId: currentUser.id,
+    });
   const { isBookmarked, commentBookmarksIsLoading, toggleBookmark } =
     useToggleBookmark({
       postId: props.post_id,
@@ -100,13 +101,15 @@ export const Comment = (props: Props) => {
             </div>
           </Group>
 
-          <div className="px-3.5 pt-1 xs:text-[1.125rem] text-gray-700 font-bold leading-7 xs:tracking-wide">
-            {props.title}
-          </div>
+          <div className="ml-12">
+            <div className="px-3.5 pt-1 xs:text-[1.125rem] text-gray-700 font-bold leading-7 xs:tracking-wide">
+              {props.title}
+            </div>
 
-          <div>
-            <div className="w-full mt-2 mb-5 pl-3 pr-2.5 break-all text-[1rem] xs:text-[1.125rem] leading-7 xs:leading-8 text-gray-600">
-              {props.body}
+            <div>
+              <div className="w-full mt-2 mb-5 pl-3 pr-2.5 break-all text-[1rem] xs:text-[1.125rem] leading-7 xs:leading-8 text-gray-600">
+                {props.body}
+              </div>
             </div>
           </div>
         </div>
