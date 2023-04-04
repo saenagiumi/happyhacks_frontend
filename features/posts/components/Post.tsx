@@ -72,8 +72,8 @@ export const Post = ({
 
   return (
     <div className="pt-3.5 pb-2 xs:p-5 xs:pt-7">
-      <div className="flex justify-between items-center pl-2 text-main-black font-bold">
-        <div className="xs:tracking-wide xs:text-[1.125rem] leading-6">{title}</div>
+      <div className="flex justify-between items-center text-main-black font-bold">
+        <div className="xs:tracking-wide text-[14px] xs:text-[1.125rem] leading-6 tracking-wide">{title}</div>
 
         {currentUser.id == userId && router.asPath.includes("posts") && (
           // ログインユーザーのidと参照している投稿のuser_idが一致し、詳細ページの場合にメニューを表示
@@ -149,19 +149,19 @@ export const Post = ({
         </div>
       </Modal>
 
-      <div className="px-2 pt-2 pb-1">
-        <div className="w-full break-all xs:text-[1.125rem] leading-7 xs:leading-8 text-main-black tracking-wide">
+      <div className="pt-2 pb-1">
+        <div className="w-full break-all text-[14px] xs:text-[1.125rem] leading-7 xs:leading-8 text-main-black tracking-wide">
           {body}
         </div>
       </div>
       <Group position="apart" className="mt-1 mb-0.5">
-        <Group className="ml-2" spacing="xs">
+        <Group spacing="xs">
           <Avatar src={iconSrc} radius={50} size={26} />
           <Text className="ml-[-3.5px] text-gray-600" size="sm">
             {name}
           </Text>
         </Group>
-        <Group className="pr-3">
+        <Group className="pr-1.5">
           {comments_count && (
             // コメントがあればアイコンと件数を表示
             <div className=" text-gray-500 flex items-center">
