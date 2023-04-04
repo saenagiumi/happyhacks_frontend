@@ -9,32 +9,40 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useAtomValue } from "jotai";
 import { currentUserAtom } from "state/currentUser";
 import { SWRConfig } from "swr";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import Head from "next/head";
+import { NextPageContext } from "next";
 import { NextSeo } from "next-seo";
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const postId = params?.id;
-  const post = await fetch(`${API_BASE_URL}/posts/${postId}`);
-  const postData = await post.json();
-  const postUserId = postData.post.user_id;
-
-  return {
-    props: {
-      postUserId,
-      postData,
-      fallback: {
-        [`${API_BASE_URL}/posts/${postId}`]: postData,
-      },
-    },
+type Props = {
+  postUserId: number;
+  postData: {
+    name: string;
+    picture: string;
+    post: {
+      id: number;
+      title: string;
+      body: string;
+      user_id: number;
+      created_at: string;
+      updated_at: string;
+    };
+  };
+  fallback: {
+    url: {
+      post: {
+        id: number;
+        title: string;
+        body: string;
+        user_id: number;
+        created_at: string;
+        updated_at: string;
+      };
+      name: string;
+      picture: string;
+    };
   };
 };
 
-const PostsId = ({
-  postUserId,
-  postData,
-  fallback,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const PostsId = ({ postUserId, postData, fallback }: Props) => {
   const { user } = useAuth0();
   const currentUser = useAtomValue(currentUserAtom);
   const router = useRouter();
@@ -70,7 +78,7 @@ const PostsId = ({
         <div className="max-w-[900px] mx-auto">
           <PostDetail />
           <CommentListByPostId
-            postUserId={postUserId}
+            postUserId={postUserId.toString()}
             currentUser={currentUser}
             postId={router.query.id}
             modalHandlers={modalHandlers}
@@ -93,6 +101,21 @@ const PostsId = ({
       </SWRConfig>
     </>
   );
+};
+
+PostsId.getInitialProps = async (ctx: NextPageContext) => {
+  const postId = ctx.query.id;
+  const post = await fetch(`${API_BASE_URL}/posts/${postId}`);
+  const postData = await post.json();
+  const postUserId = postData.post.user_id;
+
+  return {
+    postUserId,
+    postData,
+    fallback: {
+      [`${API_BASE_URL}/posts/${postId}`]: postData,
+    },
+  };
 };
 
 export default PostsId;
