@@ -71,7 +71,7 @@ export const Post = ({
   };
 
   return (
-    <div className="pt-3 pb-1 xs:p-5 xs:pt-7">
+    <div className="pt-5 pb-1 xs:p-5 xs:pt-7">
       <div className="flex justify-between items-center pl-2 text-gray-700 font-bold">
         <div className="xs:tracking-wide xs:text-[1.125rem]">{title}</div>
 

@@ -22,7 +22,7 @@ const PostTabIndex = () => {
           {TAB_ITEMS.map((item) => (
             <Tabs.Tab
               value={item.value}
-              className="text-[15px] xs:text-[17px] pb-2 pl-4 xs:pl-5"
+              className="text-[16px] xs:text-[17px] pb-3 px-5 xs:pl-5"
             >
               <span
                 className={`font-sans ${
