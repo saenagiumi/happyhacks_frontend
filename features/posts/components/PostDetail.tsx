@@ -13,7 +13,7 @@ export const PostDetail = () => {
   if (postData) {
     return (
       <div>
-        <div className="pl-1.5 pt-3 pr-2">
+        <div className="px-3.5 pt-3 pr-2">
           <div className="text-[14px]">
             <Post
               id={postData.post.id}
