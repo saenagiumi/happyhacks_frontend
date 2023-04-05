@@ -5,7 +5,6 @@ import {
   NotificationsProvider,
   showNotification,
 } from "@mantine/notifications";
-import { NavigationProgress } from "@mantine/nprogress";
 import { Header } from "components/Header/Header";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { MdCheckCircle } from "react-icons/md";

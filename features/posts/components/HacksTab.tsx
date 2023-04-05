@@ -5,11 +5,11 @@ export const HacksTabPanel = () => {
   const [activeTab, setActiveTab] = useState<string | null>("trend");
   const TAB_ITEMS = [
     { value: "trend", label: "トレンド" },
-    { value: "tools", label: "ツール" },
-    { value: "life", label: "生活" },
-    { value: "job", label: "仕事" },
     { value: "communication", label: "対人関係" },
+    { value: "life", label: "生活" },
     { value: "learning", label: "学習" },
+    { value: "tools", label: "ツール" },
+    { value: "job", label: "仕事" },
     { value: "health", label: "健康" },
   ];
 
@@ -20,22 +20,26 @@ export const HacksTabPanel = () => {
           value={activeTab}
           onTabChange={setActiveTab}
           variant="pills"
-          color="green.4"
           radius="xl"
         >
           <ScrollArea type="never">
-            <div className="top-0 sticky bg-white border-0 border-b-[0.5px] border-gray-200 border-solid z-10 flex items-center w-[640px] xs:w-full">
+            <div className="top-0 sticky bg-white z-10 flex items-center w-[670px] xs:w-full">
               <Tabs.List className="my-2 xs:my-0 xs:py-4 pl-3 xs:pl-5">
                 {TAB_ITEMS.map((item) => (
                   <Tabs.Tab
+                    style={{
+                      background: `${
+                        activeTab !== item.value ? "#F7F7F7" : "#42ce9f"
+                      }`,
+                    }}
                     key={item.value}
                     value={item.value}
-                    className="w-[5.5rem] h-[2.2rem] mr-[-6px] xs:mr-2"
+                    className="w-[5.3rem] h-[2rem] mr-0.5 xs:mr-2"
                   >
                     <span
                       className={`flex items-center font-sans text-[14px] xs:text-[15px] ${
                         activeTab !== item.value
-                          ? "text-gray-400"
+                          ? "text-gray-500"
                           : "text-white"
                       } font-[600]`}
                     >
