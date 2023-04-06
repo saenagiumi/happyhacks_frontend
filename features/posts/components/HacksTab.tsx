@@ -1,5 +1,7 @@
 import { ScrollArea, Tabs } from "@mantine/core";
 import { useState } from "react";
+import HacksToolList from "features/posts/components/HacksToolList";
+import HacksLifeList from "./HacksLifeList";
 
 export const HacksTabPanel = () => {
   const [activeTab, setActiveTab] = useState<string | null>("trend");
@@ -24,7 +26,7 @@ export const HacksTabPanel = () => {
         >
           <ScrollArea type="never">
             <div className="top-0 sticky bg-white z-10 flex items-center w-[670px] xs:w-full">
-              <Tabs.List className="my-2 xs:my-0 xs:py-4 pl-3 xs:pl-5">
+              <Tabs.List className="my-3.5 xs:my-0 xs:py-4 pl-3 xs:pl-5">
                 {TAB_ITEMS.map((item) => (
                   <Tabs.Tab
                     style={{
@@ -54,7 +56,25 @@ export const HacksTabPanel = () => {
           <>
             {TAB_ITEMS.map((item, index) => (
               <Tabs.Panel key={index} value={item.value}>
-                {item.label}
+                <div className="mx-4">
+                  {item.value === "trend" ? (
+                    <>trend</>
+                  ) : item.value === "communication" ? (
+                    <>communication</>
+                  ) : item.value === "life" ? (
+                    <><HacksLifeList /></>
+                  ) : item.value === "learning" ? (
+                    <>learning</>
+                  ) : item.value === "tools" ? (
+                    <HacksToolList />
+                  ) : item.value === "job" ? (
+                    <>job</>
+                  ) : item.value === "health" ? (
+                    <>health</>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </Tabs.Panel>
             ))}
           </>
