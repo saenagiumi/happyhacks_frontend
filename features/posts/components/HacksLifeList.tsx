@@ -1,9 +1,10 @@
+import Link from "next/link";
 import React from "react";
 
 const HacksLifeList = () => {
   return (
     <div>
-      <blockquote className="twitter-tweet">
+      {/* <blockquote className="twitter-tweet">
         <p lang="ja" dir="ltr">
           ADHDの私が出かける日の前日に必ずすること。当たり前のことだけど、しないと大変なことになる
           <a href="https://twitter.com/hashtag/ADHD?src=hash&amp;ref_src=twsrc%5Etfw">
@@ -25,7 +26,32 @@ const HacksLifeList = () => {
           September 2, 2019
         </a>
       </blockquote>{" "}
-      <script async src="https://platform.twitter.com/widgets.js"></script>
+      <script async src="https://platform.twitter.com/widgets.js"></script> */}
+          <ol className="m-0 p-0">
+        {/* return ( */}
+          <li
+            // key={post.id}
+            className="border-0 border-t-[0.5px] border-gray-200 border-solid"
+          >
+            <Link href={`/posts/`} className="no-underline pb-1.5">
+              <div className="px-5 pb-1 xs:px-1.5 xs:hover:bg-slate-100">
+                {/* <Post
+                  id={post.id.toString()}
+                  userId={post.user_id.toString()}
+                  title={post.title}
+                  body={post.body}
+                  name={post.name}
+                  iconSrc={post.picture}
+                  postedAt={post.created_at}
+                  comments_count={post.comments_count}
+                /> */}
+              </div>
+            </Link>
+          </li>
+        {/* ); */}
+      {/* })} */}
+    </ol>
+
     </div>
   );
 };
