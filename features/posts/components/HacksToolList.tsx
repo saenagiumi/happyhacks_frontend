@@ -1,21 +1,17 @@
+import { Tweet } from "components/Tweet";
+import Script from "next/script";
 import React from "react";
 
-const ToolList = ({props}: any) => {
+const ToolList = ({ props }: any) => {
   return (
     <div>
-      <div>
-      <blockquote className="twitter-tweet">
-        <p lang="ja" dir="ltr">
-          ADHDの鍵を無くしてしまうに対するライフハックはどうすれば良いの？みたいな質問がTLに流れてたので、私は鍵を無くすという概念をなくしたので共有しておく。スマホさえ持っていれば大丈夫。
-          <a href="https://t.co/h6h61oHps4">https://t.co/h6h61oHps4</a>
-        </p>
-        &mdash; ぴえみ🥺ADHDデザイナー (@piemipiemipiemi)
-        <a href="https://twitter.com/piemipiemipiemi/status/1626533711415234562?ref_src=twsrc%5Etfw">
-          February 17, 2023
-        </a>
-      </blockquote>
-      <script async src="https://platform.twitter.com/widgets.js"></script>
-
+      <div className="mx-4">
+        <p className="font-sans">鍵をなくしてしまう人を支える技術</p>
+        <Tweet id={"1626533711415234562"} />
+        <Script
+          src="https://platform.twitter.com/widgets.js"
+          strategy="lazyOnload"
+        />
       </div>
     </div>
   );
