@@ -21,7 +21,7 @@ export const PostListTrend = () => {
             className="border-0 border-t-[0.5px] border-gray-200 border-solid"
           >
             <Link href={`/posts/${post.id}`} className="no-underline pb-1.5">
-              <div className="px-5 pb-1 xs:px-1.5 xs:hover:bg-slate-100">
+              <div className="px-5 py-1 xs:px-1.5 xs:hover:bg-slate-100">
                 <Post
                   id={post.id.toString()}
                   userId={post.user_id.toString()}
