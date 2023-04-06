@@ -56,13 +56,15 @@ export const HacksTabPanel = () => {
           <>
             {TAB_ITEMS.map((item, index) => (
               <Tabs.Panel key={index} value={item.value}>
-                <div className="mx-4">
+                <div>
                   {item.value === "trend" ? (
                     <>trend</>
                   ) : item.value === "communication" ? (
                     <>communication</>
                   ) : item.value === "life" ? (
-                    <><HacksLifeList /></>
+                    <>
+                      <HacksLifeList />
+                    </>
                   ) : item.value === "learning" ? (
                     <>learning</>
                   ) : item.value === "tools" ? (

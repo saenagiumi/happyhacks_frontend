@@ -1,57 +1,41 @@
+import { API_BASE_URL } from "const/const";
+import { useFetchArray } from "hooks/useFetchArray";
 import Link from "next/link";
 import React from "react";
+import { Hack } from "./Hack";
+import { Post } from "./Post";
 
 const HacksLifeList = () => {
+  const { data } = useFetchArray(`${API_BASE_URL}/hacks`);
+  console.log({ data });
+
   return (
     <div>
-      {/* <blockquote className="twitter-tweet">
-        <p lang="ja" dir="ltr">
-          ADHDの私が出かける日の前日に必ずすること。当たり前のことだけど、しないと大変なことになる
-          <a href="https://twitter.com/hashtag/ADHD?src=hash&amp;ref_src=twsrc%5Etfw">
-            #ADHD
-          </a>{" "}
-          <a href="https://twitter.com/hashtag/ADHD%E5%AF%BE%E7%AD%96?src=hash&amp;ref_src=twsrc%5Etfw">
-            #ADHD対策
-          </a>{" "}
-          <a href="https://twitter.com/hashtag/ADHD%E3%83%A9%E3%82%A4%E3%83%95%E3%83%8F%E3%83%83%E3%82%AF?src=hash&amp;ref_src=twsrc%5Etfw">
-            #ADHDライフハック
-          </a>{" "}
-          <a href="https://twitter.com/hashtag/%E3%81%93%E3%82%8C%E3%81%A0%E3%81%91%E3%81%97%E3%81%A6%E3%82%82%E3%81%AA%E3%81%9C%E3%81%8B%E9%81%85%E5%88%BB%E3%81%99%E3%82%8B%E6%99%82%E3%81%AF%E3%81%99%E3%82%8B?src=hash&amp;ref_src=twsrc%5Etfw">
-            #これだけしてもなぜか遅刻する時はする
-          </a>{" "}
-          <a href="https://t.co/jABgy8QlyE">pic.twitter.com/jABgy8QlyE</a>
-        </p>
-        &mdash; イラストでわかる発達障害 (@palettalk_ppp)
-        <a href="https://twitter.com/palettalk_ppp/status/1168547655263277057?ref_src=twsrc%5Etfw">
-          September 2, 2019
-        </a>
-      </blockquote>{" "}
-      <script async src="https://platform.twitter.com/widgets.js"></script> */}
-          <ol className="m-0 p-0">
-        {/* return ( */}
-          <li
-            // key={post.id}
-            className="border-0 border-t-[0.5px] border-gray-200 border-solid"
-          >
-            <Link href={`/posts/`} className="no-underline pb-1.5">
-              <div className="px-5 pb-1 xs:px-1.5 xs:hover:bg-slate-100">
-                {/* <Post
-                  id={post.id.toString()}
-                  userId={post.user_id.toString()}
-                  title={post.title}
-                  body={post.body}
-                  name={post.name}
-                  iconSrc={post.picture}
-                  postedAt={post.created_at}
-                  comments_count={post.comments_count}
-                /> */}
-              </div>
-            </Link>
-          </li>
-        {/* ); */}
-      {/* })} */}
-    </ol>
-
+      <ol className="m-0 p-0">
+        {data?.map((hack: any) => {
+          console.log({hack});
+          
+          return (
+            <li
+              key={hack.id}
+              className="border-0 border-t-[0.5px] border-gray-200 border-solid"
+            >
+              <Link href={`/hacks/${hack.id}`} className="no-underline pb-1.5">
+                <div className="px-5 pb-1 xs:px-1.5 xs:hover:bg-slate-100">
+                  <Hack
+                    title={hack.title}
+                    body={hack.body}
+                    iconSrc={hack.picture}
+                    name={hack.name}
+                    id={""}
+                    userId={""}
+                  />
+                </div>
+              </Link>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 };
