@@ -73,7 +73,7 @@ export const Post = ({
   return (
     <div className="pt-3.5 pb-2 xs:p-5 xs:pt-7">
       <div className="flex justify-between items-center text-main-black font-bold">
-        <div className="xs:tracking-wide text-[14px] xs:text-[1.125rem] leading-6 tracking-wide">{title}</div>
+        <div className="xs:tracking-wide text-[16px] xs:text-[1.125rem] leading-6 tracking-wide">{title}</div>
 
         {currentUser.id == userId && router.asPath.includes("posts") && (
           // ログインユーザーのidと参照している投稿のuser_idが一致し、詳細ページの場合にメニューを表示
