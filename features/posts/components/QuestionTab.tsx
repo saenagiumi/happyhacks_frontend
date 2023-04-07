@@ -1,5 +1,6 @@
 import { Tabs } from "@mantine/core";
 import { useState } from "react";
+import { PostListRecent } from "./PostListRecent";
 import { PostListTrend } from "./PostListTrend";
 import { PostListUnanswered } from "./PostListUnanswered";
 
@@ -7,6 +8,7 @@ export const QuestionTabPanel = () => {
   const [activeTab, setActiveTab] = useState<string | null>("trend");
   const TAB_ITEMS = [
     { value: "trend", label: "トレンド" },
+    { value: "recent", label: "新着" },
     { value: "unanswered", label: "未回答" },
   ];
 
@@ -49,6 +51,8 @@ export const QuestionTabPanel = () => {
               <Tabs.Panel key={index} value={item.value}>
                 {item.value === "trend" ? (
                   <PostListTrend />
+                ) : item.value === "recent" ? (
+                  <PostListRecent />
                 ) : item.value === "unanswered" ? (
                   <PostListUnanswered />
                 ) : (

@@ -20,9 +20,11 @@ type Props = {
     picture: string;
     hack: {
       id: number;
+      tweet_id: string;
       title: string;
       body: string;
       user_id: number;
+      categories: string[];
       created_at: string;
       updated_at: string;
     };
@@ -76,20 +78,19 @@ const HacksId = ({ hackUserId, hackData, fallback }: Props) => {
             cardType: "summary_large_image",
           }}
         />
-        <div className="max-w-[900px] mx-auto">
-          {/* <PostDetail /> */}
-          {/* <Hack
-          title={hackData.hack.title}
-          body={hackData.hack.body}
-          id={""}
-          userId={""}
-          /> */}
-          <Modal
-            withCloseButton={false}
-            fullScreen
-            opened={opened}
-            onClose={() => modalHandlers.close()}
-          ></Modal>
+        <div className="max-w-[620px] mx-auto">
+          <div className="px-7 pt-3 w-full">
+            <Hack
+              title={hackData.hack.title}
+              body={hackData.hack.body}
+              iconSrc={hackData.picture}
+              name={hackData.name}
+              id={hackData.hack.id.toString()}
+              userId={hackData.hack.user_id.toString()}
+              tweetId={hackData.hack.tweet_id.toString()}
+              categories={hackData.hack.categories}
+            />
+          </div>
         </div>
       </SWRConfig>
     </>

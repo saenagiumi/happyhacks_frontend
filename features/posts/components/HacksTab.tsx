@@ -7,12 +7,12 @@ export const HacksTabPanel = () => {
   const [activeTab, setActiveTab] = useState<string | null>("trend");
   const TAB_ITEMS = [
     { value: "trend", label: "トレンド" },
-    { value: "communication", label: "対人関係" },
-    { value: "life", label: "生活" },
-    { value: "learning", label: "学習" },
-    { value: "tools", label: "ツール" },
-    { value: "job", label: "仕事" },
     { value: "health", label: "健康" },
+    { value: "tools", label: "ツール" },
+    { value: "learning", label: "学習" },
+    { value: "life", label: "生活" },
+    { value: "job", label: "仕事" },
+    { value: "communication", label: "対人関係" },
   ];
 
   return (
