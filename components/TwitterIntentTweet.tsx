@@ -1,13 +1,12 @@
-import Image from "next/image";
 import { ComponentProps, forwardRef } from "react";
 
 type TwitterIntentTweetProps = {
+  hashtags?: string[];
+  in_reply_to?: string;
+  related?: string[];
   text?: string;
   url?: string;
-  hashtags?: string[];
   via?: string;
-  related?: string[];
-  in_reply_to?: string;
 } & Omit<ComponentProps<"a">, "href" | "target" | "rel">;
 
 export const TwitterIntentTweet = forwardRef<
@@ -15,7 +14,7 @@ export const TwitterIntentTweet = forwardRef<
   TwitterIntentTweetProps
 >(
   (
-    { text, hashtags, url, via, related, in_reply_to, ...intrinsicProps },
+    { hashtags, in_reply_to, related, text, url, via, ...intrinsicProps },
     forwardedRef
   ) => {
     const _url = new URL("https://twitter.com/intent/tweet");
@@ -32,23 +31,12 @@ export const TwitterIntentTweet = forwardRef<
 
     return (
       <a
-        className="flex items-center font-sans bg-blue-400 hover:bg-blue-500 text-sky-50 text-[15px] font-[600] pl-5 pr-[22px] py-2 rounded-[4px] no-underline"
         ref={forwardedRef}
         href={_url.toString()}
         target="_blank"
         rel="noopener noreferrer"
         {...intrinsicProps}
-      >
-        <Image
-          className="mr-2"
-          src="/tw-logo-white.svg"
-          width="16"
-          height="16"
-          alt="twitterのロゴ"
-          priority={true}
-        />
-        回答を募集する
-      </a>
+      ></a>
     );
   }
 );

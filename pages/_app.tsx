@@ -1,28 +1,29 @@
 import "styles/globals.css";
-import type { AppProps } from "next/app";
+
+import { Auth0Provider } from "@auth0/auth0-react";
 import { MantineProvider } from "@mantine/core";
 import {
   NotificationsProvider,
   showNotification,
 } from "@mantine/notifications";
-import { Header } from "components/Header/Header";
-import { Auth0Provider } from "@auth0/auth0-react";
-import { MdCheckCircle } from "react-icons/md";
+import { Header } from "components/Layout/Header";
+import ProgessBar from "components/Layout/ProgressBar";
 import Auth from "features/auth/components/Auth";
+import type { AppProps } from "next/app";
 import Head from "next/head";
 import { DefaultSeo } from "next-seo";
-import ProgessBar from "components/ProgressBar";
+import { MdCheckCircle } from "react-icons/md";
 
 export default function App({ Component, pageProps }: AppProps) {
   const redirectUri = `${process.env["NEXT_PUBLIC_BASE_URL"]}`;
 
   const onRedirectCallback = (appState: any) => {
     showNotification({
-      autoClose: 3000,
       title: "ログインしました",
-      message: "",
+      autoClose: 3000,
       color: "green.4",
       icon: <MdCheckCircle size={30} />,
+      message: "",
     });
     window.history.replaceState(
       {},
@@ -45,33 +46,33 @@ export default function App({ Component, pageProps }: AppProps) {
         defaultTitle="HappyHacks"
         description="ADHDの日常生活の困難を環境調整でハックする"
         openGraph={{
-          type: "website",
           title: "ADHD対策のナレッジを共有",
           description: "ADHDの日常生活の困難を環境調整でハックする",
-          site_name: "HappyHacks",
-          url: "https://www.happyhacks.app",
           images: [
             {
-              url: `https://www.happyhacks.app/ogp.webp`,
-              width: 1031,
-              height: 541,
               alt: "Og Image Alt",
+              height: 541,
+              url: "https://www.happyhacks.app/ogp.webp",
+              width: 1031,
             },
           ],
+          site_name: "HappyHacks",
+          type: "website",
+          url: "https://www.happyhacks.app",
         }}
         twitter={{
+          cardType: "summary_large_image",
           handle: "@handle",
           site: "@site",
-          cardType: "summary_large_image",
         }}
       />
       <Auth0Provider
         domain={process.env["NEXT_PUBLIC_AUTH0_DOMAIN"]!}
         clientId={process.env["NEXT_PUBLIC_AUTH0_CLIENT_ID"]!}
         authorizationParams={{
-          redirect_uri: redirectUri,
           audience: process.env["NEXT_PUBLIC_AUTH0_AUDIENCE"]!,
-          scope: "openid profile offline_access"
+          redirect_uri: redirectUri,
+          scope: "openid profile offline_access",
         }}
         useRefreshTokens={true}
         cacheLocation="localstorage"
@@ -81,20 +82,7 @@ export default function App({ Component, pageProps }: AppProps) {
           withGlobalStyles
           withNormalizeCSS
           theme={{
-            colorScheme: "light",
             colors: {
-              "ocean-blue": [
-                "#7AD1DD",
-                "#5FCCDB",
-                "#44CADC",
-                "#2AC9DE",
-                "#1AC2D9",
-                "#11B7CD",
-                "#09ADC3",
-                "#0E99AC",
-                "#128797",
-                "#147885",
-              ],
               "bright-pink": [
                 "#F0BBDD",
                 "#ED9BCF",
@@ -119,14 +107,27 @@ export default function App({ Component, pageProps }: AppProps) {
                 "#053e3c",
                 "#001714",
               ],
+              "ocean-blue": [
+                "#7AD1DD",
+                "#5FCCDB",
+                "#44CADC",
+                "#2AC9DE",
+                "#1AC2D9",
+                "#11B7CD",
+                "#09ADC3",
+                "#0E99AC",
+                "#128797",
+                "#147885",
+              ],
             },
+            colorScheme: "light",
             fontFamily: "Noto Sans JP, sans-serif",
             fontSizes: {
-              xs: 12,
-              sm: 14,
-              md: 16,
               lg: 16,
+              md: 16,
+              sm: 14,
               xl: 20,
+              xs: 12,
             },
           }}
         >

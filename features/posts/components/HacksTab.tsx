@@ -1,19 +1,44 @@
 import { ScrollArea, Tabs } from "@mantine/core";
-import { useState } from "react";
-import HacksToolList from "features/posts/components/HacksToolList";
+import HacksItemList from "features/posts/components/HacksItemList";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+import HacksCommunicationList from "./HacksCommunicationList";
+import HacksHealthList from "./HacksHealthList";
+import HacksJobList from "./HacksJobList";
+import HacksLearningList from "./HacksLearningList";
 import HacksLifeList from "./HacksLifeList";
+import HacksTrendList from "./HacksTrendList";
 
 export const HacksTabPanel = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<string | null>("trend");
   const TAB_ITEMS = [
-    { value: "trend", label: "トレンド" },
-    { value: "health", label: "健康" },
-    { value: "tools", label: "ツール" },
-    { value: "learning", label: "学習" },
-    { value: "life", label: "生活" },
-    { value: "job", label: "仕事" },
-    { value: "communication", label: "対人関係" },
+    { label: "トレンド", value: "trend" },
+    { label: "健康", value: "health" },
+    { label: "アイテム", value: "item" },
+    { label: "学習", value: "learning" },
+    { label: "生活", value: "life" },
+    { label: "仕事", value: "job" },
+    { label: "人間関係", value: "communication" },
   ];
+
+  // ページのロード時にURLのクエリーパラメータを取得して、activeTabを設定する
+  useEffect(() => {
+    const { query } = router;
+    const tab = query.tab as string;
+    if (tab && TAB_ITEMS.some((item) => item.value === tab)) {
+      setActiveTab(tab);
+    }
+  }, []);
+
+  // activeTabが変更されるたびにURLのクエリーパラメータを更新する
+  // useEffect(() => {
+  //   const { pathname, query } = router;
+  //   query.tab = activeTab;
+  //   router.replace({ pathname, query });
+  // }, [activeTab]);
+
 
   return (
     <>
@@ -25,8 +50,8 @@ export const HacksTabPanel = () => {
           radius="xl"
         >
           <ScrollArea type="never">
-            <div className="top-0 sticky bg-white z-10 flex items-center w-[670px] xs:w-full">
-              <Tabs.List className="my-3.5 xs:my-0 xs:py-4 pl-3 xs:pl-5">
+            <div className="flex w-[670px] items-center xs:w-full">
+              <Tabs.List className="my-3.5 pl-3 xs:my-0 xs:py-4 xs:pl-5">
                 {TAB_ITEMS.map((item) => (
                   <Tabs.Tab
                     style={{
@@ -36,7 +61,7 @@ export const HacksTabPanel = () => {
                     }}
                     key={item.value}
                     value={item.value}
-                    className="w-[5.3rem] h-[2rem] mr-0.5 xs:mr-2"
+                    className="mr-0.5 h-[2rem] w-[5.3rem] xs:mr-2"
                   >
                     <span
                       className={`flex items-center font-sans text-[14px] xs:text-[15px] ${
@@ -58,21 +83,19 @@ export const HacksTabPanel = () => {
               <Tabs.Panel key={index} value={item.value}>
                 <div>
                   {item.value === "trend" ? (
-                    <>trend</>
+                    <HacksTrendList />
                   ) : item.value === "communication" ? (
-                    <>communication</>
+                    <HacksCommunicationList />
                   ) : item.value === "life" ? (
-                    <>
-                      <HacksLifeList />
-                    </>
+                    <HacksLifeList />
                   ) : item.value === "learning" ? (
-                    <>learning</>
-                  ) : item.value === "tools" ? (
-                    <HacksToolList />
+                    <HacksLearningList />
+                  ) : item.value === "item" ? (
+                    <HacksItemList />
                   ) : item.value === "job" ? (
-                    <>job</>
+                    <HacksJobList />
                   ) : item.value === "health" ? (
-                    <>health</>
+                    <HacksHealthList />
                   ) : (
                     <></>
                   )}

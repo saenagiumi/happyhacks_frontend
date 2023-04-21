@@ -1,10 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
-import { useSWRConfig } from "swr";
-import { useState } from "react";
 import { API_BASE_URL } from "const/const";
-import { CommentData } from "../types";
+import { useState } from "react";
+import { useSWRConfig } from "swr";
+
 import { postComment } from "../api/postComment";
+import { CommentData } from "../types";
 
 export const useCreateComment = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -23,9 +23,9 @@ export const useCreateComment = () => {
       setIsProcessing(true);
       const accessToken = await getAccessTokenSilently({});
       const response = await postComment({
-        postId,
         accessToken,
         commentInputData,
+        postId,
       });
 
       if (response.status === 200) {
@@ -33,19 +33,9 @@ export const useCreateComment = () => {
 
         return response.data;
       }
-    } catch (e: any) {
-      // エラー発生の状況を特定できていないので、以下は暫定的な対応
-      if (e.response.status === 401 || 403) {
-        throw new Error("Unauthorized");
-      }
+    } catch (error) {
+      console.error("Error in postComment:", error);
 
-      let message;
-      if (axios.isAxiosError(e) && e.response) {
-        console.error(e.response.data.message);
-      } else {
-        message = String(e);
-        console.error(message);
-      }
     } finally {
       setIsProcessing(false);
     }

@@ -1,18 +1,19 @@
-import Link from "next/link";
+import { API_BASE_URL } from "const/const";
 import { Post } from "features/posts/components/Post";
 import { useFetchArray } from "hooks/useFetchArray";
-import { API_BASE_URL } from "const/const";
-import { PostWithCommentsCountType } from "../types";
+import Link from "next/link";
+
+import { PostReturnType } from "../types";
 
 export const PostListRecent = () => {
-  const { data } = useFetchArray(`${API_BASE_URL}/posts_with_comments_count`);
+  const { data } = useFetchArray(`${API_BASE_URL}/posts`);
 
   // 作成降順ソート
   const sortedData = data ? [...data].sort((a, b) => b.id - a.id) : [];
 
   return (
     <ol className="m-0 p-0">
-      {sortedData.map((post: PostWithCommentsCountType) => {
+      {sortedData?.map((post: PostReturnType) => {
         return (
           <li
             key={post.id}

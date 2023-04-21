@@ -4,7 +4,7 @@
 
 @keyframes barstart {
   from {
-    width: 5%;
+    width:0%;
   }
   to {
     width: 100%;
@@ -20,7 +20,7 @@
   }
 }
 
-h1, h2, h3, h4, p, ul, li, hr {
+h1, h2, h3, h4, h5, p, ul, li, hr {
   font-style: normal;
   margin: 0;
   padding: 0;

@@ -1,19 +1,21 @@
-import { useRef } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { API_BASE_URL } from "const/const";
-import { useAuth0 } from "@auth0/auth0-react";
+import React, { useRef } from "react";
 import useSWR, { useSWRConfig } from "swr";
-import { postLike } from "../api/postLike";
+
 import { deleteLike } from "../api/deleteLike";
+import { postLike } from "../api/postLike";
 import { Like } from "../types";
 
 type Props = {
-  userId: string;
-  postId: string;
   commentId: string | string[] | undefined;
+  postId: string;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  userId: string;
 };
 
-const useToggleLike = ({ postId, commentId, userId }: Props) => {
+const useToggleLike = ({ commentId, postId, setShowModal, userId }: Props) => {
   const { data: likesCount } = useSWR(
     `${API_BASE_URL}/comments/${commentId}/likes`,
     async (url: string) => {
@@ -22,7 +24,7 @@ const useToggleLike = ({ postId, commentId, userId }: Props) => {
     }
   );
 
-  const { data: commentLikes, isLoading: commentLikesIsloading } = useSWR(
+  const { data: commentLikes, isLoading: likesIsloading } = useSWR(
     `${API_BASE_URL}/posts/${postId}/comments/${commentId}/likes`,
     async (url: string) => {
       const accessToken = await getAccessTokenSilently();
@@ -36,18 +38,18 @@ const useToggleLike = ({ postId, commentId, userId }: Props) => {
     }
   );
 
-  const { user, isLoading, getAccessTokenSilently, loginWithPopup } =
+  const { getAccessTokenSilently, isLoading, user } =
     useAuth0();
   const isProcessing = useRef(false);
   const { mutate } = useSWRConfig();
 
   const isLiked = commentLikes?.likes.some(
-    (like: Like) => like.user_id.toString() == userId
+    (like: Like) => like.user_id.toString() === userId.toString()
   );
 
   const toggleLike = async () => {
     if (user === undefined && !isLoading) {
-      loginWithPopup();
+      setShowModal(true);
       return;
     }
 
@@ -57,38 +59,28 @@ const useToggleLike = ({ postId, commentId, userId }: Props) => {
     const likeId = commentLikes?.likes.find(
       (like: Like) => like.user_id.toString() == userId
     )?.id;
+
     try {
       isProcessing.current = true;
       const accessToken = await getAccessTokenSilently();
 
       if (isLiked) {
         await deleteLike({
-          likeId: likeId,
-          commentId: commentId,
           accessToken: accessToken,
+          commentId: commentId,
+          likeId: likeId,
         });
       } else {
         await postLike({
-          commentId: commentId,
           accessToken: accessToken,
+          commentId: commentId,
         });
       }
 
       mutate(`${API_BASE_URL}/comments/${commentId}/likes`);
       mutate(`${API_BASE_URL}/posts/${postId}/comments/${commentId}/likes`);
-    } catch (e: any) {
-      // エラー発生の状況を特定できていないので、以下は暫定的な対応
-      if (e.response.status === 401 || 403) {
-        throw new Error("Unauthorized");
-      }
-
-      let message;
-      if (axios.isAxiosError(e) && e.response) {
-        console.error(e.response.data.message);
-      } else {
-        message = String(e);
-        console.error(message);
-      }
+    } catch (error) {
+      console.error("Error in mutateLike:", error);
     } finally {
       isProcessing.current = false;
     }
@@ -97,7 +89,7 @@ const useToggleLike = ({ postId, commentId, userId }: Props) => {
   return {
     isLiked,
     likesCount,
-    commentLikesIsloading,
+    likesIsloading,
     toggleLike,
   };
 };

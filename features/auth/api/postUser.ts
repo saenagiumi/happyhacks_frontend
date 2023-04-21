@@ -1,13 +1,13 @@
-import { API_BASE_URL } from "const/const";
 import axios from "axios";
+import { API_BASE_URL } from "const/const";
 import { UserPostData } from "features/users/types";
 
 type Props = {
-  postUserData: UserPostData;
   accessToken: string;
+  postUserData: UserPostData;
 };
 
-export const postUser = async ({ postUserData, accessToken }: Props) => {
+export const postUser = async ({ accessToken, postUserData }: Props) => {
   const config = {
     headers: {
       authorization: `Bearer ${accessToken}`,

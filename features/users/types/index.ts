@@ -1,9 +1,9 @@
 export type User = {
   id: string;
-  sub: string;
   name: string;
+  created_at: string;
   picture: string | undefined;
-  created_at: string,
+  sub: string,
   updated_at: string,
 };
 
@@ -11,10 +11,10 @@ export type Comment = {
   id: number;
   title: string;
   body: string;
-  post_id: number;
-  user_id: number;
   created_at: string;
+  post_id: number;
   updated_at: string;
+  user_id: number;
 };
 
 export type UserFormValue = {
@@ -24,7 +24,6 @@ export type UserFormValue = {
 };
 
 export type UserPostData = {
-  sub: string | undefined;
-  name: string | undefined;
+  name: string;
   picture: string | undefined;
 }

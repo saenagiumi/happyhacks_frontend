@@ -2,11 +2,11 @@ import axios from "axios";
 import { API_BASE_URL } from "const/const";
 
 type Props = {
-  postId: string | string[] | undefined;
   accessToken: string;
+  postId: string | string[] | undefined;
 };
 
-export const deletePost = async ({ postId, accessToken }: Props) => {
+export const deletePost = async ({ accessToken, postId }: Props) => {
   const config = {
     headers: {
       authorization: `Bearer ${accessToken}`,

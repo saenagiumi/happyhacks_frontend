@@ -3,9 +3,9 @@ import { atom } from "jotai";
 
 export const currentUserAtom = atom<User>({
   id: "",
-  sub: "",
   name: "",
-  picture: "",
   created_at: "",
+  picture: "",
+  sub: "",
   updated_at: "",
 });

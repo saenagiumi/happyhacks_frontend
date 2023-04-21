@@ -2,19 +2,18 @@ import axios from "axios";
 import { API_BASE_URL } from "const/const";
 
 type Props = {
+  accessToken: string;
   postId: string;
   postInputData: {
-    title: string;
-    body: string;
-    user_id: string;
+    title?: string;
+    body?: string;
   };
-  accessToken: string;
 };
 
 export const patchPost = async ({
+  accessToken,
   postId,
   postInputData,
-  accessToken,
 }: Props) => {
   const config = {
     headers: {

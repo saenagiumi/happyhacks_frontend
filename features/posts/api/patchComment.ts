@@ -2,19 +2,18 @@ import axios from "axios";
 import { API_BASE_URL } from "const/const";
 
 type Props = {
+  accessToken: string;
   commentId: string;
   commentInputData: {
-    title: string;
-    body: string;
-    user_id: string;
+    title?: string;
+    body?: string;
   };
-  accessToken: string;
 };
 
 export const patchComment = async ({
+  accessToken,
   commentId,
   commentInputData,
-  accessToken,
 }: Props) => {
   const config = {
     headers: {
