@@ -1,19 +1,29 @@
-import axios from "axios";
-import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { API_BASE_URL } from "const/const";
 import { useAtomValue } from "jotai";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { currentUserAtom } from "state/currentUser";
 import { useSWRConfig } from "swr";
-import { useRouter } from "next/router";
-import { postPost } from "../api/postPost";
-import { patchPost } from "../api/patchPost";
+
 import { patchComment } from "../api/patchComment";
+import { patchHack } from "../api/patchHack";
+import { patchPost } from "../api/patchPost";
+import { postHack } from "../api/postHack";
+import { postPost } from "../api/postPost";
 
 type FormData = {
+  title?: string;
+  body?: string;
+  // user_id: string;
+};
+
+type HackFormData = {
   title: string;
   body: string;
-  user_id: string;
+  category: string;
+  tags: string[];
+  tweet_id: string;
 };
 
 export const usePost = () => {
@@ -31,25 +41,36 @@ export const usePost = () => {
     try {
       setIsProcessing(true);
       const accessToken = await getAccessTokenSilently();
-      const response = await postPost({ postInputData, accessToken });
+      const response = await postPost({ accessToken, postInputData });
 
       if (response.status === 200) {
-        mutate(`${API_BASE_URL}/posts_with_comments_count`);
+        mutate(`${API_BASE_URL}/posts`);
 
         return response.data;
       }
-    } catch (e: any) {
-      if (e.response.status === 401 || 403) {
-        throw new Error("Unauthorized");
-      }
+    } catch (error) {
+      console.error("Error in postPost:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+  const createHack = async (hackInputData: HackFormData) => {
+    if (isProcessing) {
+      return;
+    }
 
-      let message;
-      if (axios.isAxiosError(e) && e.response) {
-        console.error(e.response.data.message);
-      } else {
-        message = String(e);
-        console.error(message);
+    try {
+      setIsProcessing(true);
+      const accessToken = await getAccessTokenSilently();
+      const response = await postHack({ accessToken, hackInputData });
+
+      if (response.status === 200) {
+        mutate(`${API_BASE_URL}/posts`);
+
+        return response.data;
       }
+    } catch (error) {
+      console.error("Error in postHack:", error);
     } finally {
       setIsProcessing(false);
     }
@@ -62,7 +83,7 @@ export const usePost = () => {
     try {
       setIsProcessing(true);
       const accessToken = await getAccessTokenSilently();
-      const response = await patchPost({ postId, postInputData, accessToken });
+      const response = await patchPost({ accessToken, postId, postInputData });
 
       if (response.status === 200) {
         if (router.pathname === "/posts/[id]") {
@@ -73,24 +94,42 @@ export const usePost = () => {
 
         return response.data;
       }
-    } catch (e: any) {
-      if (e.response.status === 401 || 403) {
-        throw new Error("Unauthorized");
-      }
-
-      let message;
-      if (axios.isAxiosError(e) && e.response) {
-        console.error(e.response.data.message);
-      } else {
-        message = String(e);
-        console.error(message);
-      }
+    } catch (error) {
+      console.error("Error in patchPost:", error);
     } finally {
       setIsProcessing(false);
     }
   };
 
-  const updateComment = async (commentId: string, commentInputData: FormData) => {
+  const updateHack = async (hackId: string | undefined, hackInputData: HackFormData) => {
+    if (isProcessing) {
+      return;
+    }
+    try {
+      setIsProcessing(true);
+      const accessToken = await getAccessTokenSilently();
+      const response = await patchHack({ accessToken, hackId, hackInputData });
+
+      if (response.status === 200) {
+        if (router.pathname === "/hacks/[id]") {
+          mutate(`${API_BASE_URL}/hacks/${router.query.id}`);
+        } else {
+          mutate(`${API_BASE_URL}/users/${currentUser.id}/hacks`);
+        }
+
+        return response.data;
+      }
+    } catch (error) {
+      console.error("Error in patchHack:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const updateComment = async (
+    commentId: string,
+    commentInputData: FormData
+  ) => {
     if (isProcessing) {
       return;
     }
@@ -100,9 +139,9 @@ export const usePost = () => {
       const accessToken = await getAccessTokenSilently();
 
       const response = await patchComment({
+        accessToken,
         commentId,
         commentInputData,
-        accessToken,
       });
 
       if (response.status === 200) {
@@ -110,22 +149,12 @@ export const usePost = () => {
 
         return response.data;
       }
-    } catch (e: any) {
-      if (e.response.status === 401 || 403) {
-        throw new Error("Unauthorized");
-      }
-
-      let message;
-      if (axios.isAxiosError(e) && e.response) {
-        console.error(e.response.data.message);
-      } else {
-        message = String(e);
-        console.error(message);
-      }
+    } catch (error) {
+      console.error("Error in patchComment:", error);
     } finally {
       setIsProcessing(false);
     }
   };
 
-  return { createPost, updatePost, updateComment };
+  return { createHack, createPost, updateComment, updateHack, updatePost };
 };
