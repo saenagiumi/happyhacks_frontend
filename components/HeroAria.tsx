@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import AboutButton from "./AboutButton";
 
 const HeroAria = () => {
@@ -25,8 +26,8 @@ const HeroAria = () => {
               height={450}
               sizes="100vw"
               style={{
-                maxWidth: "100%",
                 height: "auto",
+                maxWidth: "100%",
               }}
               priority={true}
               alt="heroエリアの画像"
