@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "api": "json-server --host 192.168.10.109 --watch db.json --port 3004"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "@emotion/server": "^11.10.0",
     "@lottiefiles/react-lottie-player": "^3.5.2",
     "@mantine/core": "^5.9.4",
+    "@mantine/form": "^6.0.7",
     "@mantine/hooks": "^5.9.4",
     "@mantine/next": "^5.9.4",
     "@mantine/notifications": "^5.10.2",
@@ -40,9 +42,15 @@
     "autoprefixer": "^10.4.13",
     "axios": "^1.2.1",
     "dayjs": "^1.11.7",
-    "json-server": "^0.17.1",
+    "eslint": "^8.38.0",
+    "eslint-config-next": "^13.3.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-sort-keys-custom-order": "^1.0.5",
     "postcss": "^8.4.20",
-    "react-hook-form": "^7.41.0",
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.7",
     "tailwindcss": "^3.2.4"
   }
 }
