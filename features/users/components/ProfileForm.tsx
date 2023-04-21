@@ -7,16 +7,20 @@ import {
   TextInput,
   UnstyledButton,
 } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { showNotification } from "@mantine/notifications";
+import { ANIMALS } from "const/const";
 import { useAtomValue } from "jotai";
 import React, { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { currentUserAtom } from "state/currentUser";
-import { TbCameraPlus } from "react-icons/tb";
-import { showNotification } from "@mantine/notifications";
 import { MdCheckCircle } from "react-icons/md";
+import { TbCameraPlus } from "react-icons/tb";
+import { currentUserAtom } from "state/currentUser";
+
 import { useUser } from "../hooks/useUser";
-import { UserFormValue } from "../types";
-import { ANIMALS } from "const/const";
+
+type InputData = {
+  name: string;
+};
 
 const ProfileForm = () => {
   const { user } = useAuth0();
@@ -26,41 +30,48 @@ const ProfileForm = () => {
   const [targetSrc, setTargetSrc] = useState<string | undefined>(
     currentUser.picture
   );
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<UserFormValue>({ defaultValues: { name: currentUser.name } });
+
+  const profileForm = useForm<InputData>({
+    initialValues: {
+      name: currentUser.name,
+    },
+    validate: {
+      name: (value) =>
+        value.length <= 0 ? "ニックネームを入力してください" : null,
+    },
+  });
+
+  const handleSubmit = () => {
+    if (profileForm.values.name === "") {
+      return;
+    }
+
+    onSubmit(profileForm.values);
+  };
 
   useEffect(() => {
     setTargetSrc(currentUser.picture);
+    profileForm.setValues({
+      name: currentUser.name,
+    });
   }, [currentUser]);
 
-  // defaultValuesに非同期の初期値を適用し直す
-  useEffect(() => {
-    reset({
-      ...currentUser,
-      name: currentUser?.name.toString(),
-    });
-  }, [currentUser, reset]);
-
-  const onSubmit: SubmitHandler<UserFormValue> = async (InputData) => {
+  const onSubmit = async (inputData: InputData) => {
     const patchUserData = {
-      userId: currentUser.id,
-      ...InputData,
+      name: inputData.name,
       picture: targetSrc,
+      userId: currentUser.id,
     };
 
     const isSuccess = await updateUser(patchUserData);
 
     if (isSuccess) {
       showNotification({
-        autoClose: 3000,
         title: "更新完了",
-        message: "プロフィールを更新しました",
+        autoClose: 3000,
         color: "green.4",
         icon: <MdCheckCircle size={30} />,
+        message: "プロフィールを更新しました",
       });
     }
 
@@ -72,12 +83,12 @@ const ProfileForm = () => {
       <h2 className="mt-20 mb-3 text-[1.1rem] text-gray-800">プロフィール</h2>
       <UnstyledButton
         onClick={() => setOpened(true)}
-        className="flex relative mb-5"
+        className="relative mb-5 flex"
       >
-        <div className="absolute bg-gray-900/[.3] w-[96px] h-[96px] rounded-full z-10"></div>
+        <div className="absolute z-10 h-[96px] w-[96px] rounded-full bg-gray-900/[.3]"></div>
         <div className="absolute top-9 left-9">
           <div className="flex">
-            <TbCameraPlus className="text-white z-20 text-[1.5rem]" />
+            <TbCameraPlus className="z-20 text-[1.5rem] text-white" />
           </div>
         </div>
         <Avatar src={currentUser.picture} radius={50} size={96} />
@@ -92,20 +103,20 @@ const ProfileForm = () => {
         onClose={() => setOpened(false)}
       >
         <div className="flex-col justify-center">
-          <h3 className="flex justify-center text-base font-normal mb-4">
+          <h3 className="mb-4 flex justify-center text-base font-normal">
             プロフィール画像の変更
           </h3>
           <Divider className="mx-2 mb-3"></Divider>
-          <p className="flex justify-center mx-3 mb-6">
+          <p className="mx-3 mb-6 flex justify-center">
             自分のアイコンを使用するか、一覧からアイコンを選んで変更することができます。
           </p>
-          <div className="flex justify-center mb-8">
+          <div className="mb-8 flex justify-center">
             <Avatar src={targetSrc} radius={50} size={80} />
           </div>
           <div className="flex-col">
-            <div className="flex justify-evenly mb-4">
+            <div className="mb-4 flex justify-evenly">
               <ul className="grid grid-cols-4 gap-4">
-                <li className="flex items-center justify-center bg-gray-800/[.3] w-[56px] h-[56px] rounded-full">
+                <li className="flex h-[56px] w-[56px] items-center justify-center rounded-full bg-gray-800/[.3]">
                   <UnstyledButton onClick={() => setTargetSrc(user?.picture)}>
                     <Avatar src={user?.picture} radius={50} size={56} />
                   </UnstyledButton>
@@ -130,7 +141,7 @@ const ProfileForm = () => {
               </ul>
             </div>
             <Divider className="mx-2 mb-5"></Divider>
-            <div className="flex justify-end mr-2">
+            <div className="mr-2 flex justify-end">
               <Button
                 onClick={() => setOpened(false)}
                 className="mr-2"
@@ -142,7 +153,7 @@ const ProfileForm = () => {
                 キャンセル
               </Button>
               <Button
-                onClick={handleSubmit(onSubmit)}
+                onClick={handleSubmit}
                 size="xs"
                 radius="xs"
                 color="green.4"
@@ -154,29 +165,25 @@ const ProfileForm = () => {
         </div>
       </Modal>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={profileForm.onSubmit((values) => onSubmit(values))}>
         <div className="mb-3">
           <TextInput
             classNames={{
               input: "pl-3 text-gray-600 text-[16px]",
               label: "text-gray-800 ml-0.5 text-[14px] font-bold mb-1.5",
             }}
-            label="表示名 (最長12文字)"
+            label="表示名"
+            placeholder="12文字以内で入力してください"
             radius="xs"
             size="md"
             maxLength={12}
-            {...register("name", { required: true })}
+            {...profileForm.getInputProps("name")}
           />
-          {errors.name && (
-            <span className="text-[0.7rem] font-bold text-red-500">
-              ニックネームを入力してください
-            </span>
-          )}
         </div>
         <div className="text-center">
           <UnstyledButton
             type="submit"
-            className="w-full h-[40px] rounded-[3px] text-[0.9rem] text-center font-bold text-emerald-50 bg-main-green"
+            className="h-[40px] w-full rounded-[3px] bg-main-green text-center text-[0.9rem] font-bold text-emerald-50"
           >
             更新する
           </UnstyledButton>
