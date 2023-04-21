@@ -1,51 +1,58 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useRouter } from "next/router";
 import { Button, Textarea, TextInput, UnstyledButton } from "@mantine/core";
-
+import { useForm } from "@mantine/form";
 // Toast
 import { showNotification } from "@mantine/notifications";
+import { useRouter } from "next/router";
 import { MdCheckCircle } from "react-icons/md";
 
 import { useCreateComment } from "../hooks/useCreateComment";
 import { CommentData } from "../types";
 
 type Props = {
-  userId: string | undefined;
-  postId: string | string[] | undefined;
   modalHandlers: {
-    readonly open: () => void;
     readonly close: () => void;
+    readonly open: () => void;
     readonly toggle: () => void;
   };
+  postId: string | string[] | undefined;
+  userId: string | undefined;
 };
 
 const CommentForm = (props: Props) => {
   const { createComment } = useCreateComment();
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CommentData>();
+  const commentForm = useForm<CommentData>({
+    initialValues: {
+      title: "",
+      body: "",
+      post_id: "",
+      user_id: "",
+    },
+    validate: {
+      title: (value) =>
+        value.length <= 0 ? "タイトルを入力してください" : null,
+      body: (value) => (value.length <= 0 ? "本文を入力してください" : null),
+    },
+  });
 
-  const onSubmit: SubmitHandler<CommentData> = async (inputData) => {
+  const onSubmit = async (inputData: CommentData) => {
     const commentData: CommentData = {
       title: inputData.title,
       body: inputData.body,
-      user_id: props.userId,
       post_id: props.postId,
+      user_id: props.userId,
     };
 
     const isSuccess = await createComment(props.postId, commentData);
 
     if (isSuccess) {
       showNotification({
-        autoClose: 3000,
         title: "投稿完了",
-        message: "回答を投稿しました",
+        autoClose: 3000,
         color: "green.4",
         icon: <MdCheckCircle size={30} />,
+        message: "回答を投稿しました",
       });
       props.modalHandlers.close();
       router.replace(router.asPath);
@@ -54,9 +61,9 @@ const CommentForm = (props: Props) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={commentForm.onSubmit((values) => onSubmit(values))}>
         <div className="mb-5">
-          <div className="flex justify-between items-center mb-5">
+          <div className="mb-5 flex items-center justify-between">
             <UnstyledButton
               className=" text-gray-600 underline"
               onClick={() => props.modalHandlers.close()}
@@ -69,7 +76,7 @@ const CommentForm = (props: Props) => {
                 size="sm"
                 type="submit"
                 color="green.4"
-                className="w-full text-[0.9rem] text-center font-bold text-emerald-50 bg-main-green"
+                className="w-full bg-main-green text-center text-[0.9rem] font-bold text-emerald-50"
               >
                 回答する
               </Button>
@@ -86,13 +93,8 @@ const CommentForm = (props: Props) => {
             label="対策を簡単に説明すると？"
             radius="xs"
             size="md"
-            {...register("title", { required: true })}
+            {...commentForm.getInputProps("title")}
           />
-          {errors.title && (
-            <span className="text-xs font-bold text-red-400">
-              回答のタイトルを入力してください
-            </span>
-          )}
         </div>
         <div className="mb-8">
           <Textarea
@@ -106,13 +108,8 @@ const CommentForm = (props: Props) => {
             radius="xs"
             autosize
             minRows={8}
-            {...register("body", { required: true })}
+            {...commentForm.getInputProps("body")}
           />
-          {errors.body && (
-            <span className="text-xs font-bold text-red-400">
-              回答の内容を入力してください
-            </span>
-          )}
         </div>
       </form>
     </div>

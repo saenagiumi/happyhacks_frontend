@@ -1,12 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { TextInput, UnstyledButton } from "@mantine/core";
+import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { UserPostData } from "features/auth/types";
 import { useAtomValue } from "jotai";
 import { useRouter } from "next/router";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { MdCheckCircle } from "react-icons/md";
 import { currentUserAtom } from "state/currentUser";
+
 import { useCreateUser } from "../hooks/useCreateUser";
 
 const RegistrationForm = () => {
@@ -19,28 +20,34 @@ const RegistrationForm = () => {
     router.push("/");
   }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<UserPostData>();
+  const registrationForm = useForm<UserPostData>({
+    initialValues: {
+      name: "",
+      picture: "",
+      sub: "",
+    },
+    validate: {
+      name: (value) =>
+        value.length <= 0 ? "ニックネームを入力してください" : null,
+    },
+  });
 
-  const onSubmit: SubmitHandler<UserPostData> = async (inputData) => {
-    const postData: UserPostData = {
+  const onSubmit = async (inputData: UserPostData) => {
+    const postData = {
       name: inputData.name,
-      sub: user?.sub,
       picture: user?.picture,
+      sub: user?.sub,
     };
 
     const isSuccess = await createUser(postData);
 
     if (isSuccess) {
       showNotification({
-        autoClose: 3000,
         title: "登録完了",
-        message: "ユーザー登録が完了しました",
+        autoClose: 3000,
         color: "green.4",
         icon: <MdCheckCircle size={30} />,
+        message: "ユーザー登録が完了しました",
       });
 
       router.push("/");
@@ -54,29 +61,26 @@ const RegistrationForm = () => {
       </h2>
       <p className="mb-5">※プロフィール編集ページから変更可能です</p>
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={registrationForm.onSubmit((values) => onSubmit(values))}
+        >
           <div className="mb-4">
             <TextInput
               classNames={{
                 input: "pl-3 text-gray-600 text-[16px]",
                 label: "text-gray-800 ml-0.5 text-[14px] font-bold mb-1.5",
               }}
-              placeholder=""
-              label="ニックネーム (最長12文字)"
+              placeholder="12文字以内で入力してください"
+              label="ニックネーム"
               radius="xs"
               size="md"
-              {...register("name", { required: true })}
+              {...registrationForm.getInputProps("name")}
             />
-            {errors.name && (
-              <span className="text-[0.7rem] font-bold text-red-500">
-                ニックネームを入力してください
-              </span>
-            )}
           </div>
           <div className="text-center">
             <UnstyledButton
               type="submit"
-              className="w-full h-[40px] rounded-[3px] text-[0.9rem] text-center font-bold text-emerald-50 bg-main-green"
+              className="h-[40px] w-full rounded-[3px] bg-main-green text-center text-[0.9rem] font-bold text-emerald-50"
             >
               登録する
             </UnstyledButton>
