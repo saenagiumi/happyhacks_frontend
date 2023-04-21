@@ -5,9 +5,8 @@ type Props = {
   accessToken: string;
   postId: string;
   postInputData: {
-    title: string;
-    body: string;
-    user_id: string;
+    title?: string;
+    body?: string;
   };
 };
 

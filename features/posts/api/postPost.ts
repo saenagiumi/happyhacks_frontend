@@ -4,9 +4,8 @@ import { API_BASE_URL } from "const/const";
 type Props = {
   accessToken: string;
   postInputData: {
-    title: string;
-    body: string;
-    user_id: string;
+    title?: string;
+    body?: string;
   };
 };
 
