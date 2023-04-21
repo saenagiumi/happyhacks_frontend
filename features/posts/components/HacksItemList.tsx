@@ -6,10 +6,10 @@ import React from "react";
 import { Hack } from "../types";
 import HacksLayout from "./HacksLayout";
 
-const HacksJobList = () => {
+const HacksItemList = () => {
   const { data } = useFetchArray(`${API_BASE_URL}/hacks`);
   const filteredData = data
-    ?.filter((hack: Hack) => hack.category === "job")
+    ?.filter((hack: Hack) => hack.category === "item")
     .sort((a: Hack, b: Hack) => b.id - a.id);
 
   return (
@@ -32,4 +32,4 @@ const HacksJobList = () => {
   );
 };
 
-export default HacksJobList;
+export default HacksItemList;
