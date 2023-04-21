@@ -1,22 +1,25 @@
-import PostsByUserId from "features/posts/components/PostsByUserId";
 import AuthGuard from "features/auth/components/AuthGuard";
+import PostTab from "features/users/components/PostTab";
 import { NextSeo } from "next-seo";
 
 const DashBoard = () => {
   return (
     <>
       <NextSeo
-        title={`質問の管理 | HappyHacks`}
-        description={`質問の管理 | HappyHacks`}
+        noindex={true}
+        nofollow={true}
+        title="投稿の管理 | HappyHacks"
+        description="投稿の管理 | HappyHacks"
         openGraph={{
-          url: `https://www.happyhacks.app/dashboard`,
-          title: `質問の管理 | HappyHacks`,
-          description: `質問の管理 | HappyHacks`,
+          title: "投稿の管理 | HappyHacks",
+          description: "投稿の管理 | HappyHacks",
+          url: "https://www.happyhacks.app/dashboard",
         }}
       />
       <AuthGuard>
-        <div className="max-w-screen-md mx-auto">
-          <PostsByUserId />
+        <div className="mx-auto max-w-screen-sm">
+          <h2 className="mx-3 mt-5  text-[20px] text-gray-800">投稿の管理</h2>
+          <PostTab />
         </div>
       </AuthGuard>
     </>

@@ -1,35 +1,37 @@
-import Footer from "components/Footer/Footer";
+import Footer from "components/Layout/Footer";
 import { NextSeo } from "next-seo";
 import React from "react";
 
-const PrivacyPage = () => {
+type Props = {
+  title: string;
+};
+
+const PrivacyPage = ({ title }: Props) => {
   return (
     <>
       <NextSeo
-        title={`${"プライバシーポリシー"} | HappyHacks`}
-        description={`${"プライバシーポリシー"} | HappyHacks`}
+        title={title}
         openGraph={{
-          url: `https://www.happyhacks.app/privacy`,
-          title: `${"プライバシーポリシー"} | HappyHacks`,
-          description: `${"プライバシーポリシー"} | HappyHacks`,
+          title: title,
+          url: "https://www.happyhacks.app/privacy",
         }}
       />
 
       <div>
         <div>
-          <div className="max-w-screen-sm px-4 xs:mx-auto mt-12 mb-20 font-sans text-main-black xs:text-[1.125rem] leading-[1.9rem] xs:leading-9 xs:tracking-wider">
-            <h2 className="text-[1.4rem] xs:text-[1.75rem] text-center mb-5 xs:mb-10">
+          <div className="mt-12 mb-20 max-w-screen-sm px-4 font-sans leading-[1.9rem] text-main-black xs:mx-auto xs:text-[1.125rem] xs:leading-9 xs:tracking-wider">
+            <h2 className="mb-5 text-center text-[1.4rem] xs:mb-10 xs:text-[1.75rem]">
               プライバシーポリシー
             </h2>
             <p>
               当方は、本ウェブサイト上で提供するサービス(以下、「本サービス」といいます。)におけるユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー(以下、「本ポリシー」といいます。)を定めます。{" "}
             </p>
 
-            <h3 className="text-[1.125rem] xs:text-[1.25rem] font-[600] mt-5 mb-1">
+            <h3 className="mt-5 mb-1 text-[1.125rem] font-[600] xs:text-[1.25rem]">
               お客様から取得する情報
             </h3>
             <p>当方は、お客様から以下の情報を取得します。</p>
-            <ul className="pl-7 m-0">
+            <ul className="m-0 pl-7">
               <li className="list-disc">
                 氏名(ニックネームやペンネームも含む)
               </li>
@@ -46,13 +48,13 @@ const PrivacyPage = () => {
                 当方ウェブサイトの滞在時間、入力履歴、購買履歴等の当方ウェブサイトにおけるお客様の行動履歴
               </li>
             </ul>
-            <h3 className="text-[1.125rem] xs:text-[1.25rem] font-[600] mt-5 mb-1">
+            <h3 className="mt-5 mb-1 text-[1.125rem] font-[600] xs:text-[1.25rem]">
               お客様の情報を利用する目的
             </h3>
             <p>
               当方は、お客様から取得した情報を、以下の目的のために利用します。
             </p>
-            <ul className="pl-7 m-0">
+            <ul className="m-0 pl-7">
               <li className="list-disc">
                 本サービスに関する登録の受付、お客様の本人確認、認証のため
               </li>
@@ -79,19 +81,19 @@ const PrivacyPage = () => {
                 以上の他、本サービスの提供、維持、保護及び改善のため
               </li>
             </ul>
-            <h3 className="text-[1.125rem] xs:text-[1.25rem] font-[600] mt-5 mb-1">
+            <h3 className="mt-5 mb-1 text-[1.125rem] font-[600] xs:text-[1.25rem]">
               安全管理のために講じた措置
             </h3>
             <p>
               当方が、お客様から取得した情報に関して安全管理のために講じた措置につきましては、末尾記載のお問い合わせ先にご連絡をいただきましたら、法令の定めに従い個別にご回答させていただきます。
             </p>
-            <h3 className="text-[1.125rem] xs:text-[1.25rem] font-[600] mt-5 mb-1">
+            <h3 className="mt-5 mb-1 text-[1.125rem] font-[600] xs:text-[1.25rem]">
               第三者提供
             </h3>
             <p>
               当方は、お客様から取得する情報のうち、個人データ(個人情報保護法第2条第6項)に該当するものついては、あらかじめお客様の同意を得ずに、第三者(日本国外にある者を含みます。)に提供しません。但し、次の場合は除きます。
             </p>
-            <ul className="pl-7 m-0">
+            <ul className="m-0 pl-7">
               <li className="list-disc">
                 個人データの取扱いを外部に委託する場合
               </li>
@@ -103,7 +105,7 @@ const PrivacyPage = () => {
                 その他、法律によって合法的に第三者提供が許されている場合
               </li>
             </ul>
-            <h3 className="text-[1.125rem] xs:text-[1.25rem] font-[600] mt-5 mb-1">
+            <h3 className="mt-5 mb-1 text-[1.125rem] font-[600] xs:text-[1.25rem]">
               アクセス解析ツール
             </h3>
             <p>
@@ -119,13 +121,13 @@ const PrivacyPage = () => {
                 Googleアナリティクス利用規約
               </a>
             </p>
-            <h3 className="text-[1.125rem] xs:text-[1.25rem] font-[600] mt-5 mb-1">
+            <h3 className="mt-5 mb-1 text-[1.125rem] font-[600] xs:text-[1.25rem]">
               プライバシーポリシーの変更
             </h3>
             <p>
               当方は、必要に応じて、本ポリシーの内容を変更します。本ポリシーの内容は、法令その他本ポリシーに別段の定めのある事項を除いて、お客様に通知することなく、変更することができるものとします。当方が別途定める場合を除いて、変更後のプライバシーポリシーは、本ウェブサイトに掲載したときから効力を生じるものとします。
             </p>
-            <h3 className="text-[1.125rem] xs:text-[1.25rem] font-[600] mt-5 mb-1">
+            <h3 className="mt-5 mb-1 text-[1.125rem] font-[600] xs:text-[1.25rem]">
               お問い合わせ
             </h3>
             <p>
@@ -149,5 +151,15 @@ const PrivacyPage = () => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const title = "プライバシーポリシー | HappyHacks";
+
+  return {
+    props: {
+      title,
+    },
+  };
+}
 
 export default PrivacyPage;

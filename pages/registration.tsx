@@ -7,16 +7,18 @@ const RegistrationPage = () => {
   return (
     <div>
       <NextSeo
-        title={`ユーザー登録 | HappyHacks`}
-        description={`ユーザー登録 | HappyHacks`}
+        noindex={true}
+        nofollow={true}
+        title="ユーザー登録 | HappyHacks"
+        description="ユーザー登録 | HappyHacks"
         openGraph={{
-          url: `https://www.happyhacks.app/registration`,
-          title: `ユーザー登録| HappyHacks`,
-          description: `ユーザー登録 | HappyHacks`,
+          title: "ユーザー登録| HappyHacks",
+          description: "ユーザー登録 | HappyHacks",
+          url: "https://www.happyhacks.app/registration",
         }}
       />
       <AuthGuard>
-        <div className="max-w-screen-xs mx-7 xs:mx-auto">
+        <div className="mx-7 max-w-screen-xs xs:mx-auto">
           <RegistrationForm />
         </div>
       </AuthGuard>

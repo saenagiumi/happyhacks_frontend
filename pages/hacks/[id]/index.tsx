@@ -1,85 +1,76 @@
-import { PostDetail } from "features/posts/components/PostDetail";
-import { useRouter } from "next/router";
+import { TwitterIntentTweet } from "components/TwitterIntentTweet";
 import { API_BASE_URL } from "const/const";
-import { useDisclosure } from "@mantine/hooks";
-import { Modal } from "@mantine/core";
-import CommentForm from "features/comments/components/CommentForm";
-import CommentListByPostId from "features/comments/components/CommentListByPostId";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useAtomValue } from "jotai";
-import { currentUserAtom } from "state/currentUser";
-import { SWRConfig } from "swr";
-import { NextPageContext } from "next";
-import { NextSeo } from "next-seo";
 import { Hack } from "features/posts/components/Hack";
+import { NextPageContext } from "next";
+import Image from "next/image";
+import { NextSeo } from "next-seo";
+import { SWRConfig } from "swr";
+
+export const dynamic = "force-dynamic";
 
 type Props = {
-  hackUserId: number;
-  hackData: {
-    name: string;
-    picture: string;
-    hack: {
-      id: number;
-      tweet_id: string;
-      title: string;
-      body: string;
-      user_id: number;
-      categories: string[];
-      created_at: string;
-      updated_at: string;
-    };
-  };
   fallback: {
     url: {
+      name: string;
       hack: {
         id: number;
         title: string;
         body: string;
-        user_id: number;
         created_at: string;
         updated_at: string;
+        user_id: number;
       };
-      name: string;
       picture: string;
     };
   };
+  hackData: {
+    name: string;
+    hack: {
+      id: number;
+      title: string;
+      body: string;
+      category: string;
+      created_at: string;
+      tags: string[];
+      tweet_id: string;
+      updated_at: string;
+      user_id: number;
+    };
+    picture: string;
+  };
+  hackUserId: number;
 };
 
-const HacksId = ({ hackUserId, hackData, fallback }: Props) => {
-  const { user } = useAuth0();
-  const currentUser = useAtomValue(currentUserAtom);
-  const router = useRouter();
-  const [opened, modalHandlers] = useDisclosure(false);
-
+const HacksId = ({ fallback, hackData }: Props) => {
   return (
     <>
       <SWRConfig value={{ fallback }}>
         <NextSeo
-          title="HappyHacks"
+          title="HappyHacks | ADHD対策のナレッジを共有"
           description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです"
           openGraph={{
-            type: "website",
-            title: `ADHD対策のナレッジを共有 | HappyHacks`,
+            title: "ADHD対策のナレッジを共有 | HappyHacks",
             description:
               "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
-            site_name: "HappyHacks",
-            url: `https://www.happyhacks.app/hack/${hackData.hack.id}`,
             images: [
               {
+                height: 630,
                 url: `https://www.happyhacks.app/api/og?title=${hackData.hack.title}`,
                 width: 1200,
-                height: 630,
               },
             ],
+            site_name: "HappyHacks",
+            type: "website",
+            url: `https://www.happyhacks.app/hack/${hackData.hack.id}`,
           }}
           twitter={{
+            cardType: "summary_large_image",
             handle: "@handle",
             site: "@site",
-            cardType: "summary_large_image",
           }}
         />
-        <div className="max-w-[620px] mx-auto">
-          <div className="px-7 pt-3 w-full">
+        <div className="mx-auto max-w-[620px]">
+          <div className="w-full flex-col items-center justify-center px-7 pt-3">
             <Hack
               title={hackData.hack.title}
               body={hackData.hack.body}
@@ -87,9 +78,28 @@ const HacksId = ({ hackUserId, hackData, fallback }: Props) => {
               name={hackData.name}
               id={hackData.hack.id.toString()}
               userId={hackData.hack.user_id.toString()}
-              tweetId={hackData.hack.tweet_id.toString()}
-              categories={hackData.hack.categories}
+              tweetId={hackData.hack.tweet_id?.toString()}
+              category={hackData.hack.category}
+              tags={hackData.hack.tags}
             />
+
+            <div className="my-3 mb-10">
+              <TwitterIntentTweet
+                className="flex h-[40px] w-[160px] items-center justify-center rounded-full bg-blue-400 py-2 pl-5 pr-[22px] font-sans text-[15px] font-[600] text-sky-50 no-underline xs:mx-auto"
+                text={"\n\n#ADHD対策 #ADHDあるある"}
+                url={`https://www.happyhacks.app/hacks/${hackData.hack.id.toString()}`}
+              >
+                <Image
+                  className="mr-2"
+                  src="/tw-logo-white.svg"
+                  width="16"
+                  height="16"
+                  alt="twitterのロゴ"
+                  priority={true}
+                />
+                ツイートする
+              </TwitterIntentTweet>
+            </div>
           </div>
         </div>
       </SWRConfig>
@@ -99,17 +109,22 @@ const HacksId = ({ hackUserId, hackData, fallback }: Props) => {
 
 HacksId.getInitialProps = async (ctx: NextPageContext) => {
   const hackId = ctx.query.id;
-  const hack = await fetch(`${API_BASE_URL}/hacks/${hackId}`);
-  const hackData = await hack.json();
-  const hackUserId = hackData.hack.user_id;
 
-  return {
-    hackUserId,
-    hackData,
-    fallback: {
-      [`${API_BASE_URL}/hacks/${hackId}`]: hackData,
-    },
-  };
+  try {
+    const hack = await fetch(`${API_BASE_URL}/hacks/${hackId}`);
+    const hackData = await hack.json();
+    const hackUserId = hackData.hack.user_id;
+
+    return {
+      fallback: {
+        [`${API_BASE_URL}/hacks/${hackId}`]: hackData,
+      },
+      hackData,
+      hackUserId,
+    };
+  } catch (error) {
+    console.error("Error in getInitialProps:", error);
+  }
 };
 
 export default HacksId;

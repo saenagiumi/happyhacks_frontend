@@ -1,39 +1,44 @@
-import Footer from "components/Footer/Footer";
-import { NextSeo } from "next-seo";
+import Footer from "components/Layout/Footer";
 import Image from "next/image";
+import { NextSeo } from "next-seo";
 
-const AboutPage = () => {
+type Props = {
+  title: string;
+  description: string;
+};
+
+const AboutPage = ({ title, description }: Props) => {
   return (
     <>
       <NextSeo
-        title={`HappyHacksについて | HappyHacks`}
-        description={`HappyHacksは、大人のADHDや、グレーゾーンと呼ばれる方々が生活環境を工夫するアイデアを共有して、ユーザー同士がQOLを高め合うことを主な目的としたサービスですが、症状の程度や診断の有無を問わず、「ADHD」をきっかけにした困りごとを抱えている方であれば、どなたでもご活用いただけます。`}
+        title={title}
+        description={description}
         openGraph={{
-          url: `https://www.happyhacks.app/about`,
-          title: `HappyHacksについて | HappyHacks`,
-          description: `HappyHacksは、大人のADHDや、グレーゾーンと呼ばれる方々が生活環境を工夫するアイデアを共有して、ユーザー同士がQOLを高め合うことを主な目的としたサービスですが、症状の程度や診断の有無を問わず、「ADHD」をきっかけにした困りごとを抱えている方であれば、どなたでもご活用いただけます。`,
+          title: title,
+          description: description,
+          url: "https://www.happyhacks.app/about",
         }}
       />
 
       <div className="font-sans text-main-black">
-        <div className="h-[135vw] xs:h-[52vh] md:h-[52vh] w-full bg-amber-300 mb-10 xs:mb-20">
-          <div className="flex-col flex justify-center items-center">
+        <div className="mb-10 h-[135vw] w-full bg-amber-300 xs:mb-20 xs:h-[52vh] md:h-[52vh]">
+          <div className="flex flex-col items-center justify-center">
             <div>
-              <h1 className="text-[7.3vw] font-body tracking-tight xs:mb-5 xs:text-[2.1rem] md:text-[2.5rem] font-[500]">
+              <h2 className="font-body text-[7.3vw] font-[500] tracking-tight xs:mb-5 xs:text-[2.1rem] md:text-[2.5rem]">
                 What&apos;s HappyHacks?
-              </h1>
+              </h2>
             </div>
 
             <div className="mb-[-590px] xs:mt-[-40px] xs:mb-[-580px]">
               <Image
-                className="flex mx-auto"
+                className="mx-auto flex"
                 src="/alcohol.png"
                 width={500}
                 height={500}
                 sizes="100vw"
                 style={{
-                  maxWidth: "80%",
                   height: "100%",
+                  maxWidth: "80%",
                 }}
                 priority={true}
                 alt="alcoholを持った女の子"
@@ -41,21 +46,21 @@ const AboutPage = () => {
             </div>
           </div>
         </div>
-        <div className="max-w-screen-sm p-4 mx-auto xs:my-[30px] leading-[1.9rem] xs:leading-9 tracking-wide xs:tracking-wider">
-          <h2 className="font-[600] text-[1.25rem] xs:text-[1.75rem]">
+        <div className="mx-auto max-w-screen-sm p-4 leading-[1.9rem] tracking-wide xs:my-[30px] xs:leading-9 xs:tracking-wider">
+          <h2 className="text-[1.25rem] font-[600] xs:text-[1.75rem]">
             サービスの目的
           </h2>
           <div className="mt-4 text-[1rem] xs:text-[1.125rem]">
             <p>
-              HappyHacksは、大人のADHDや、グレーゾーンと呼ばれる方々が生活環境を工夫するアイデアを共有して、ユーザー同士がQOLを高め合うことを主な目的としたサービスですが、症状の程度や診断の有無を問わず、「ADHD」をきっかけにした困りごとを抱えている方であれば、どなたでもご活用いただけます。
+              HappyHacksは、大人のADHDや、グレーゾーンと呼ばれる方々が生活環境を工夫するアイデアや困りごとへの対策を共有して、ユーザー同士がQOLを高め合うことを主な目的としたサービスですが、症状の程度や診断の有無を問わず、「ADHD」をきっかけにした困りごとを抱えている方であれば、どなたでもご活用いただけます。
             </p>
           </div>
           <div>
             <div className="my-[30px] xs:my-12">
-              <h2 className="font-[600] text-[1.25rem] xs:text-[1.75rem]">
+              <h2 className="text-[1.25rem] font-[600] xs:text-[1.75rem]">
                 課題と手段について
               </h2>
-              <h3 className="font-[600] mt-4 xs:text-[1.25rem]">
+              <h3 className="mt-4 font-[600] xs:text-[1.25rem]">
                 ADHDグレーゾーンとは？
               </h3>
               <div className="mt-2 xs:text-[1.125rem]">
@@ -106,7 +111,7 @@ const AboutPage = () => {
             </div>
           </div>
           <div>
-            <h2 className="text-main-black font-[600] text-[1.25rem] xs:text-[1.75rem]">
+            <h2 className="text-[1.25rem] font-[600] text-main-black xs:text-[1.75rem]">
               HappyHacksの使い方
             </h2>
             <div className="xs:text-[1.125rem]">
@@ -141,5 +146,17 @@ const AboutPage = () => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const title = "HappyHacksについて | HappyHacks";
+  const description = "HappyHacksは、大人のADHDや、グレーゾーンと呼ばれる方々が生活環境を工夫するアイデアや困りごとへの対策を共有して、ユーザー同士がQOLを高め合うことを主な目的としたサービスですが、症状の程度や診断の有無を問わず、「ADHD」をきっかけにした困りごとを抱えている方であれば、どなたでもご活用いただけます。";
+
+  return {
+    props: {
+      title,
+      description,
+    },
+  };
+}
 
 export default AboutPage;
