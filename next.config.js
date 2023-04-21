@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
 
   eslint: {
     dirs: ["/"],
   },
 
-    return config
+  experimental: {
+    scrollRestoration: true,
   },
+  reactStrictMode: true,
+  swcMinify: true,
 };
 
 module.exports = nextConfig;
