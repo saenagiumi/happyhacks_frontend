@@ -1,14 +1,15 @@
-import { CommentData } from "../types";
 import axios from "axios";
 import { API_BASE_URL } from "const/const";
 
+import { CommentData } from "../types";
+
 type Props = {
-  postId: string | string[] | undefined;
   accessToken: string;
   commentInputData: CommentData;
+  postId: string | string[] | undefined;
 };
 
-export const postComment = async ({ postId, accessToken, commentInputData }: Props) => {
+export const postComment = async ({ accessToken, commentInputData, postId }: Props) => {
   const config = {
     headers: {
       authorization: `Bearer ${accessToken}`,

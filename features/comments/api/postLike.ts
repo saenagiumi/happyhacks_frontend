@@ -1,13 +1,12 @@
-import { Comment } from "../types";
 import axios from "axios";
 import { API_BASE_URL } from "const/const";
 
 type Props = {
-  commentId: string | string[] | undefined;
   accessToken: string;
+  commentId: string | string[] | undefined;
 };
 
-export const postLike = async ({ commentId, accessToken }: Props) => {
+export const postLike = async ({ accessToken, commentId }: Props) => {
   const config = {
     headers: {
       authorization: `Bearer ${accessToken}`,

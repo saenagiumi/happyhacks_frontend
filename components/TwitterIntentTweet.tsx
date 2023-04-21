@@ -1,13 +1,12 @@
-import Image from "next/image";
 import { ComponentProps, forwardRef } from "react";
 
 type TwitterIntentTweetProps = {
+  hashtags?: string[];
+  in_reply_to?: string;
+  related?: string[];
   text?: string;
   url?: string;
-  hashtags?: string[];
   via?: string;
-  related?: string[];
-  in_reply_to?: string;
 } & Omit<ComponentProps<"a">, "href" | "target" | "rel">;
 
 export const TwitterIntentTweet = forwardRef<
@@ -15,7 +14,7 @@ export const TwitterIntentTweet = forwardRef<
   TwitterIntentTweetProps
 >(
   (
-    { text, hashtags, url, via, related, in_reply_to, ...intrinsicProps },
+    { hashtags, in_reply_to, related, text, url, via, ...intrinsicProps },
     forwardedRef
   ) => {
     const _url = new URL("https://twitter.com/intent/tweet");

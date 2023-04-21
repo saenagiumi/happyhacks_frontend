@@ -1,13 +1,13 @@
-import { User } from "features/users/types";
-import { API_BASE_URL } from "const/const";
 import axios from "axios";
+import { API_BASE_URL } from "const/const";
+import { User } from "features/users/types";
 
 type Props = {
-  sub: string | undefined;
   accessToken: string;
+  sub: string | undefined;
 };
 
-export const getUser = async ({sub, accessToken}: Props) => {
+export const getUser = async ({accessToken, sub}: Props) => {
   if (!sub) {
     throw new Error("subが必要です");
   }

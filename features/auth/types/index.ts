@@ -1,13 +1,13 @@
 export type UserPostType = {
   postData: {
-    sub: string | undefined;
     name: string | undefined;
     picture: string | undefined;
+    sub: string | undefined;
   };
 };
 
 export type UserPostData = {
-  sub: string | undefined;
-  name: string | undefined;
+  name: string;
   picture: string | undefined;
+  sub: string | undefined;
 }

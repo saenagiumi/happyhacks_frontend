@@ -2,11 +2,11 @@ import { Avatar } from "@mantine/core";
 
 type Props = {
   currentUser: {
-    picture: string;
+    picture: string | undefined;
   };
   modalHandlers: {
-    readonly open: () => void;
     readonly close: () => void;
+    readonly open: () => void;
     readonly toggle: () => void;
   };
 };

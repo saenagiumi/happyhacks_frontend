@@ -1,18 +1,18 @@
 import { Player } from "@lottiefiles/react-lottie-player";
-import { useEffect, useRef, useState } from "react";
-import BookmarkJson from "public/bookmark.json";
-import { useRouter } from "next/router";
 import { UnstyledButton } from "@mantine/core";
+import { useRouter } from "next/router";
+import BookmarkJson from "public/bookmark.json";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
+  bookmarksIsLoading: boolean;
   isBookmarked: boolean;
-  commentBookmarksIsLoading: boolean;
   onClick: () => {};
 };
 
 const BookmarkButton = ({
+  bookmarksIsLoading,
   isBookmarked,
-  commentBookmarksIsLoading,
   onClick,
 }: Props) => {
   const playerRef = useRef<Player>(null);
@@ -20,7 +20,7 @@ const BookmarkButton = ({
   const router = useRouter();
 
   useEffect(() => {
-    if (playerRef.current && !commentBookmarksIsLoading) {
+    if (playerRef.current && !bookmarksIsLoading) {
       // 最初からtrueの場合はアニメーション静止
       if (isBookmarked === true && initialState === null) {
         playerRef.current.setSeeker(50, false);
@@ -41,7 +41,7 @@ const BookmarkButton = ({
 
   useEffect(() => {
     // URLに変更があった場合、再レンダリング
-    if (!commentBookmarksIsLoading) {
+    if (!bookmarksIsLoading) {
       // アニメーションの再生準備
       if (isBookmarked === false) {
         setInitialState(false);
@@ -50,24 +50,24 @@ const BookmarkButton = ({
         setInitialState(null);
       }
     }
-  }, [router.asPath, commentBookmarksIsLoading]);
+  }, [router.asPath, bookmarksIsLoading]);
 
   return (
     <UnstyledButton onClick={onClick}>
       <div className="flex justify-center items-center font-bold text-sm text-gray-800">
         <div
-          className={`border-[0.5px] border-solid pt-[2px]  ${
+          className={`border-[1px] border-solid pt-[1px] w-[38px] h-[37.5px] ${
             isBookmarked
-              ? " border-main-green bg-green-50"
+              ? " border-amber-300 bg-amber-50"
               : "border-gray-100 bg-gray-100"
-          }   w-[38px] h-[38px] rounded-full flex justify-center items-center font-bold text-sm text-gray-400`}
+          } rounded-full flex justify-center items-center font-bold text-sm text-gray-400`}
         >
           <Player
             ref={playerRef}
-            speed={2}
+            speed={2.8}
             keepLastFrame
             src={BookmarkJson}
-            style={{ height: "32px", width: "32px" }}
+            style={{ height: "26px", width: "26px" }}
           ></Player>
         </div>
       </div>
