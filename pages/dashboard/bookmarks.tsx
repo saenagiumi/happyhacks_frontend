@@ -1,22 +1,27 @@
 import AuthGuard from "features/auth/components/AuthGuard";
-import BookmarksByUserId from "features/users/components/BookmarksByUserId";
+import BookmarkTab from "features/users/components/BookmarkTab";
 import { NextSeo } from "next-seo";
 
 const BookmarksDashBoard = () => {
   return (
     <>
       <NextSeo
-        title={`ブックマーク | HappyHacks`}
-        description={`ブックマーク | HappyHacks`}
+        noindex={true}
+        nofollow={true}
+        title="ブックマーク | HappyHacks"
+        description="ブックマーク | HappyHacks"
         openGraph={{
-          url: `https://www.happyhacks.app/bookmarks`,
-          title: `ブックマーク | HappyHacks`,
-          description: `利用ブックマーク規約 | HappyHacks`,
+          title: "ブックマーク | HappyHacks",
+          description: "利用ブックマーク規約 | HappyHacks",
+          url: "https://www.happyhacks.app/bookmarks",
         }}
       />
       <AuthGuard>
-        <div className="max-w-screen-sm mx-auto">
-          <BookmarksByUserId />
+        <div className="mx-auto max-w-screen-sm">
+          <h2 className="mx-3 mt-5 text-[20px] text-gray-800">
+            ブックマークの管理
+          </h2>
+          <BookmarkTab />
         </div>
       </AuthGuard>
     </>
