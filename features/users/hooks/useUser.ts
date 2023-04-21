@@ -1,8 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
+import { useAtom } from "jotai";
 import { useState } from "react";
 import { currentUserAtom } from "state/currentUser";
-import { useAtom } from "jotai";
+
 import { patchUser } from "../api/patchUser";
 
 export const useUser = () => {
@@ -11,9 +11,9 @@ export const useUser = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const updateUser = async (userInputData: {
-    userId: string;
     name: string;
     picture: string | undefined;
+    userId: string;
   }) => {
     if (isProcessing) {
       return;
@@ -22,13 +22,13 @@ export const useUser = () => {
     try {
       setIsProcessing(true);
       const accessToken = await getAccessTokenSilently();
-      const response = await patchUser({userInputData, accessToken})
+      const response = await patchUser({ accessToken, userInputData });
 
       if (response.status === 200) {
         const updatedCurrentUser = {
           id: currentUser.id,
-          sub: currentUser.sub,
           created_at: currentUser.created_at,
+          sub: currentUser.sub,
           updated_at: currentUser.updated_at,
           ...userInputData,
         };
@@ -37,23 +37,12 @@ export const useUser = () => {
 
         return response.data;
       }
-    } catch (e: any) {
-      // エラー発生の状況を特定できていないので、以下は暫定的な対応
-      if (e.response.status === 401 || 403) {
-        throw new Error("Unauthorized");
-      }
-
-      let message;
-      if (axios.isAxiosError(e) && e.response) {
-        console.error(e.response.data.message);
-      } else {
-        message = String(e);
-        console.error(message);
-      }
+    } catch (error) {
+      console.error("Error in patchUser:", error);
     } finally {
       setIsProcessing(false);
     }
   };
 
-  return { updateUser, isProcessing };
+  return { isProcessing, updateUser };
 };
