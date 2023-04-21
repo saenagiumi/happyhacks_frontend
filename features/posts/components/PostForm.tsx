@@ -1,82 +1,117 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useRouter } from "next/router";
-import { Textarea, TextInput, Button, UnstyledButton } from "@mantine/core";
-import { Paper } from "@mantine/core";
+import {
+  Button,
+  Paper,
+  Textarea,
+  TextInput,
+  UnstyledButton,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
+import { TargetComment } from "features/comments/types";
+import { useRouter } from "next/router";
 import { MdCheckCircle } from "react-icons/md";
+
 import { usePost } from "../hooks/usePost";
+import { PostType, TargetPost } from "../types";
 
 type FormData = {
-  title: string;
-  body: string;
-  user_id: string;
+  title?: string;
+  body?: string;
+};
+type Props = {
+  close: () => void;
+  commentData?: TargetComment;
+  postData?: TargetPost;
 };
 
-const PostForm = ({ postData, commentData, close }: any) => {
+const PostForm = ({ close, commentData, postData }: Props) => {
   // どちらかのpropsが渡ってくれば編集モード
   const submitMode = {
+    data: postData || commentData || null,
     mode: postData
       ? "postEditMode"
       : commentData
       ? "commentEditMode"
-      : "createMode",
-    data: postData || commentData || null,
+      : "createPostMode",
   };
 
-  const { createPost, updatePost, updateComment } = usePost();
+  const { createPost, updateComment, updatePost } = usePost();
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+  console.log({ submitMode });
 
-  const onSubmit: SubmitHandler<FormData> = async (inputData) => {
+  const postForm = useForm<FormData>({
+    initialValues: {
+      title: submitMode.data ? submitMode.data.title : "",
+      body: submitMode.data ? submitMode.data.body : "",
+      // user_id: submitMode?.data?.user_id,
+    },
+    validate: {
+      title: (value) =>
+        value !== undefined && value.length <= 0
+          ? "タイトルを入力してください"
+          : null,
+      body: (value) =>
+        value !== undefined && value.length <= 0
+          ? "本文を入力してください"
+          : null,
+    },
+  });
+
+  const onSubmit = async (inputData: FormData) => {
     switch (submitMode?.mode) {
       case "postEditMode": {
-        const isSuccess = await updatePost(postData.id, inputData);
-        if (isSuccess) {
-          showNotification({
-            autoClose: 3000,
-            title: "編集完了",
-            message: "投稿を編集しました",
-            color: "green.4",
-            icon: <MdCheckCircle size={30} />,
-          });
+        if (postData) {
+          const isSuccess = await updatePost(postData.id.toString(), inputData);
+          if (isSuccess) {
+            showNotification({
+              title: "編集完了",
+              autoClose: 3000,
+              color: "green.4",
+              icon: <MdCheckCircle size={30} />,
+              message: "投稿を編集しました",
+            });
 
-          close();
+            close();
+          }
+          break;
         }
-        break;
       }
+
       case "commentEditMode": {
-        const isSuccess = await updateComment(commentData.id, inputData);
-        if (isSuccess) {
-          showNotification({
-            autoClose: 3000,
-            title: "編集完了",
-            message: "回答を編集しました",
-            color: "green.4",
-            icon: <MdCheckCircle size={30} />,
-          });
+        if (commentData) {
+          const isSuccess = await updateComment(
+            commentData.id.toString(),
+            inputData
+          );
+          if (isSuccess) {
+            showNotification({
+              title: "編集完了",
+              autoClose: 3000,
+              color: "green.4",
+              icon: <MdCheckCircle size={30} />,
+              message: "回答を編集しました",
+            });
 
-          close();
-          router.replace(router.asPath);
+            close();
+            router.replace(router.asPath);
+          }
+          break;
         }
-        break;
       }
-      case "createMode": {
+
+      case "createPostMode": {
         const isSuccess = await createPost(inputData);
         if (isSuccess) {
           showNotification({
-            autoClose: 3000,
             title: "投稿完了",
-            message: "投稿が完了しました",
+            autoClose: 3000,
             color: "green.4",
             icon: <MdCheckCircle size={30} />,
+            message: "投稿が完了しました",
           });
 
-          close();
+          close;
           router.push(`/posts/${isSuccess.id}`);
         }
         break;
@@ -85,14 +120,14 @@ const PostForm = ({ postData, commentData, close }: any) => {
   };
 
   return (
-    <div className="max-w-screen-sm mx-auto">
+    <div className="mx-auto max-w-screen-sm">
       <Paper p="0" radius="xs">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={postForm.onSubmit((values) => onSubmit(values))}>
           <div className="mb-5">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <UnstyledButton
                 className=" text-gray-600 underline"
-                onClick={() => close()}
+                onClick={close}
               >
                 キャンセル
               </UnstyledButton>
@@ -102,7 +137,7 @@ const PostForm = ({ postData, commentData, close }: any) => {
                   size="sm"
                   type="submit"
                   color="green.4"
-                  className="w-full text-[0.9rem] text-center font-bold text-emerald-50 bg-main-green"
+                  className="w-full bg-main-green text-center text-[0.9rem] font-bold text-emerald-50"
                 >
                   {postData || commentData ? "編集完了" : "投稿する"}
                 </Button>
@@ -112,16 +147,12 @@ const PostForm = ({ postData, commentData, close }: any) => {
             {postData || commentData ? null : (
               <div className="mt-5">
                 <h3 className="text-md text-gray-600">質問内容の入力</h3>
-                <p className="text-sm text-gray-600">
-                  気軽に質問してみましょう
-                </p>
               </div>
             )}
           </div>
 
           <div className="mb-4">
             <TextInput
-              defaultValue={submitMode.data?.title || ""}
               classNames={{
                 input: "pl-2.5 text-gray-600",
                 label: "text-gray-500 font-bold mb-1",
@@ -130,18 +161,12 @@ const PostForm = ({ postData, commentData, close }: any) => {
               label="タイトル"
               radius="xs"
               size="md"
-              autoFocus
-              {...register("title", { required: true })}
+              {...postForm.getInputProps("title")}
             />
-            {errors.title && (
-              <span className="text-xs font-bold text-red-400">
-                質問のタイトルを入力してください
-              </span>
-            )}
           </div>
+
           <div className="mb-5">
             <Textarea
-              defaultValue={submitMode.data?.body || ""}
               classNames={{
                 input: "pl-2.5 px-2 text-gray-600",
                 label: "text-gray-500 font-bold mb-1",
@@ -152,13 +177,8 @@ const PostForm = ({ postData, commentData, close }: any) => {
               radius="xs"
               autosize
               minRows={8}
-              {...register("body", { required: true })}
+              {...postForm.getInputProps("body")}
             />
-            {errors.body && (
-              <span className="text-xs font-bold text-red-400">
-                質問の内容を入力してください
-              </span>
-            )}
           </div>
         </form>
       </Paper>

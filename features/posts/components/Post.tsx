@@ -1,46 +1,45 @@
 import {
-  Text,
   Avatar,
+  Button,
   Group,
   Menu,
-  UnstyledButton,
   Modal,
-  Button,
+  Text,
+  UnstyledButton,
 } from "@mantine/core";
-
-// react-icons
-import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { showNotification } from "@mantine/notifications";
-import { MdCheckCircle } from "react-icons/md";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { User } from "features/users/types";
 import { useAtomValue } from "jotai";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
+import { MdCheckCircle } from "react-icons/md";
 import { currentUserAtom } from "state/currentUser";
-import PostForm from "./PostForm";
+
 import { useDestroyPost } from "../hooks/useDestroyPost";
 import { TargetPost } from "../types";
-import { User } from "features/users/types";
+import PostForm from "./PostForm";
 
 type Props = {
   id: string;
-  userId: string;
+  name: string;
   title: string;
   body: string;
-  name: string;
+  comments_count: number;
   iconSrc: string;
   postedAt: string;
-  comments_count: number;
+  userId: string;
 };
 
 export const Post = ({
   id,
-  userId,
+  name,
   title,
   body,
-  name,
-  iconSrc,
   comments_count,
+  iconSrc,
+  userId,
 }: Props) => {
   const currentUser = useAtomValue<User>(currentUserAtom);
   const [opened, setOpened] = useState<boolean>(false);
@@ -59,11 +58,11 @@ export const Post = ({
     if (isSuccess) {
       setOpened(false);
       showNotification({
+        title: "完了",
         autoClose: 3000,
-        title: "削除完了",
-        message: "投稿を削除しました",
         color: "green.4",
         icon: <MdCheckCircle size={30} />,
+        message: "投稿を削除しました",
       });
     }
 
@@ -72,14 +71,16 @@ export const Post = ({
 
   return (
     <div className="pt-3.5 pb-2 xs:p-5 xs:pt-7">
-      <div className="flex justify-between items-center text-main-black font-bold">
-        <div className="xs:tracking-wide text-[16px] xs:text-[1.125rem] leading-6 tracking-wide">{title}</div>
+      <div className="flex items-start justify-between font-bold text-main-black">
+        <div className="text-[16px] leading-6 tracking-wide xs:text-[1.125rem] xs:tracking-wide">
+          {title}
+        </div>
 
         {currentUser.id == userId && router.asPath.includes("posts") && (
           // ログインユーザーのidと参照している投稿のuser_idが一致し、詳細ページの場合にメニューを表示
           <Menu position="bottom-end" offset={5} width={180} shadow="md">
             <Menu.Target>
-              <UnstyledButton className="flex justify-center items-center bg-gray-100 rounded-full p-2 ml-3 mr-2">
+              <UnstyledButton className="ml-3 mr-2 flex items-center justify-center rounded-full bg-gray-100 p-2">
                 <HiOutlineDotsHorizontal className="text-gray-500" size={18} />
               </UnstyledButton>
             </Menu.Target>
@@ -113,7 +114,7 @@ export const Post = ({
         opened={editOpened}
         onClose={() => setEditOpened(false)}
       >
-        <PostForm close={setEditOpened} postData={targetPost} />
+        <PostForm close={() =>setEditOpened(false)} postData={targetPost} />
       </Modal>
       <Modal
         opened={opened}
@@ -123,11 +124,11 @@ export const Post = ({
         radius="md"
         size="xs"
       >
-        <div className="flex justify-center font-bold text-lg text-gray-800 mt-0.5 mb-3">
+        <div className="mt-0.5 mb-3 flex justify-center text-lg font-bold text-gray-800">
           削除しますか？
         </div>
         <div className="mx-1.5">
-          <div className="text-sm text-gray-600 mb-8">
+          <div className="mb-8 text-sm text-gray-600">
             削除した投稿は元に戻すことができません。よろしいですか？
           </div>
           <div className="flex justify-between">
@@ -150,7 +151,7 @@ export const Post = ({
       </Modal>
 
       <div className="pt-2 pb-1">
-        <div className="w-full break-all text-[14px] xs:text-[1.125rem] leading-7 xs:leading-8 text-main-black tracking-wide">
+        <div className="w-full break-all text-[14px] leading-7 tracking-wide text-main-black xs:text-[1.125rem] xs:leading-8">
           {body}
         </div>
       </div>
@@ -164,7 +165,7 @@ export const Post = ({
         <Group className="pr-1.5">
           {comments_count && (
             // コメントがあればアイコンと件数を表示
-            <div className=" text-gray-500 flex items-center">
+            <div className="flex items-center text-gray-500">
               <HiOutlineChatBubbleOvalLeft className="mr-1" />
               <div>{comments_count}</div>
             </div>
