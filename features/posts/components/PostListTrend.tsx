@@ -24,7 +24,7 @@ export const PostListTrend = () => {
                   title={post.title}
                   body={post.body}
                   name={post.name}
-                  iconSrc={post.picture}
+                  picture={post.picture}
                   postedAt={post.created_at}
                   comments_count={post.comments_count}
                 />

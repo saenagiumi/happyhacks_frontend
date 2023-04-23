@@ -15,7 +15,6 @@ import { postPost } from "../api/postPost";
 type FormData = {
   title?: string;
   body?: string;
-  // user_id: string;
 };
 
 type HackFormData = {

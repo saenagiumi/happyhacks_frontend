@@ -36,7 +36,7 @@ type Props = {
   title: string;
   body: string;
   category: string;
-  iconSrc: string;
+  picture: string;
   tags: string[];
   tweetId: string;
   userId: string;
@@ -48,7 +48,7 @@ export const Hack = ({
   title,
   body,
   category,
-  iconSrc,
+  picture,
   tags,
   tweetId,
   userId,
@@ -116,7 +116,7 @@ export const Hack = ({
     <div>
       <div className="mr-[-12px] flex justify-between">
         <div className="flex items-center justify-center">
-          <Avatar className="mr-2.5" src={iconSrc} size={34} radius={50} />
+          <Avatar className="mr-2.5" src={picture} size={34} radius={50} />
           <div className="text-[12px] font-bold text-gray-700">{name}</div>
         </div>
         <div className="flex items-center justify-center gap-2">

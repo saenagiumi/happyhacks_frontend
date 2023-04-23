@@ -11,32 +11,32 @@ export const dynamic = "force-dynamic";
 type Props = {
   fallback: {
     url: {
-      name: string;
       hack: {
         id: number;
+        name: string;
         title: string;
         body: string;
         created_at: string;
+        picture: string;
         updated_at: string;
         user_id: number;
       };
-      picture: string;
     };
   };
   hackData: {
-    name: string;
     hack: {
       id: number;
+      name: string;
       title: string;
       body: string;
       category: string;
       created_at: string;
+      picture: string;
       tags: string[];
       tweet_id: string;
       updated_at: string;
       user_id: number;
     };
-    picture: string;
   };
   hackUserId: number;
 };
@@ -74,8 +74,8 @@ const HacksId = ({ fallback, hackData }: Props) => {
             <Hack
               title={hackData.hack.title}
               body={hackData.hack.body}
-              iconSrc={hackData.picture}
-              name={hackData.name}
+              picture={hackData.hack.picture}
+              name={hackData.hack.name}
               id={hackData.hack.id.toString()}
               userId={hackData.hack.user_id.toString()}
               tweetId={hackData.hack.tweet_id?.toString()}

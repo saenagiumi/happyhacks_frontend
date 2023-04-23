@@ -9,7 +9,7 @@ import { currentUserAtom } from "state/currentUser";
 import { mutate } from "swr";
 import { toZenkaku } from "utils/toZenkaku";
 
-import { CommentWithUser } from "../types";
+import { CommentReturnType } from "../types";
 import CommentFormButton from "./CommentFormButton";
 
 type Props = {
@@ -27,12 +27,10 @@ const CommentListByPostId = (props: Props) => {
   const currentUser = useAtomValue(currentUserAtom);
   const { isLoading, loginWithPopup, user } = useAuth0();
   const { data: commentsData, isEmpty: commentsDataIsEmpty } = useFetchArray(
-    props.postId
-      ? `${API_BASE_URL}/posts/${props.postId}/comments_with_user`
-      : ""
+    props.postId ? `${API_BASE_URL}/posts/${props.postId}/comments` : ""
   );
 
-  mutate(`${API_BASE_URL}/posts/${props.postId}/comments_with_user`);
+  mutate(`${API_BASE_URL}/posts/${props.postId}/comments`);
 
   return (
     <div>
@@ -79,7 +77,7 @@ const CommentListByPostId = (props: Props) => {
 
       {commentsData && commentsData !== undefined && !commentsDataIsEmpty && (
         <ol className="m-0 p-0">
-          {commentsData.map((comment: CommentWithUser) => {
+          {commentsData.map((comment: CommentReturnType) => {
             return (
               <li key={comment.id}>
                 <Comment
@@ -87,8 +85,8 @@ const CommentListByPostId = (props: Props) => {
                   post_id={comment.post_id.toString()}
                   title={comment.title}
                   body={comment.body}
-                  name={comment.user.name}
-                  iconSrc={comment.user.picture}
+                  name={comment.name}
+                  picture={comment.picture}
                   postedAt={comment.created_at}
                 />
               </li>
