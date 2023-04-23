@@ -32,14 +32,6 @@ export const HacksTabPanel = () => {
     }
   }, []);
 
-  // activeTabが変更されるたびにURLのクエリーパラメータを更新する
-  // useEffect(() => {
-  //   const { pathname, query } = router;
-  //   query.tab = activeTab;
-  //   router.replace({ pathname, query });
-  // }, [activeTab]);
-
-
   return (
     <>
       <Tabs.Panel value="hacks">

@@ -38,13 +38,10 @@ const PostForm = ({ close, commentData, postData }: Props) => {
   const { createPost, updateComment, updatePost } = usePost();
   const router = useRouter();
 
-  console.log({ submitMode });
-
   const postForm = useForm<FormData>({
     initialValues: {
       title: submitMode.data ? submitMode.data.title : "",
       body: submitMode.data ? submitMode.data.body : "",
-      // user_id: submitMode?.data?.user_id,
     },
     validate: {
       title: (value) =>
