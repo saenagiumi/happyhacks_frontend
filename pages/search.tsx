@@ -43,10 +43,15 @@ const SearchPage = () => {
     }
   };
 
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleSearch();
+  };
+
   return (
     <div className="mx-auto max-w-screen-sm">
       <div className="mx-4">
-        <form action="/">
+        <form action="" onSubmit={handleFormSubmit}>
           <Input
             type="search"
             autoFocus={true}
@@ -66,11 +71,11 @@ const SearchPage = () => {
             size="lg"
             radius={50}
             onChange={handleInputChange}
-            onKeyPress={(event) => {
-              if (event.key === "Enter") {
-                handleSearch();
-              }
-            }}
+            // onKeyPress={(event) => {
+            //   if (event.key === "Enter") {
+            //     handleSearch();
+            //   }
+            // }}
           />
         </form>
 
