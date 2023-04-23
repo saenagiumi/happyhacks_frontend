@@ -1,18 +1,28 @@
-import React, { useEffect, useRef } from "react";
+import { Loader } from "@mantine/core";
+import React, { useEffect, useRef, useState } from "react";
 
 export const Tweet: React.FC<{ id: string }> = ({ id }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // @ts-expect-error
     window.twttr?.widgets.load(ref.current);
+    setIsLoading(false);
   }, [id]);
 
   return (
-    <div
-      dangerouslySetInnerHTML={{ __html: generateEmbedHtml(id) }}
-      ref={ref}
-    />
+    <>
+      {isLoading && (
+        <div className="flex items-center justify-center py-10">
+          <Loader color="gray" size="md" variant="dots" />
+        </div>
+      )}
+      <div
+        dangerouslySetInnerHTML={{ __html: generateEmbedHtml(id) }}
+        ref={ref}
+      />
+    </>
   );
 };
 
