@@ -39,7 +39,7 @@ type Props = {
   name: string;
   title: string;
   body: string;
-  iconSrc: string;
+  picture: string;
   post_id: string;
   postedAt: string;
 };
@@ -84,7 +84,7 @@ export const Comment = (props: Props) => {
         >
           <Group className="pl-3 pt-4 pr-1.5" position="apart">
             <Group spacing="xs">
-              <Avatar src={props.iconSrc} radius={50} size={38} />
+              <Avatar src={props.picture} radius={50} size={38} />
               <Text className="pt-0.5" size="sm">
                 <div className="font-bold text-gray-700">{props.name}</div>
                 <div className="text-xs text-gray-400">

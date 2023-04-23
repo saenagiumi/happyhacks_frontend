@@ -27,7 +27,7 @@ type Props = {
   title: string;
   body: string;
   comments_count: number;
-  iconSrc: string;
+  picture: string;
   postedAt: string;
   userId: string;
 };
@@ -38,7 +38,7 @@ export const Post = ({
   title,
   body,
   comments_count,
-  iconSrc,
+  picture,
   userId,
 }: Props) => {
   const currentUser = useAtomValue<User>(currentUserAtom);
@@ -67,7 +67,7 @@ export const Post = ({
     }
 
     router.back();
-  };
+  };  
 
   return (
     <div className="pt-3.5 pb-2 xs:p-5 xs:pt-7">
@@ -157,7 +157,7 @@ export const Post = ({
       </div>
       <Group position="apart" className="mt-1 mb-0.5">
         <Group spacing="xs">
-          <Avatar src={iconSrc} radius={50} size={26} />
+          <Avatar src={picture} radius={50} size={26} />
           <Text className="ml-[-3.5px] text-gray-600" size="sm">
             {name}
           </Text>

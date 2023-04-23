@@ -20,8 +20,8 @@ export const PostDetail = () => {
             <Post
               id={postData.post.id}
               userId={postData.post.user_id}
-              name={postData.name}
-              iconSrc={postData.picture}
+              name={postData.post.name}
+              picture={postData.post.picture}
               title={postData.post.title}
               body={postData.post.body}
               postedAt={postData.post.created_at}

@@ -21,16 +21,14 @@ export type CommentData = {
   user_id: string | undefined;
 };
 
-export type CommentWithUser = {
+export type CommentReturnType = {
   id: number;
+  name: string;
   title: string;
   body: string;
   created_at: string;
+  picture: string;
   post_id: number;
-  user: {
-    name: string;
-    picture: string;
-  };
 };
 
 export type Like = {
