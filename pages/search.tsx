@@ -46,31 +46,33 @@ const SearchPage = () => {
   return (
     <div className="mx-auto max-w-screen-sm">
       <div className="mx-4">
-        <Input
-          type="search"
-          autoFocus={true}
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: "#84DBBB",
-                boxShadow: "0 0 0 1.5px #CEF1E4",
+        <form action="/">
+          <Input
+            type="search"
+            autoFocus={true}
+            styles={{
+              input: {
+                "&:focus": {
+                  borderColor: "#84DBBB",
+                  boxShadow: "0 0 0 1.5px #CEF1E4",
+                },
+                border: "1px solid",
+                borderColor: "#d3d3d3",
               },
-              border: "1px solid",
-              borderColor: "#d3d3d3",
-            },
-          }}
-          className="mt-8 mb-4 font-sans text-gray-400"
-          icon={<RiSearch2Line size={20} />}
-          placeholder="検索ワードを入力..."
-          size="lg"
-          radius={50}
-          onChange={handleInputChange}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
-              handleSearch();
-            }
-          }}
-        />
+            }}
+            className="mt-8 mb-4 font-sans text-gray-400"
+            icon={<RiSearch2Line size={20} />}
+            placeholder="検索ワードを入力..."
+            size="lg"
+            radius={50}
+            onChange={handleInputChange}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                handleSearch();
+              }
+            }}
+          />
+        </form>
 
         {searchResults.hacksResults.length > 0 ||
         searchResults.postsResults.length > 0 ? (
