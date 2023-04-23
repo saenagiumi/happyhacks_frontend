@@ -43,7 +43,8 @@ const SearchPage = () => {
     }
   };
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (event: any) => {
+    event.target[0].blur();
     event.preventDefault();
     handleSearch();
   };
@@ -73,7 +74,8 @@ const SearchPage = () => {
             onChange={handleInputChange}
             // onKeyPress={(event) => {
             //   if (event.key === "Enter") {
-            //     handleSearch();
+            //     console.log(event);
+
             //   }
             // }}
           />
