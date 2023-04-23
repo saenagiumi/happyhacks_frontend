@@ -8,21 +8,24 @@ export const Tweet: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     // @ts-expect-error
     window.twttr?.widgets.load(ref.current);
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }, [id]);
 
   return (
-    <>
+    <div>
       {isLoading && (
-        <div className="flex items-center justify-center py-10">
-          <Loader color="gray" size="md" variant="dots" />
+        <div className="flex items-center justify-center pt-5">
+          <Loader color="gray" variant="dots" />
         </div>
       )}
+
       <div
         dangerouslySetInnerHTML={{ __html: generateEmbedHtml(id) }}
         ref={ref}
       />
-    </>
+    </div>
   );
 };
 
