@@ -47,6 +47,7 @@ const SearchPage = () => {
     <div className="mx-auto max-w-screen-sm">
       <div className="mx-4">
         <Input
+          type="search"
           autoFocus={true}
           styles={{
             input: {
