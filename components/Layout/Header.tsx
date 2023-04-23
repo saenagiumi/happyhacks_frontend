@@ -89,7 +89,7 @@ export const Header = () => {
             </p>
             <UnstyledButton
               onClick={() => loginWithRedirect()}
-              className="my-6 mx-auto flex w-[200px] justify-center rounded-[6px] bg-gray-50 py-[9px] text-[14px] text-gray-700 shadow-sm shadow-gray-400"
+              className="my-6 mx-auto flex w-[200px] justify-center rounded-[6px] bg-gray-50 py-[9px] text-[14px] text-gray-700 shadow-sm shadow-gray-400 focus:ring-1 focus:ring-sky-500"
             >
               ログインページへ
             </UnstyledButton>
