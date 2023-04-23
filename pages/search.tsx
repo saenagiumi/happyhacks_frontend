@@ -9,6 +9,7 @@ import { searchResultAtom } from "state/searchResult";
 const SearchPage = () => {
   const queryRef = useRef("");
   const [searchResults, setSearchResults] = useAtom(searchResultAtom);
+  const [showNoResultMessage, setShowNoResultMessage] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     queryRef.current = event.target.value;
@@ -36,6 +37,7 @@ const SearchPage = () => {
         hacksResults: hacksData,
         postsResults: postsData,
       });
+      setShowNoResultMessage(!(hacksData.length || postsData.length));
     } catch (error) {
       console.error(error);
     }
@@ -75,6 +77,12 @@ const SearchPage = () => {
             hacksResults={searchResults.hacksResults}
             postsResults={searchResults.postsResults}
           />
+        ) : null}
+
+        {showNoResultMessage ? (
+          <p className="my-5 text-center font-sans text-gray-700">
+            キーワードに該当する投稿がありません
+          </p>
         ) : null}
       </div>
     </div>
