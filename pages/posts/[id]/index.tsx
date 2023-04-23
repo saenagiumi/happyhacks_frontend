@@ -57,7 +57,7 @@ const PostsId = ({ fallback, postData, postUserId }: Props) => {
           title={`${postData.post.title} | HappyHacks`}
           description="HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです"
           openGraph={{
-            title: "ADHD対策のナレッジを共有 | HappyHacks",
+            title: `${postData.post.title} | HappyHacks`,
             description:
               "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
             images: [
