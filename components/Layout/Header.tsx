@@ -113,6 +113,11 @@ export const Header = () => {
 
       {!isLoading && user === undefined && (
         <ul className="flex items-center">
+          <li className="mr-3.5">
+            <Link className="flex" href="/search">
+              <RiSearch2Line className="text-gray-700" size={20} />
+            </Link>
+          </li>
           <li>
             <Button
               color="green.4"
