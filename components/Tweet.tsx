@@ -15,15 +15,8 @@ export const Tweet: React.FC<{ id: string }> = ({ id }) => {
 
   return (
     <div className="mt-2">
-      {isLoading && (
-        <div className="h-[400px]">
-          <div className="flex">
-            <Skeleton width="100%" height={400} radius={12} />
-          </div>
-        </div>
-      )}
+      {isLoading && <Skeleton width="100%" height={400} radius={12} />}
       <div
-        className="h-[400px]"
         dangerouslySetInnerHTML={{ __html: generateEmbedHtml(id) }}
         ref={ref}
       />

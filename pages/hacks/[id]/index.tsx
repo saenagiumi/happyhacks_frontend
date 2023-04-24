@@ -69,7 +69,7 @@ const HacksId = ({ fallback, hackData }: Props) => {
             site: "@site",
           }}
         />
-        <div className="mx-auto max-w-[620px]">
+        <div className="mx-auto mb-10 max-w-[620px]">
           <div className="w-full flex-col items-center justify-center px-7 pt-3">
             <Hack
               title={hackData.hack.title}
@@ -83,23 +83,25 @@ const HacksId = ({ fallback, hackData }: Props) => {
               tags={hackData.hack.tags}
             />
 
-            <div className="my-3 mb-10">
-              <TwitterIntentTweet
-                className="flex h-[40px] w-[160px] items-center justify-center rounded-full bg-blue-400 py-2 pl-5 pr-[22px] font-sans text-[15px] font-[600] text-sky-50 no-underline xs:mx-auto"
-                text={"\n\n"}
-                url={`https://www.happyhacks.app/hacks/${hackData.hack.id.toString()}`}
-              >
-                <Image
-                  className="mr-2"
-                  src="/tw-logo-white.svg"
-                  width="16"
-                  height="16"
-                  alt="twitterのロゴ"
-                  priority={true}
-                />
-                ツイートする
-              </TwitterIntentTweet>
-            </div>
+            {!hackData.hack.tweet_id && (
+              <div className="my-3 mb-10">
+                <TwitterIntentTweet
+                  className="flex h-[40px] w-[160px] items-center justify-center rounded-full bg-blue-400 py-2 pl-5 pr-[22px] font-sans text-[15px] font-[600] text-sky-50 no-underline xs:mx-auto"
+                  text={"\n\n"}
+                  url={`https://www.happyhacks.app/hacks/${hackData.hack.id.toString()}`}
+                >
+                  <Image
+                    className="mr-2"
+                    src="/tw-logo-white.svg"
+                    width="16"
+                    height="16"
+                    alt="twitterのロゴ"
+                    priority={true}
+                  />
+                  ツイートする
+                </TwitterIntentTweet>
+              </div>
+            )}
           </div>
         </div>
       </SWRConfig>
