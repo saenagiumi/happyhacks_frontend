@@ -39,12 +39,12 @@ const PostTabIndex = () => {
 
   const HACKS_TAB_ITEMS = [
     { label: "トレンド", value: "trend" },
-    { label: "健康", value: "health" },
+    { label: "対人関係", value: "communication" },
     { label: "アイテム", value: "item" },
-    { label: "学習", value: "learning" },
+    { label: "健康", value: "health" },
     { label: "生活", value: "life" },
+    { label: "学習", value: "learning" },
     { label: "仕事", value: "job" },
-    { label: "人間関係", value: "communication" },
   ];
 
   const QUESTION_TAB_ITEMS = [
