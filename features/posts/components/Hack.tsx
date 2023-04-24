@@ -145,7 +145,13 @@ export const Hack = ({
             </div>
 
             {currentUser.id == userId && router.asPath.includes("hacks") && (
-              <Menu position="bottom-end" offset={5} width={180} shadow="md">
+              <Menu
+                position="bottom-end"
+                offset={10}
+                width={220}
+                radius="md"
+                shadow="sm"
+              >
                 <Menu.Target>
                   <UnstyledButton className="ml-3 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-gray-100 p-2">
                     <HiOutlineDotsHorizontal
@@ -156,6 +162,7 @@ export const Hack = ({
                 </Menu.Target>
                 <Menu.Dropdown>
                   <Menu.Item
+                    className="py-3.5 pl-4 text-[18px] xs:text-[16px]"
                     onClick={() => {
                       openEdit(),
                         setTargetHack({
@@ -170,8 +177,10 @@ export const Hack = ({
                   >
                     編集する
                   </Menu.Item>
-
-                  <Menu.Item onClick={openMenu} className=" text-red-500">
+                  <Menu.Item
+                    onClick={openMenu}
+                    className="py-3.5 pl-4 text-[18px] text-red-500 xs:text-[16px]"
+                  >
                     削除する
                   </Menu.Item>
                 </Menu.Dropdown>

@@ -63,10 +63,15 @@ export default function Home() {
                     }}
                   >
                     <div className="flex h-[26px] w-[165px] items-center font-sans">
-                      <span className="mr-3.5 mt-0.5">
-                        <BsPencil size={24} className=" text-main-green" />
+                      <span className="mr-3.5">
+                        <BsPencil
+                          size={22}
+                          className="mt-0.5 text-main-green"
+                        />
                       </span>
-                      <span className="text-[14.5px]">Hacksの投稿</span>
+                      <span className="font-sans text-[16px] font-[600] text-gray-700">
+                        対策を共有する
+                      </span>
                     </div>
                   </Menu.Item>
                   <Menu.Item
@@ -76,10 +81,12 @@ export default function Home() {
                     }}
                   >
                     <div className="flex h-[26px] w-[165px] items-center font-sans">
-                      <span className="mr-3.5 mt-0.5">
-                        <BsChatText size={24} className=" text-main-green" />
+                      <span className="mr-3.5">
+                        <BsChatText size={22} className=" text-main-green" />
                       </span>
-                      <span className="text-[14.5px]">質問の投稿</span>
+                      <span className="font-sans text-[16px] font-[600] text-gray-700">
+                        質問してみる
+                      </span>
                     </div>
                   </Menu.Item>
                 </Menu.Dropdown>
