@@ -146,9 +146,6 @@ const HackForm = ({ close, hackData }: Props) => {
 
             <div className="mt-5">
               <h3 className="text-md text-gray-600">投稿内容の入力</h3>
-              {/* <p className="text-sm text-gray-600">
-                Help Your Neighbor
-              </p> */}
             </div>
           </div>
 
