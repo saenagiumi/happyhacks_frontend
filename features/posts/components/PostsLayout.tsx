@@ -22,6 +22,7 @@ const PostsLayout = ({ post }: { post: PostReturnType }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Avatar
+                alt={`${post.name}のアイコン`}
                 src={post.picture}
                 className="mr-2"
                 size={26}

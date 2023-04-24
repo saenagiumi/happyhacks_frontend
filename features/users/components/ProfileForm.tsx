@@ -91,7 +91,7 @@ const ProfileForm = () => {
             <TbCameraPlus className="z-20 text-[1.5rem] text-white" />
           </div>
         </div>
-        <Avatar src={currentUser.picture} radius={50} size={96} />
+        <Avatar alt={`${currentUser.name}のアイコン`} src={currentUser.picture} radius={50} size={96} />
       </UnstyledButton>
 
       <Modal
@@ -111,7 +111,7 @@ const ProfileForm = () => {
             自分のアイコンを使用するか、一覧からアイコンを選んで変更することができます。
           </p>
           <div className="mb-8 flex justify-center">
-            <Avatar src={targetSrc} radius={50} size={80} />
+            <Avatar alt="ユーザーのアイコン" src={targetSrc} radius={50} size={80} />
           </div>
           <div className="flex-col">
             <div className="mb-4 flex justify-evenly">
@@ -130,6 +130,7 @@ const ProfileForm = () => {
                         }
                       >
                         <Avatar
+                          alt={`${animal}のアイコン`}
                           src={`/userAvatar/${animal}.svg`}
                           radius={50}
                           size={56}
