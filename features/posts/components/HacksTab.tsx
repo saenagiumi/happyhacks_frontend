@@ -23,7 +23,6 @@ export const HacksTabPanel = () => {
     { label: "仕事", value: "job" },
   ];
 
-  // ページのロード時にURLのクエリーパラメータを取得して、activeTabを設定する
   useEffect(() => {
     const { query } = router;
     const tab = query.tab as string;
