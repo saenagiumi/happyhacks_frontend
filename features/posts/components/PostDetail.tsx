@@ -30,7 +30,7 @@ export const PostDetail = () => {
           </div>
           <div className="my-5 flex justify-center xs:my-6">
             <TwitterIntentTweet
-              className="flex h-[44px] w-[184px] items-center justify-center rounded-full bg-blue-400 py-2 pl-1 pr-2 font-sans text-[15px] font-[600] text-sky-50 no-underline"
+              className="flex h-[40px] w-[184px] items-center justify-center rounded-full bg-blue-400 py-2 pl-1 pr-2 font-sans text-[15px] font-[600] text-sky-50 no-underline"
               text={"\n\n対策のアイデアを募集しています\n#ADHDあるある"}
               url={`https://www.happyhacks.app/posts/${postData.post.id}`}
             >
