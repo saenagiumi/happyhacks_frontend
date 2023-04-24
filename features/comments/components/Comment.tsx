@@ -1,7 +1,7 @@
 // Mantine
 import "dayjs/locale/ja";
 
-import { Avatar, Group, Modal,Text, UnstyledButton } from "@mantine/core";
+import { Avatar, Group, Modal, Text, UnstyledButton } from "@mantine/core";
 // 日付
 import dayjs from "dayjs";
 dayjs.locale("ja");
@@ -84,7 +84,12 @@ export const Comment = (props: Props) => {
         >
           <Group className="pl-3 pt-4 pr-1.5" position="apart">
             <Group spacing="xs">
-              <Avatar src={props.picture} radius={50} size={38} />
+              <Avatar
+                alt={`${props?.name}のアイコン`}
+                src={props.picture}
+                radius={50}
+                size={38}
+              />
               <Text className="pt-0.5" size="sm">
                 <div className="font-bold text-gray-700">{props.name}</div>
                 <div className="text-xs text-gray-400">

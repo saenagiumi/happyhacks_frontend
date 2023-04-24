@@ -165,7 +165,7 @@ export const Post = ({
       </div>
       <Group position="apart" className="mt-1 mb-0.5">
         <Group spacing="xs">
-          <Avatar src={picture} radius={50} size={26} />
+          <Avatar alt={`${name}のアイコン`} src={picture} radius={50} size={26} />
           <Text className="ml-[-3.5px] text-gray-600" size="sm">
             {name}
           </Text>

@@ -33,6 +33,7 @@ const HacksLayout = ({ hack }: { hack: Hack }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Avatar
+                alt={`${hack.name}のアイコン`}
                 src={hack.picture}
                 className="mr-2"
                 size={26}
