@@ -67,7 +67,7 @@ export const Post = ({
     }
 
     router.back();
-  };  
+  };
 
   return (
     <div className="pt-3.5 pb-2 xs:p-5 xs:pt-7">
@@ -78,7 +78,13 @@ export const Post = ({
 
         {currentUser.id == userId && router.asPath.includes("posts") && (
           // ログインユーザーのidと参照している投稿のuser_idが一致し、詳細ページの場合にメニューを表示
-          <Menu position="bottom-end" offset={5} width={180} shadow="md">
+          <Menu
+            position="bottom-end"
+            offset={10}
+            width={220}
+            radius="md"
+            shadow="md"
+          >
             <Menu.Target>
               <UnstyledButton className="ml-3 mr-2 flex items-center justify-center rounded-full bg-gray-100 p-2">
                 <HiOutlineDotsHorizontal className="text-gray-500" size={18} />
@@ -86,6 +92,7 @@ export const Post = ({
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Item
+                className="py-3.5 pl-4 text-[18px] xs:text-[16px]"
                 onClick={() => {
                   setEditOpened(true),
                     setTargetPost({
@@ -100,7 +107,7 @@ export const Post = ({
 
               <Menu.Item
                 onClick={() => setOpened(true)}
-                className=" text-red-500"
+                className="py-3.5 pl-4 text-[18px] text-red-500 xs:text-[16px]"
               >
                 削除する
               </Menu.Item>
@@ -114,7 +121,7 @@ export const Post = ({
         opened={editOpened}
         onClose={() => setEditOpened(false)}
       >
-        <PostForm close={() =>setEditOpened(false)} postData={targetPost} />
+        <PostForm close={() => setEditOpened(false)} postData={targetPost} />
       </Modal>
       <Modal
         opened={opened}

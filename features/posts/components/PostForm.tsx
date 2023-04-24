@@ -108,7 +108,7 @@ const PostForm = ({ close, commentData, postData }: Props) => {
             message: "投稿が完了しました",
           });
 
-          close;
+          close();
           router.push(`/posts/${isSuccess.id}`);
         }
         break;

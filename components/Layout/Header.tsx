@@ -146,7 +146,8 @@ export const Header = () => {
               position="bottom-end"
               offset={12}
               shadow="xl"
-              width={220}
+              width={235}
+              radius={5}
             >
               <Menu.Target>
                 <UnstyledButton className="flex cursor-pointer items-center justify-center">
@@ -161,39 +162,39 @@ export const Header = () => {
 
               <Menu.Dropdown>
                 <Link href="/dashboard" className="no-underline">
-                  <Menu.Item className="text-[0.9rem] font-[500] text-main-black">
+                  <Menu.Item className="py-3.5 pl-4 font-sans text-[18px] font-[600] text-gray-700 xs:py-3 xs:text-[16px]">
                     投稿の管理
                   </Menu.Item>
                 </Link>
                 <Link href="/dashboard/comments" className="no-underline">
-                  <Menu.Item className="text-[0.9rem] font-[500] text-main-black">
+                  <Menu.Item className="py-3.5 pl-4 font-sans text-[18px] font-[600] text-gray-700 xs:py-3 xs:text-[16px]">
                     回答の管理
                   </Menu.Item>
                 </Link>
                 <Link href="/dashboard/bookmarks" className="no-underline">
-                  <Menu.Item className="text-[0.9rem] font-[500] text-main-black">
+                  <Menu.Item className="py-3.5 pl-4 font-sans text-[18px] font-[600] text-gray-700 xs:py-3 xs:text-[16px]">
                     ブックマーク
                   </Menu.Item>
                 </Link>
                 <Link href="/profile" className="no-underline">
-                  <Menu.Item className="text-[0.9rem] font-[500] text-main-black">
+                  <Menu.Item className="py-3.5 pl-4 font-sans text-[18px] font-[600] text-gray-700 xs:py-3 xs:text-[16px]">
                     プロフィール編集
                   </Menu.Item>
                 </Link>
 
                 <Menu.Divider />
                 <Link href="/about" className="no-underline">
-                  <Menu.Item className="text-[0.9rem] font-[500] text-main-black">
+                  <Menu.Item className="py-3.5 pl-[18px] font-sans text-[18px] font-[600] text-gray-700 xs:py-3 xs:text-[16px]">
                     HappyHacksについて
                   </Menu.Item>
                 </Link>
 
                 <Menu.Item
-                  className="flex py-2 pl-3 font-sans font-[500] text-main-black"
+                  className="flex py-3.5 pl-[17px] xs:py-2.5 "
                   component="a"
                   onClick={() => handleLogout()}
                 >
-                  <UnstyledButton className="w-full text-[0.9rem]">
+                  <UnstyledButton className="w-full font-sans text-[18px] font-[600] text-gray-700 xs:text-[16px]">
                     ログアウト
                   </UnstyledButton>
                 </Menu.Item>
@@ -218,11 +219,13 @@ export const Header = () => {
                       setIsHack(true);
                     }}
                   >
-                    <div className="flex h-[26px] w-[165px] items-center font-sans">
-                      <span className="mr-3.5 mt-0.5">
-                        <BsPencil size={24} className="text-main-green" />
+                    <div className="flex h-[24px] w-[165px] items-center font-sans">
+                      <span className="mr-4 mt-0.5">
+                        <BsPencil size={22} className="text-main-green" />
                       </span>
-                      <span className="text-[14.5px]">Hacksの投稿</span>
+                      <span className="font-sans text-[15px] font-[600] text-gray-700">
+                        対策を共有する
+                      </span>
                     </div>
                   </Menu.Item>
                   <Menu.Item
@@ -231,11 +234,13 @@ export const Header = () => {
                       setIsHack(false);
                     }}
                   >
-                    <div className="flex h-[26px] w-[165px] items-center font-sans">
-                      <span className="mr-3.5 mt-0.5">
-                        <BsChatText size={24} className=" text-main-green" />
+                    <div className="flex h-[24px] w-[165px] items-center font-sans">
+                      <span className="mr-4 mt-0.5">
+                        <BsChatText size={22} className=" text-main-green" />
                       </span>
-                      <span className="text-[14.5px]">質問の投稿</span>
+                      <span className="font-sans text-[15px] font-[600] text-gray-700">
+                        質問してみる
+                      </span>
                     </div>
                   </Menu.Item>
                 </Menu.Dropdown>
