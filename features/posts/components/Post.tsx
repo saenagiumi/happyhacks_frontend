@@ -81,9 +81,9 @@ export const Post = ({
           <Menu
             position="bottom-end"
             offset={10}
-            width={220}
+            width={200}
             radius="md"
-            shadow="md"
+            shadow="sm"
           >
             <Menu.Target>
               <UnstyledButton className="ml-3 mr-2 flex items-center justify-center rounded-full bg-gray-100 p-2">
@@ -92,7 +92,7 @@ export const Post = ({
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Item
-                className="py-3.5 pl-4 text-[18px] xs:text-[16px]"
+                className="py-3.5 pl-[17px] text-[18px] font-[600] text-gray-700 xs:text-[16px]"
                 onClick={() => {
                   setEditOpened(true),
                     setTargetPost({
@@ -107,7 +107,7 @@ export const Post = ({
 
               <Menu.Item
                 onClick={() => setOpened(true)}
-                className="py-3.5 pl-4 text-[18px] text-red-500 xs:text-[16px]"
+                className="py-3.5 pl-4 text-[18px] font-[600] text-red-400 xs:text-[16px]"
               >
                 削除する
               </Menu.Item>

@@ -148,7 +148,7 @@ export const Hack = ({
               <Menu
                 position="bottom-end"
                 offset={10}
-                width={220}
+                width={200}
                 radius="md"
                 shadow="sm"
               >
@@ -162,7 +162,7 @@ export const Hack = ({
                 </Menu.Target>
                 <Menu.Dropdown>
                   <Menu.Item
-                    className="py-3.5 pl-4 text-[18px] xs:text-[16px]"
+                    className="py-3.5 pl-[17px] text-[18px] font-[600] text-gray-700 xs:text-[16px]"
                     onClick={() => {
                       openEdit(),
                         setTargetHack({
@@ -179,7 +179,7 @@ export const Hack = ({
                   </Menu.Item>
                   <Menu.Item
                     onClick={openMenu}
-                    className="py-3.5 pl-4 text-[18px] text-red-500 xs:text-[16px]"
+                    className="py-3.5 pl-4 text-[18px] font-[600] text-red-400 xs:text-[16px]"
                   >
                     削除する
                   </Menu.Item>
