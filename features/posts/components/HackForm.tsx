@@ -126,7 +126,7 @@ const HackForm = ({ close, hackData }: Props) => {
           <div className="mb-5">
             <div className="flex items-center justify-between">
               <UnstyledButton
-                className=" text-gray-600 underline"
+                className=" text-gray-600 underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
                 onClick={close}
               >
                 キャンセル
@@ -261,7 +261,7 @@ const HackForm = ({ close, hackData }: Props) => {
               <div>
                 <UnstyledButton
                   onClick={() => setTweetIdFormVisible(false)}
-                  className="mb-1.5 rounded-full bg-slate-200 py-2 px-2.5 text-[12px]"
+                  className="mb-1.5 rounded-full bg-slate-200 py-2 px-2.5 text-[12px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
                 >
                   <span className="font-sans font-bold text-gray-500">
                     キャンセル

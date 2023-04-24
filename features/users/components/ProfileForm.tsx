@@ -144,7 +144,7 @@ const ProfileForm = () => {
             <div className="mr-2 flex justify-end">
               <Button
                 onClick={() => setOpened(false)}
-                className="mr-2"
+                className="mr-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
                 size="xs"
                 radius="xs"
                 variant="light"

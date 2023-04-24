@@ -65,7 +65,7 @@ const CommentForm = (props: Props) => {
         <div className="mb-5">
           <div className="mb-5 flex items-center justify-between">
             <UnstyledButton
-              className=" text-gray-600 underline"
+              className=" text-gray-600 underline　focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
               onClick={() => props.modalHandlers.close()}
             >
               キャンセル

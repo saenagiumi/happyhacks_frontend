@@ -226,7 +226,12 @@ export const Hack = ({
                 削除した投稿は元に戻すことができません。よろしいですか？
               </div>
               <div className="flex justify-between">
-                <Button onClick={closeMenu} variant="light" color="green">
+                <Button
+                  onClick={closeMenu}
+                  variant="light"
+                  color="green"
+                  className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
+                >
                   キャンセル
                 </Button>
                 <Button

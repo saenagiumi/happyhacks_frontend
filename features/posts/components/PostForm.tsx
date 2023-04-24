@@ -123,7 +123,7 @@ const PostForm = ({ close, commentData, postData }: Props) => {
           <div className="mb-5">
             <div className="flex items-center justify-between">
               <UnstyledButton
-                className=" text-gray-600 underline"
+                className=" text-gray-600 underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
                 onClick={close}
               >
                 キャンセル
