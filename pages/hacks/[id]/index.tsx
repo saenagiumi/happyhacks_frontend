@@ -86,7 +86,7 @@ const HacksId = ({ fallback, hackData }: Props) => {
             <div className="my-3 mb-10">
               <TwitterIntentTweet
                 className="flex h-[40px] w-[160px] items-center justify-center rounded-full bg-blue-400 py-2 pl-5 pr-[22px] font-sans text-[15px] font-[600] text-sky-50 no-underline xs:mx-auto"
-                text={"\n\n#ADHD対策 #ADHDあるある"}
+                text={"\n\n"}
                 url={`https://www.happyhacks.app/hacks/${hackData.hack.id.toString()}`}
               >
                 <Image
