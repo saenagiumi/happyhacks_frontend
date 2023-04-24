@@ -1,4 +1,4 @@
-import { Loader } from "@mantine/core";
+import { Loader, Skeleton } from "@mantine/core";
 import React, { useEffect, useRef, useState } from "react";
 
 export const Tweet: React.FC<{ id: string }> = ({ id }) => {
@@ -16,13 +16,14 @@ export const Tweet: React.FC<{ id: string }> = ({ id }) => {
   return (
     <div className="mt-2">
       {isLoading && (
-        <div className="flex items-center justify-center">
-          <Loader color="gray" variant="dots" />
+        <div className="h-[400px]">
+          <div className="flex">
+            <Skeleton width="100%" height={400} radius={12} />
+          </div>
         </div>
       )}
-      {!isLoading && <div className="mt-5"></div>}
-
       <div
+        className="h-[400px]"
         dangerouslySetInnerHTML={{ __html: generateEmbedHtml(id) }}
         ref={ref}
       />
