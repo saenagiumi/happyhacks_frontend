@@ -143,6 +143,7 @@ export const Post = ({
               onClick={() => setOpened(false)}
               variant="light"
               color="green"
+              className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
             >
               キャンセル
             </Button>
