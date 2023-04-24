@@ -306,7 +306,7 @@ export const Hack = ({
                   <Tweet id={tweetId} />
                   <Script
                     src="https://platform.twitter.com/widgets.js"
-                    strategy="lazyOnload"
+                    // strategy="lazyOnload"
                   />
                 </div>
               )}

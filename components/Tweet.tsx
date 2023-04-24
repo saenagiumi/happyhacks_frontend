@@ -3,23 +3,24 @@ import React, { useEffect, useRef, useState } from "react";
 
 export const Tweet: React.FC<{ id: string }> = ({ id }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // @ts-expect-error
-    window.twttr?.widgets.load(ref.current);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  }, [id]);
+  // useEffect(() => {
+  //   // @ts-expect-error
+  //   window.twttr?.widgets.load(ref.current);
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 300);
+  // }, [id]);
 
   return (
-    <div>
-      {isLoading && (
-        <div className="flex items-center justify-center pt-5">
+    <div className="mt-2">
+      {/* {isLoading && (
+        <div className="flex items-center justify-center">
           <Loader color="gray" variant="dots" />
         </div>
       )}
+      {!isLoading && <div className="mt-5"></div>} */}
 
       <div
         dangerouslySetInnerHTML={{ __html: generateEmbedHtml(id) }}

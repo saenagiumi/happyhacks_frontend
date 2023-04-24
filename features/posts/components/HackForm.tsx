@@ -35,10 +35,12 @@ const HackForm = ({ close, hackData }: Props) => {
 
   const [data, setData] = useState([
     { label: "tweet", value: "tweet" },
-    { label: "対策", value: "対策" },
-    { label: "ライフハック", value: "ライフハック" },
     { label: "コミュニケーション", value: "コミュニケーション" },
+    { label: "セルフCBT", value: "セルフCBT" },
+    { label: "拡大解釈", value: "拡大解釈" },
+    { label: "対策", value: "対策" },
     { label: "トレーニング", value: "トレーニング" },
+    { label: "マインドフルネス", value: "マインドフルネス" },
   ]);
 
   // tweet_idの値を最後の数字のみに変換
@@ -56,7 +58,7 @@ const HackForm = ({ close, hackData }: Props) => {
       tags: hackData ? hackData.tags || [] : [],
       tweet_id: hackData ? hackData.tweet_id || "" : "",
     },
-    
+
     validate: {
       title: (value) =>
         value.length <= 0 ? "タイトルを入力してください" : null,
@@ -72,14 +74,16 @@ const HackForm = ({ close, hackData }: Props) => {
           : null;
       },
     },
-  }
-  );
+  });
 
   const onSubmit = async (inputData: HackFormData) => {
     switch (submitMode?.mode) {
       case "hackEditMode": {
         if (hackData) {
-          const isSuccess = await updateHack(hackData.id?.toString(), inputData);
+          const isSuccess = await updateHack(
+            hackData.id?.toString(),
+            inputData
+          );
           if (isSuccess) {
             showNotification({
               title: "編集完了",
@@ -142,9 +146,6 @@ const HackForm = ({ close, hackData }: Props) => {
 
             <div className="mt-5">
               <h3 className="text-md text-gray-600">投稿内容の入力</h3>
-              {/* <p className="text-sm text-gray-600">
-                Help Your Neighbor
-              </p> */}
             </div>
           </div>
 
@@ -176,20 +177,20 @@ const HackForm = ({ close, hackData }: Props) => {
               radius="xs"
               data={[
                 {
-                  label: "生活",
-                  value: "life",
-                },
-                {
-                  label: "健康",
-                  value: "health",
+                  label: "対人関係",
+                  value: "communication",
                 },
                 {
                   label: "アイテム",
                   value: "item",
                 },
                 {
-                  label: "人間関係",
-                  value: "communication",
+                  label: "健康",
+                  value: "health",
+                },
+                {
+                  label: "生活",
+                  value: "life",
                 },
                 {
                   label: "学習",
