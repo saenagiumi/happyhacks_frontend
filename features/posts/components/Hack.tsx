@@ -150,7 +150,7 @@ export const Hack = ({
                 offset={10}
                 width={200}
                 radius="md"
-                shadow="sm"
+                shadow="xs"
               >
                 <Menu.Target>
                   <UnstyledButton className="ml-3 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-gray-100 p-2">
@@ -162,7 +162,7 @@ export const Hack = ({
                 </Menu.Target>
                 <Menu.Dropdown>
                   <Menu.Item
-                    className="py-3.5 pl-[17px] text-[18px] font-[600] text-gray-700 xs:text-[16px]"
+                    className="py-3.5 pl-[17px] text-[17px] font-[600] text-gray-600 xs:text-[16px]"
                     onClick={() => {
                       openEdit(),
                         setTargetHack({
@@ -179,7 +179,7 @@ export const Hack = ({
                   </Menu.Item>
                   <Menu.Item
                     onClick={openMenu}
-                    className="py-3.5 pl-4 text-[18px] font-[600] text-red-400 xs:text-[16px]"
+                    className="py-3.5 pl-4 text-[17px] font-[600] text-red-400 xs:text-[16px]"
                   >
                     削除する
                   </Menu.Item>
