@@ -7,7 +7,7 @@ const HacksLayout = ({ hack }: { hack: Hack }) => {
   return (
     <div>
       <div className="px-2 pr-3 pb-1 xs:px-1.5 xs:hover:bg-slate-100">
-        <div className="pb- pt-[18px] xs:pl-10 xs:pr-20 xs:pt-10 xs:pb-6">
+        <div className="pt-[18px] xs:pl-10 xs:pr-20 xs:pt-10 xs:pb-6">
           <div className="mb-2 flex items-center justify-between">
             <div className="flex items-center">
               <Avatar
@@ -25,7 +25,7 @@ const HacksLayout = ({ hack }: { hack: Hack }) => {
             {hack.bookmarks_count !== 0 && (
               <div className="flex items-center pr-2 text-[13px] font-bold text-gray-600 xs:text-[16px]">
                 <FaRegBookmark className="mr-1" />
-                <div className="text-[13px] text-gray-600 xs:text-[15px]">
+                <div className="text-[14px] text-gray-600 xs:text-[15px]">
                   {hack.bookmarks_count}
                 </div>
               </div>
