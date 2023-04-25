@@ -15,8 +15,21 @@ const AboutPage = ({ title, description }: Props) => {
         description={description}
         openGraph={{
           title: title,
-          description: description,
+          description,
+          images: [
+            {
+              alt: "Og Image Alt",
+              height: 541,
+              url: "https://www.happyhacks.app/ogp.webp",
+              width: 1031,
+            },
+          ],
           url: "https://www.happyhacks.app/about",
+        }}
+        twitter={{
+          cardType: "summary_large_image",
+          handle: "@handle",
+          site: "@site",
         }}
       />
 
