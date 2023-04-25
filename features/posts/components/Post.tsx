@@ -72,7 +72,7 @@ export const Post = ({
   return (
     <div className="pt-3.5 pb-2 xs:p-5 xs:pt-7">
       <div className="flex items-start justify-between font-bold text-main-black">
-        <div className="text-[16px] leading-6 tracking-wide xs:text-[1.125rem] xs:tracking-wide">
+        <div className="text-[1.125rem] leading-8 tracking-wide xs:text-[1.75rem] xs:tracking-wide">
           {title}
         </div>
 
@@ -158,28 +158,31 @@ export const Post = ({
         </div>
       </Modal>
 
-      <div className="pt-2 pb-1">
-        <div className="w-full break-all text-[14px] leading-7 tracking-wide text-main-black xs:text-[1.125rem] xs:leading-8">
+      <div className="pb-1">
+        <Group position="apart" className="my-4 xs:my-5">
+          <Group spacing="xs">
+            <Avatar
+              alt={`${name}のアイコン`}
+              src={picture}
+              radius={50}
+              size={30}
+            />
+            <Text className="text-[12px] font-bold text-gray-700">{name}</Text>
+          </Group>
+          <Group className="pr-1.5">
+            {comments_count && (
+              // コメントがあればアイコンと件数を表示
+              <div className="flex items-center text-gray-500">
+                <HiOutlineChatBubbleOvalLeft className="mr-1" />
+                <div>{comments_count}</div>
+              </div>
+            )}
+          </Group>
+        </Group>
+        <div className="w-full break-all text-[14px] leading-8 tracking-wide text-main-black xs:text-[1.125rem]">
           {body}
         </div>
       </div>
-      <Group position="apart" className="mt-1 mb-0.5">
-        <Group spacing="xs">
-          <Avatar alt={`${name}のアイコン`} src={picture} radius={50} size={26} />
-          <Text className="ml-[-3.5px] text-gray-600" size="sm">
-            {name}
-          </Text>
-        </Group>
-        <Group className="pr-1.5">
-          {comments_count && (
-            // コメントがあればアイコンと件数を表示
-            <div className="flex items-center text-gray-500">
-              <HiOutlineChatBubbleOvalLeft className="mr-1" />
-              <div>{comments_count}</div>
-            </div>
-          )}
-        </Group>
-      </Group>
     </div>
   );
 };

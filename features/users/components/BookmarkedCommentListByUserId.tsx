@@ -27,7 +27,7 @@ const BookmarkedCommentListByUserId = ({
                 <div className="flex items-center justify-between pt-2 pb-3">
                   <h3 className="text-[16px] text-gray-800">{comment.title}</h3>
                 </div>
-                <p className="pb-3">{comment.body}</p>
+                <p>{comment.body}</p>
               </li>
             </Link>
           ))}

@@ -56,11 +56,13 @@ const HacksByUserId = () => {
           {data?.map((post: Hack) => (
             <li
               key={post.id}
-              className="flex justify-between border-0 border-b-[0.5px] border-solid border-gray-200 pt-4 pb-6 xs:px-7 xs:hover:bg-slate-50"
+              className="flex justify-between border-0 border-b-[0.5px] border-solid border-gray-200 py-4 xs:px-7 xs:hover:bg-slate-50"
             >
-              <Link className="w-[80%] no-underline" href={`/hacks/${post.id}`}>
+              <Link className="w-[85%] no-underline" href={`/hacks/${post.id}`}>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-[16px] text-gray-800">{post.title}</h3>
+                  <h3 className="mb-1 text-[16px] text-gray-800">
+                    {post.title}
+                  </h3>
                 </div>
                 <p>{post.body}</p>
               </Link>

@@ -116,7 +116,13 @@ export const Hack = ({
     <div>
       <div className="mr-[-12px] flex justify-between">
         <div className="flex items-center justify-center">
-          <Avatar className="mr-2.5" alt={`${name}のアイコン`} src={picture} size={34} radius={50} />
+          <Avatar
+            className="mr-2.5"
+            alt={`${name}のアイコン`}
+            src={picture}
+            size={34}
+            radius={50}
+          />
           <div className="text-[12px] font-bold text-gray-700">{name}</div>
         </div>
         <div className="flex items-center justify-center gap-2">
@@ -140,7 +146,7 @@ export const Hack = ({
       <div className="pt-4 pb-2 xs:p-5 xs:pt-7">
         <div>
           <div className="flex justify-between font-bold text-main-black">
-            <div className="text-[16px] leading-6 tracking-wide xs:text-[1.125rem] xs:tracking-wide">
+            <div className="text-[1.125rem] leading-7 xs:leading-8 tracking-wide xs:text-[1.75rem]">
               {title}
             </div>
 
@@ -153,7 +159,7 @@ export const Hack = ({
                 shadow="xs"
               >
                 <Menu.Target>
-                  <UnstyledButton className="ml-3 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-gray-100 p-2">
+                  <UnstyledButton className="ml-2 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-gray-100 p-2">
                     <HiOutlineDotsHorizontal
                       className="text-gray-500"
                       size={18}
@@ -187,7 +193,7 @@ export const Hack = ({
               </Menu>
             )}
           </div>
-          <div className="mt-3.5 mb-4">
+          <div className="mt-3.5 xs:mt-5 mb-4 xs:mb-6">
             <div>
               <div className="font-sans text-[10px] text-main-black xs:text-[12px]">
                 {tags.map((tag, index) => (
@@ -302,7 +308,7 @@ export const Hack = ({
           </Modal>
 
           <div className="pt-2 pb-1">
-            <div className="break-all text-[14px] leading-7 tracking-wide text-main-black xs:text-[1.125rem] xs:leading-8">
+            <div className="break-all text-[14px] leading-8 tracking-wide text-main-black xs:text-[1.125rem] xs:leading-8">
               {body}
             </div>
             <div className="xs:mx-auto">
