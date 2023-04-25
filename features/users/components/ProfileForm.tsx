@@ -174,10 +174,10 @@ const ProfileForm = () => {
               label: "text-gray-800 ml-0.5 text-[14px] font-bold mb-1.5",
             }}
             label="表示名"
-            placeholder="12文字以内で入力してください"
+            placeholder="15文字以内で入力してください"
             radius="xs"
             size="md"
-            maxLength={12}
+            maxLength={15}
             {...profileForm.getInputProps("name")}
           />
         </div>

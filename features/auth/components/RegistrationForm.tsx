@@ -70,10 +70,11 @@ const RegistrationForm = () => {
                 input: "pl-3 text-gray-600 text-[16px]",
                 label: "text-gray-800 ml-0.5 text-[14px] font-bold mb-1.5",
               }}
-              placeholder="12文字以内で入力してください"
+              placeholder="15文字以内で入力してください"
               label="ニックネーム"
               radius="xs"
               size="md"
+              maxLength={15}
               {...registrationForm.getInputProps("name")}
             />
           </div>
