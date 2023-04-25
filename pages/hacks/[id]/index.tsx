@@ -69,7 +69,7 @@ const HacksId = ({ fallback, hackData }: Props) => {
             site: "@site",
           }}
         />
-        <div className="mx-auto mb-10 max-w-[620px]">
+        <div className={`mx-auto mb-10 ${hackData.hack.tweet_id ? "max-w-screen-xs" : "max-w-screen-sm"}`}>
           <div className="w-full flex-col items-center justify-center px-7 pt-3">
             <Hack
               title={hackData.hack.title}
@@ -86,7 +86,7 @@ const HacksId = ({ fallback, hackData }: Props) => {
             {!hackData.hack.tweet_id && (
               <div className="my-3 mb-10">
                 <TwitterIntentTweet
-                  className="flex h-[40px] w-[160px] items-center justify-center rounded-full bg-blue-400 py-2 pl-5 pr-[22px] font-sans text-[15px] font-[600] text-sky-50 no-underline xs:mx-auto"
+                  className="flex h-[40px] w-[160px] items-center justify-center rounded-full bg-blue-400 py-2 pl-5 pr-[22px] font-sans text-[15px] font-[600] text-sky-50 no-underline xs:ml-4"
                   text={`\n\n${hackData.hack.title}\n`}
                   url={`https://www.happyhacks.app/hacks/${hackData.hack.id.toString()}`}
                 >

@@ -40,31 +40,19 @@ const PostsLayout = ({ post }: { post: PostReturnType }) => {
 
             <div className="pt-2 pb-1">
               <div className="w-full break-all text-[14px] leading-7 tracking-wide text-main-black xs:text-[1.125rem] xs:leading-8">
-                {post.body}
+                {post.body.length > 100 ? (
+                  <span>
+                    {`${post.body.slice(0, 100)} `}
+                    <span className="text-[14px] font-bold text-blue-400 group-hover:underline">
+                      ...もっと読む
+                    </span>
+                  </span>
+                ) : (
+                  post.body
+                )}
               </div>
             </div>
           </div>
-          {/* <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <Avatar
-                alt={`${post.name}のアイコン`}
-                src={post.picture}
-                className="mr-2"
-                size={26}
-                radius={50}
-              />
-              <div className="font-sans text-[14px]">{post.name}</div>
-            </div>
-
-            {post.comments_count !== 0 && (
-              <div className="flex items-center text-[12.5px] text-gray-400">
-                <HiOutlineChatBubbleOvalLeft className="mr-1 text-[16px] text-gray-500" />
-                <div className="text-[14px] text-gray-500">
-                  {post.comments_count}
-                </div>
-              </div>
-            )}
-          </div> */}
         </div>
       </div>
     </div>
