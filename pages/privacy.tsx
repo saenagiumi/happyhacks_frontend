@@ -19,7 +19,7 @@ const PrivacyPage = ({ title }: Props) => {
 
       <div>
         <div>
-          <div className="mt-12 mb-20 max-w-screen-sm px-4 font-sans leading-[1.9rem] text-main-black xs:mx-auto xs:text-[1.125rem] xs:leading-9 xs:tracking-wider">
+          <div className="mt-12 mb-20 max-w-screen-xs px-4 font-sans leading-8 text-main-black xs:mx-auto xs:text-[1.125rem] xs:leading-9 xs:tracking-wider">
             <h2 className="mb-5 text-center text-[1.4rem] xs:mb-10 xs:text-[1.75rem]">
               プライバシーポリシー
             </h2>

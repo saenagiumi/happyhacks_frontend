@@ -77,7 +77,7 @@ const PostsId = ({ fallback, postData, postUserId }: Props) => {
             site: "@site",
           }}
         />
-        <div className="mx-auto max-w-[900px]">
+        <div className="mx-auto max-w-screen-sm">
           <PostDetail />
           <CommentListByPostId
             postUserId={postUserId.toString()}
@@ -91,7 +91,7 @@ const PostsId = ({ fallback, postData, postUserId }: Props) => {
             opened={opened}
             onClose={() => modalHandlers.close()}
           >
-            <div className="mx-auto max-w-screen-sm">
+            <div className="mx-auto max-w-screen-xs">
               <CommentForm
                 userId={user?.sub}
                 postId={router.query.id}

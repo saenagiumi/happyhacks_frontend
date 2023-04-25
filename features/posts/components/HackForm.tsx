@@ -120,7 +120,7 @@ const HackForm = ({ close, hackData }: Props) => {
   };
 
   return (
-    <div className="mx-auto max-w-screen-sm">
+    <div className="mx-auto max-w-screen-xs">
       <Paper p="0" radius="xs">
         <form onSubmit={hackForm.onSubmit((values) => onSubmit(values))}>
           <div className="mb-5">

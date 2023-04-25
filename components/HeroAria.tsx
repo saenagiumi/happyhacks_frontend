@@ -10,7 +10,7 @@ const HeroAria = () => {
           <div className="flex-col justify-center items-center">
             <h1 className="font-sans inline-block font-[400] text-[7.3vw] xs:text-[2.1rem] md:text-[2.5rem] text-center leading-tight mb-5">
               <span className="inline-block font-sans">
-                環境調整でハックする
+                環境調整で対策する
               </span>
               <span className="inline-block font-sans">ADHDの日常生活</span>
             </h1>

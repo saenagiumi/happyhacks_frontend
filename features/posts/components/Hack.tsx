@@ -138,7 +138,7 @@ export const Hack = ({
         </div>
       </div>
       <div className="pt-4 pb-2 xs:p-5 xs:pt-7">
-        <div className="">
+        <div>
           <div className="flex justify-between font-bold text-main-black">
             <div className="text-[16px] leading-6 tracking-wide xs:text-[1.125rem] xs:tracking-wide">
               {title}

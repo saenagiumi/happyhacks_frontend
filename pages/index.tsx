@@ -31,7 +31,20 @@ export default function Home() {
           title: "ADHD対策のナレッジを共有 | HappyHacks",
           description:
             "HappyHacksは、ADHDにありがちな困りごとの対策をシェアして、より良い環境調整を自分の生活に取り入れるためのサービスです",
+          images: [
+            {
+              alt: "Og Image Alt",
+              height: 541,
+              url: "https://www.happyhacks.app/ogp.webp",
+              width: 1031,
+            },
+          ],
           url: `${router.asPath}`,
+        }}
+        twitter={{
+          cardType: "summary_large_image",
+          handle: "@handle",
+          site: "@site",
         }}
       />
       <div>
@@ -82,7 +95,7 @@ export default function Home() {
                   >
                     <div className="flex h-[26px] w-[165px] items-center font-sans">
                       <span className="mr-3.5">
-                        <BsChatText size={22} className=" text-main-green" />
+                        <BsChatText size={22} className="text-main-green" />
                       </span>
                       <span className="font-sans text-[16px] font-[600] text-gray-700">
                         質問してみる
@@ -93,20 +106,22 @@ export default function Home() {
               </Menu>
             </div>
           )}
-          <div className="mx-auto max-w-[900px]">
-            <PostTabIndex />
-            <Modal
-              withCloseButton={false}
-              fullScreen
-              opened={opened}
-              onClose={() => modalHandlers.close()}
-            >
-              {isHack ? (
-                <HackForm close={() => modalHandlers.close()} />
-              ) : (
-                <PostForm close={() => modalHandlers.close()} />
-              )}
-            </Modal>
+          <div>
+            <div className="max-w-[900px] mx-2 xs:mx-auto">
+              <PostTabIndex />
+              <Modal
+                withCloseButton={false}
+                fullScreen
+                opened={opened}
+                onClose={() => modalHandlers.close()}
+              >
+                {isHack ? (
+                  <HackForm close={() => modalHandlers.close()} />
+                ) : (
+                  <PostForm close={() => modalHandlers.close()} />
+                )}
+              </Modal>
+            </div>
           </div>
         </div>
       </div>
