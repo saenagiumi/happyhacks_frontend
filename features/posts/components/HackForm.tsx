@@ -170,6 +170,7 @@ const HackForm = ({ close, hackData }: Props) => {
             <Select
               label="投稿するカテゴリ"
               placeholder="カテゴリを選択"
+              dropdownPosition="bottom"
               classNames={{
                 input: "pl-2.5 text-gray-600",
                 label: "text-gray-600 font-bold mb-1",
@@ -219,6 +220,7 @@ const HackForm = ({ close, hackData }: Props) => {
               }}
               searchable
               creatable
+              dropdownPosition="bottom"
               maxSelectedValues={3}
               {...hackForm.getInputProps("tags")}
               getCreateLabel={(query) => `+ 追加 ${query}`}
