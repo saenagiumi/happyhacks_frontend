@@ -27,20 +27,22 @@ const HackForm = ({ close, hackData }: Props) => {
 
   const submitMode = {
     data: hackData || null,
-    mode: hackData ? "hackEditMode" : "createMode",
+    mode: hackData ? "editMode" : "createMode",
   };
 
   const { createHack, updateHack } = usePost();
   const router = useRouter();
 
   const [data, setData] = useState([
-    { label: "tweet", value: "tweet" },
-    { label: "コミュニケーション", value: "コミュニケーション" },
-    { label: "セルフCBT", value: "セルフCBT" },
-    { label: "拡大解釈", value: "拡大解釈" },
-    { label: "対策", value: "対策" },
-    { label: "トレーニング", value: "トレーニング" },
-    { label: "マインドフルネス", value: "マインドフルネス" },
+    { label: "Tweet", value: "Tweet" },
+    { label: "ADHD", value: "ADHD" },
+    { label: "ASD", value: "ASD" },
+    { label: "環境調整", value: "環境調整" },
+    { label: "運動", value: "運動" },
+    { label: "自律神経", value: "自律神経" },
+    { label: "CBT", value: "CBT" },
+    { label: "SST", value: "SST" },
+    { label: "IoT", value: "IoT" },
   ]);
 
   // tweet_idの値を最後の数字のみに変換
@@ -78,7 +80,7 @@ const HackForm = ({ close, hackData }: Props) => {
 
   const onSubmit = async (inputData: HackFormData) => {
     switch (submitMode?.mode) {
-      case "hackEditMode": {
+      case "editMode": {
         if (hackData) {
           const isSuccess = await updateHack(
             hackData.id?.toString(),
@@ -100,7 +102,7 @@ const HackForm = ({ close, hackData }: Props) => {
         }
       }
 
-      default: {
+      case "createMode": {
         const isSuccess = await createHack(inputData);
         if (isSuccess) {
           showNotification({
