@@ -4,6 +4,7 @@ import { useFetchArray } from "hooks/useFetchArray";
 import Link from "next/link";
 
 import { PostReturnType } from "../types";
+import PostsLayout from "./PostsLayout";
 
 export const PostListUnanswered = () => {
   const { data } = useFetchArray(`${API_BASE_URL}/posts`);
@@ -21,18 +22,7 @@ export const PostListUnanswered = () => {
             className="border-0 border-t-[0.5px] border-solid border-gray-200"
           >
             <Link href={`/posts/${post.id}`} className="pb-1.5 no-underline">
-              <div className="px-5 py-1 xs:px-1.5 xs:hover:bg-slate-100">
-                <Post
-                  id={post.id.toString()}
-                  userId={post.user_id.toString()}
-                  title={post.title}
-                  body={post.body}
-                  name={post.name}
-                  picture={post.picture}
-                  postedAt={post.created_at}
-                  comments_count={post.comments_count}
-                />
-              </div>
+              <PostsLayout post={post} />
             </Link>
           </li>
         );
