@@ -95,7 +95,7 @@ export default function Home() {
                   >
                     <div className="flex h-[26px] w-[165px] items-center font-sans">
                       <span className="mr-3.5">
-                        <BsChatText size={22} className=" text-main-green" />
+                        <BsChatText size={22} className="text-main-green" />
                       </span>
                       <span className="font-sans text-[16px] font-[600] text-gray-700">
                         質問してみる
@@ -106,20 +106,22 @@ export default function Home() {
               </Menu>
             </div>
           )}
-          <div className="mx-auto max-w-[900px]">
-            <PostTabIndex />
-            <Modal
-              withCloseButton={false}
-              fullScreen
-              opened={opened}
-              onClose={() => modalHandlers.close()}
-            >
-              {isHack ? (
-                <HackForm close={() => modalHandlers.close()} />
-              ) : (
-                <PostForm close={() => modalHandlers.close()} />
-              )}
-            </Modal>
+          <div>
+            <div className="max-w-[900px] mx-2 xs:mx-auto">
+              <PostTabIndex />
+              <Modal
+                withCloseButton={false}
+                fullScreen
+                opened={opened}
+                onClose={() => modalHandlers.close()}
+              >
+                {isHack ? (
+                  <HackForm close={() => modalHandlers.close()} />
+                ) : (
+                  <PostForm close={() => modalHandlers.close()} />
+                )}
+              </Modal>
+            </div>
           </div>
         </div>
       </div>

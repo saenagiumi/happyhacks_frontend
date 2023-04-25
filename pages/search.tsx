@@ -50,7 +50,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="mx-auto max-w-screen-sm">
+    <div className="mx-auto max-w-screen-xs">
       <div className="mx-4">
         <form action="" onSubmit={handleFormSubmit}>
           <Input
