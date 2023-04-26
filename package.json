@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "api": "json-server --host 192.168.10.109 --watch db.json --port 3004"
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.0.0",
@@ -20,7 +19,6 @@
     "@mantine/hooks": "^5.9.4",
     "@mantine/next": "^5.9.4",
     "@mantine/notifications": "^5.10.2",
-    "@mantine/nprogress": "^6.0.5",
     "@next/font": "^13.2.4",
     "@types/node": "18.11.15",
     "@types/react": "18.0.26",
