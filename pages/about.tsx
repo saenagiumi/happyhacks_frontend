@@ -34,15 +34,12 @@ const AboutPage = ({ title, description }: Props) => {
       />
 
       <div className="font-sans text-main-black">
-        <div className="mb-10 h-[135vw] w-full bg-amber-300 xs:mb-20 xs:h-[52vh] md:h-[52vh]">
+        <div className="mb-20 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:h-[52vh] md:h-[52vh]">
           <div className="flex flex-col items-center justify-center">
-            <div>
-              <h2 className="font-body text-[7.3vw] font-[500] tracking-tight xs:mb-5 xs:text-[2.1rem] md:text-[2.5rem]">
+            <div className="mt-10">
+              <h2 className="flex items-center justify-center font-body text-[7.3vw] font-[500] tracking-tight xs:mb-[-20px] xs:text-[2.1rem] md:text-[2.5rem]">
                 What&apos;s HappyHacks?
               </h2>
-            </div>
-
-            <div className="mb-[-590px] xs:mt-[-40px] xs:mb-[-580px]">
               <Image
                 className="mx-auto flex"
                 src="/alcohol.png"
@@ -60,7 +57,7 @@ const AboutPage = ({ title, description }: Props) => {
           </div>
         </div>
         <div className="mx-auto max-w-screen-xs p-4 leading-8 tracking-wide xs:my-[30px] xs:p-0 xs:leading-9 xs:tracking-wider">
-          <h2 className="text-[1.25rem] font-[600] xs:text-[1.75rem]">
+          <h2 className="text-[1.25rem] font-bold xs:text-[1.75rem]">
             サービスの目的
           </h2>
           <div className="mt-4 text-[1rem] xs:text-[1.125rem]">
@@ -70,10 +67,10 @@ const AboutPage = ({ title, description }: Props) => {
           </div>
           <div>
             <div className="mt-10 xs:my-12">
-              <h2 className="text-[1.25rem] font-[600] xs:text-[1.75rem]">
+              <h2 className="text-[1.25rem] font-bold xs:text-[1.75rem]">
                 課題や手段について
               </h2>
-              <h3 className="mt-8 font-[600] xs:text-[1.25rem]">
+              <h3 className="mt-8 font-bold xs:text-[1.25rem]">
                 発達障害（神経発達症）とは
               </h3>
               <div className="mt-2 xs:text-[1.125rem]">
@@ -82,7 +79,7 @@ const AboutPage = ({ title, description }: Props) => {
                 </p>
               </div>
 
-              <h3 className="mt-8 font-[600] xs:text-[1.25rem]">
+              <h3 className="mt-8 font-bold xs:text-[1.25rem]">
                 多様性と社会的支援
               </h3>
               <div className="mt-2 xs:text-[1.125rem]">
@@ -90,7 +87,7 @@ const AboutPage = ({ title, description }: Props) => {
                   過去には障害とされてきた特性も、定型発達（発達障害がない人）の人々が定めた社会的基準によるものであるという考え方が認知され、発達障害を特性と捉えて社会に包摂するニューロダイバーシティの考え方が広まっています。最近では、厚生労働省はニューロダイバーシティへの取り組みとして企業などに働きかけ、発達障害のある方が活躍できる社会を標榜すると発信しています。しかし、実際に支援を受けるには法整備や、発達障害としての確定診断が求められると予想されます。現在でも、確定診断されない基準値付近の方々にはフォーカスが当たっておらず、生活上や仕事上の支障があるにも関わらず公的な支援を得ることができず、自助努力が求められているというのが現状であり、今後の支援についても懸念があります。{" "}
                 </p>
               </div>
-              <h3 className="mt-8 font-[600] xs:text-[1.25rem]">環境調整</h3>
+              <h3 className="mt-8 font-bold xs:text-[1.25rem]">環境調整</h3>
               <div className="mt-2 xs:text-[1.125rem]">
                 <p>
                   ADHDやASDは個人により程度が異なりますが、それぞれが独立した症状というよりは、症状が合併しているケースも多いと言われています。ASDの症状にはソーシャルスキルトレーニング（SST）や認知行動療法（CBT）などが有効だとされていますが、対処方法は個人によって異なりますので、まずは専門医の診断を受けて、最適な対処方法を見つけるのが良いでしょう。ADHDの治療には薬物療法や心理療法、環境調整などがありますが、診断されなかった方や診察を受けていない方でも、簡単な環境調整で生活の質を向上できる場合があります。以下はその例です。
@@ -125,7 +122,7 @@ const AboutPage = ({ title, description }: Props) => {
             </div>
           </div>
           <div>
-            <h2 className="mt-6 text-[1.25rem] font-[600] text-main-black xs:text-[1.75rem]">
+            <h2 className="mt-6 text-[1.25rem] font-bold text-main-black xs:text-[1.75rem]">
               HappyHacksの使い方
             </h2>
             <div className="xs:text-[1.125rem]">
