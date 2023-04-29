@@ -34,7 +34,7 @@ const AboutPage = ({ title, description }: Props) => {
       />
 
       <div className="font-sans text-main-black">
-        <div className="mb-20 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:h-[52vh] md:h-[52vh]">
+        <div className="mb-10 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:mb-20 xs:h-[52vh] md:h-[52vh]">
           <div className="flex flex-col items-center justify-center">
             <div className="mt-10">
               <h2 className="flex items-center justify-center font-body text-[7.3vw] font-[500] tracking-tight xs:mb-[-20px] xs:text-[2.1rem] md:text-[2.5rem]">
