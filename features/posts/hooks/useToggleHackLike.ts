@@ -18,14 +18,19 @@ const useToggleHackLike = ({ hackId, setShowModal, userId }: Props) => {
   const { data: hackLikes, isLoading: likesIsloading } = useSWR(
     `${API_BASE_URL}/hacks/${hackId}/likes`,
     async (url: string) => {
-      const accessToken = await getAccessTokenSilently();
-      const config = {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      };
-      const res = await axios.get(url, config);
-      return res.data;
+      try {
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        };
+        const res = await axios.get(url, config);
+        return res.data;
+      } catch (error) {
+        const res = await axios.get(url);
+        return res.data;
+      }
     }
   );
 
