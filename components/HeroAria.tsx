@@ -4,22 +4,20 @@ import AboutButton from "./AboutButton";
 
 const HeroAria = () => {
   return (
-    <div className="flex justify-center items-center w-full mx-auto h-[135vw] xs:h-[70vh] md:h-[52vh] bg-main-green text-white">
-      <div className="sm:flex flex-row max-w-[900px]">
-        <div className="flex-col sm:w-[50%] flex justify-center items-center">
-          <div className="flex-col justify-center items-center">
-            <h1 className="font-sans inline-block font-[400] text-[7.3vw] xs:text-[2.1rem] md:text-[2.5rem] text-center leading-tight mb-5">
-              <span className="inline-block font-sans">
-                環境調整で対策する
-              </span>
+    <div className="mx-auto flex h-[135vw] w-full items-center justify-center bg-main-green text-white xs:h-[70vh] md:h-[52vh]">
+      <div className="max-w-[900px] flex-row sm:flex">
+        <div className="flex flex-col items-center justify-center sm:w-[50%]">
+          <div className="flex-col items-center justify-center">
+            <h1 className="mb-5 inline-block text-center font-sans text-[7.3vw] font-[400] leading-tight xs:text-[2.1rem] md:text-[2.5rem]">
+              <span className="inline-block font-sans">環境調整で対策する</span>
               <span className="inline-block font-sans">ADHDの日常生活</span>
             </h1>
 
             <AboutButton />
           </div>
         </div>
-        <div className="sm:w-[50%] mb-[-50px] xs:mb-0">
-          <div className="flex justify-center items-center sm:justify-center w-[80%] sm:w-[100%] h-[70%] sm:h-[100%]  m-0 mx-auto">
+        <div className="mb-[-50px] xs:mb-0 sm:w-[50%]">
+          <div className="m-0 mx-auto flex h-[70%] w-[80%] items-center justify-center sm:h-[100%]  sm:w-[100%] sm:justify-center">
             <Image
               src={"/cup.png"}
               width={450}
