@@ -37,7 +37,7 @@ const AboutPage = ({ title, description }: Props) => {
         <div className="mb-10 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:mb-20 xs:h-[52vh] md:h-[52vh]">
           <div className="flex flex-col items-center justify-center">
             <div className="mt-10">
-              <h2 className="flex items-center justify-center font-body text-[7.3vw] font-[500] tracking-tight xs:mb-[-20px] xs:text-[2.1rem] md:text-[2.5rem]">
+              <h2 className="flex items-center justify-center font-sans text-[7.3vw] font-normal tracking-[0.01rem] xs:mb-[-20px] xs:text-[2.1rem] md:text-[2.5rem]">
                 What&apos;s HappyHacks?
               </h2>
               <Image

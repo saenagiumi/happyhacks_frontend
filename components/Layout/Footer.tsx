@@ -26,7 +26,7 @@ const Footer = () => {
           </Link>
         </div>
         <div className="flex justify-center">
-          <span className="decoration-gray-500 text-[15px] font-body">
+          <span className="decoration-gray-500 text-[15px] font-sans">
             &copy;{" "}
             <a
               className="no-underline hover:underline"

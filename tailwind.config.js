@@ -19,6 +19,7 @@ module.exports = {
       },
       fontFamily: {
         body: [
+          "Noto Sans JP",
           "Avenir",
           "Helvetica Neue",
           "Helvetica",
