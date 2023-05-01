@@ -126,12 +126,12 @@ const ProfileForm = () => {
                     <li key={animal}>
                       <UnstyledButton
                         onClick={() =>
-                          setTargetSrc(`/userAvatar/${animal}.svg`)
+                          setTargetSrc(`/userAvatar/${animal}.webp`)
                         }
                       >
                         <Avatar
                           alt={`${animal}のアイコン`}
-                          src={`/userAvatar/${animal}.svg`}
+                          src={`/userAvatar/${animal}.webp`}
                           radius={50}
                           size={56}
                         />
