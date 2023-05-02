@@ -4,7 +4,7 @@ import AboutButton from "./AboutButton";
 
 const HeroAria = () => {
   return (
-    <div className="mx-auto flex h-[135vw] w-full items-center justify-center bg-main-green text-white xs:h-[400px] xl:h-[52vh]">
+    <div className="mx-auto flex h-[135vw] w-full items-center justify-center bg-main-green text-white xs:h-[400px] xl:h-[45vh]">
       <div className="max-w-[900px] flex-row sm:flex">
         <div className="flex flex-col items-center justify-center sm:w-[50%]">
           <div className="flex-col items-center justify-center">
@@ -19,14 +19,14 @@ const HeroAria = () => {
         <div className="mb-[-50px] xs:mb-0 sm:w-[50%]">
           <div className="m-0 mx-auto flex h-[70%] w-[80%] items-center justify-center sm:h-[100%]  sm:w-[100%] sm:justify-center">
             <Image
-              className="xl:h-[550px] xl:w-[550px] xs:ml-[-50px] xl:ml-0"
+              className="xs:ml-[-50px] xl:ml-0 xl:h-[500px] xl:w-[500px]"
               src={"/cup.png"}
               width={350}
               height={350}
               sizes="100vw"
               style={{
                 height: "auto",
-                maxWidth: "100%",
+                maxWidth: "90%",
               }}
               priority={true}
               alt="heroエリアの画像"
