@@ -26,7 +26,7 @@ const HeroAria = () => {
               sizes="100vw"
               style={{
                 height: "auto",
-                maxWidth: "90%",
+                maxWidth: "100%",
               }}
               priority={true}
               alt="heroエリアの画像"
