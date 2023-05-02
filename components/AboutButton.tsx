@@ -19,9 +19,9 @@ const AboutButton = () => {
           <p className="mx-auto text-[1.12rem] xs:pr-2 xs:text-[1rem]">
             HappyHacksとは？
           </p>
-          <span className="mr-1.5 rounded-full bg-amber-400 px-2 py-2 text-white group-hover:text-gray-700 xs:mr-1 lg:mr-1.5">
+          <span className="mr-1.5 flex h-9 w-9 items-center justify-center rounded-full bg-amber-400 text-white group-hover:text-gray-700 xs:mr-1 lg:mr-1.5">
             <HiArrowSmRight
-              size={18}
+              size={22}
               className="flex items-center justify-center"
             />
           </span>
