@@ -34,21 +34,21 @@ const AboutPage = ({ title, description }: Props) => {
       />
 
       <div className="font-sans text-main-black">
-        <div className="mb-10 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:mb-20 xs:h-[500px]">
+        <div className="mb-10 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:mb-20 xs:h-[400px] xl:h-[52vh]">
           <div className="flex flex-col items-center justify-center">
             <div className="mt-10">
-              <h2 className="flex items-center justify-center font-sans text-[7.3vw] font-normal tracking-[0.01rem] xs:mb-[-20px] xs:text-[2.1rem] md:text-[2.5rem]">
+              <h2 className="flex items-center justify-center font-sans text-[7.3vw] font-normal tracking-[0.01rem] xs:mb-[-20px] xs:text-[1.9rem] xl:text-[2.5rem]">
                 What&apos;s HappyHacks?
               </h2>
               <Image
-                className="mx-auto flex"
+                className="mx-auto flex xl:h-[400px] xl:w-[400px]"
                 src="/alcohol.png"
-                width={400}
-                height={400}
+                width={300}
+                height={300}
                 sizes="100vw"
                 style={{
                   height: "100%",
-                  maxWidth: "90%",
+                  maxWidth: "100%",
                 }}
                 priority={true}
                 alt="alcoholを持った女の子"
