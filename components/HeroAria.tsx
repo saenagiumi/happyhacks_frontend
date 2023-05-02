@@ -4,7 +4,7 @@ import AboutButton from "./AboutButton";
 
 const HeroAria = () => {
   return (
-    <div className="mx-auto flex h-[135vw] w-full items-center justify-center bg-main-green text-white xs:h-[70vh] md:h-[540px]">
+    <div className="mx-auto flex h-[135vw] w-full items-center justify-center bg-main-green text-white xs:h-[500px]">
       <div className="max-w-[900px] flex-row sm:flex">
         <div className="flex flex-col items-center justify-center sm:w-[50%]">
           <div className="flex-col items-center justify-center">
@@ -24,8 +24,8 @@ const HeroAria = () => {
               height={450}
               sizes="100vw"
               style={{
-                height: "auto",
-                maxWidth: "100%",
+                height: "100%",
+                maxWidth: "90%",
               }}
               priority={true}
               alt="heroエリアの画像"
