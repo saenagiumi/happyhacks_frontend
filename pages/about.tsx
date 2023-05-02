@@ -34,7 +34,7 @@ const AboutPage = ({ title, description }: Props) => {
       />
 
       <div className="font-sans text-main-black">
-        <div className="mb-10 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:mb-20 xs:h-[52vh] md:h-[52vh]">
+        <div className="mb-10 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:mb-20 xs:h-[500px]">
           <div className="flex flex-col items-center justify-center">
             <div className="mt-10">
               <h2 className="flex items-center justify-center font-sans text-[7.3vw] font-normal tracking-[0.01rem] xs:mb-[-20px] xs:text-[2.1rem] md:text-[2.5rem]">
@@ -43,12 +43,12 @@ const AboutPage = ({ title, description }: Props) => {
               <Image
                 className="mx-auto flex"
                 src="/alcohol.png"
-                width={500}
-                height={500}
+                width={400}
+                height={400}
                 sizes="100vw"
                 style={{
                   height: "100%",
-                  maxWidth: "80%",
+                  maxWidth: "90%",
                 }}
                 priority={true}
                 alt="alcoholを持った女の子"
