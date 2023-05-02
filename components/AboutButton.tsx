@@ -20,7 +20,10 @@ const AboutButton = () => {
             HappyHacksとは？
           </p>
           <span className="mr-1.5 rounded-full bg-amber-400 px-2 py-2 text-white group-hover:text-gray-700 xs:mr-1 lg:mr-1.5">
-            <HiArrowSmRight size={20} className="flex" />
+            <HiArrowSmRight
+              size={18}
+              className="flex items-center justify-center"
+            />
           </span>
         </UnstyledButton>
       </Link>
