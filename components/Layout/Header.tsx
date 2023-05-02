@@ -40,10 +40,10 @@ export const Header = () => {
   };
 
   return (
-    <div className="mx-auto flex h-12 max-w-screen-md items-center justify-between pl-1 pr-2.5 md:h-14">
+    <div className="mx-auto flex h-12 max-w-screen-md items-center justify-between pl-1 pr-2.5 lg:h-14">
       <Link href="/" className="flex items-center justify-center no-underline">
         <Image
-          className="ml-2 mr-1.5 h-[22px] w-[22px] xs:mr-2 xs:h-[26px] xs:w-[26px]"
+          className="ml-2 mr-1.5 h-[22px] w-[22px] xs:mr-2 xs:h-[20px] xs:w-[20px] lg:h-[26px] lg:w-[26px]"
           src="/header-logo.svg"
           alt="headerのロゴ"
           width={30}
@@ -51,7 +51,7 @@ export const Header = () => {
           priority={true}
         ></Image>
         <h1
-          className={`${montserrat.className} text-[1.15rem] font-[500] tracking-tight text-slate-700 xs:text-[1.3rem]`}
+          className={`${montserrat.className} text-[1.15rem] font-[500] tracking-tight text-slate-700 xs:text-[1rem] lg:text-[1.3rem]`}
         >
           HappyHacks
         </h1>
