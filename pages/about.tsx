@@ -1,4 +1,4 @@
-import { M_PLUS_1p, Montserrat_Alternates } from "@next/font/google";
+import { M_PLUS_1p } from "@next/font/google";
 import Footer from "components/Layout/Footer";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
@@ -8,15 +8,10 @@ type Props = {
   description: string;
 };
 
-const montserrat = Montserrat_Alternates({
-  display: "swap",
-  subsets: ["latin"],
-  weight: "400",
-});
 const mplus1 = M_PLUS_1p({
   display: "swap",
   subsets: ["latin"],
-  weight: "400",
+  weight: "500",
 });
 
 const AboutPage = ({ title, description }: Props) => {
