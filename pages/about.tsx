@@ -1,4 +1,4 @@
-import { M_PLUS_1p } from "@next/font/google";
+import { Noto_Sans } from "@next/font/google";
 import Footer from "components/Layout/Footer";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
@@ -8,10 +8,10 @@ type Props = {
   description: string;
 };
 
-const mplus1 = M_PLUS_1p({
+const notojp = Noto_Sans({
   display: "swap",
   subsets: ["latin"],
-  weight: "500",
+  weight: "400",
 });
 
 const AboutPage = ({ title, description }: Props) => {
@@ -45,7 +45,7 @@ const AboutPage = ({ title, description }: Props) => {
           <div className="flex flex-col items-center justify-center">
             <div className="mt-10">
               <h2
-                className={`${mplus1.className} flex items-center justify-center font-sans text-[6vw] xs:mb-[-20px] xs:text-[1.7rem] xl:text-[1.9rem]`}
+                className={`${notojp.className} flex items-center justify-center font-sans text-[7.3vw] tracking-[0.01rem] xs:mb-[-10px] xs:text-[1.7rem] xl:text-[1.9rem]`}
               >
                 What&apos;s HappyHacks?
               </h2>
