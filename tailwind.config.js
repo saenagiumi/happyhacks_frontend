@@ -17,25 +17,6 @@ module.exports = {
         "main-green": "#42ce9f",
         "sub-orange": "#f6a623",
       },
-      fontFamily: {
-        body: [
-          "Noto Sans JP",
-          "Avenir",
-          "Helvetica Neue",
-          "Helvetica",
-          "Arial",
-          "Hiragino Sans",
-          "ヒラギノ角ゴシック",
-          "メイリオ",
-          "Meiryo",
-          "YuGothic",
-          "Yu Gothic",
-          "ＭＳ Ｐゴシック",
-          "MS PGothic",
-          "sans-serif",
-        ],
-        montserrat: ["var(--font-montserrat)"],
-      },
     },
     // Mantineのブレークポイントと一致させる
     screens: {

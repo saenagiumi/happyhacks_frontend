@@ -107,7 +107,7 @@ export default function Home() {
             </div>
           )}
           <div>
-            <div className="mx-2 xs:mx-auto xs:max-w-screen-sm lg:max-w-[900px]">
+            <div className="mx-2 xs:mx-auto xs:max-w-screen-sm xl:max-w-[900px]">
               <PostTabIndex />
               <Modal
                 withCloseButton={false}

@@ -153,7 +153,6 @@ export default function App({ Component, pageProps }: AppProps) {
               ],
             },
             colorScheme: "light",
-            fontFamily: "Noto Sans JP, sans-serif",
             fontSizes: {
               lg: 16,
               md: 16,
