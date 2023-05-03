@@ -69,7 +69,7 @@ export const Header = () => {
         <div>
           <div className="mr-6 mt-2 flex items-center justify-center">
             <Image
-              className="ml-2 mr-1.5 h-[20px] w-[20px] xs:mr-2 xs:h-[26px] xs:w-[26px]"
+              className="ml-2 mr-1.5 h-[20px] w-[20px] xs:mr-2 xs:h-[46px] xs:w-[46px]"
               src="/header-logo.svg"
               alt="headerのロゴ"
               width={30}
@@ -133,7 +133,7 @@ export const Header = () => {
       )}
 
       {user && (
-        <ul className="mt-0.5 flex items-center">
+        <ul className="flex items-center">
           <li className="mr-3.5">
             <Link className="flex" href="/search">
               <RiSearch2Line className="text-gray-700" size={20} />
@@ -205,7 +205,7 @@ export const Header = () => {
             <li>
               <Menu shadow="md" position="bottom-end" radius={5}>
                 <Menu.Target>
-                  <UnstyledButton className="flex h-[36px] w-[90px] cursor-pointer items-center justify-center rounded-full bg-main-green text-white">
+                  <UnstyledButton className="flex h-[34px] w-[86px] cursor-pointer items-center justify-center rounded-full bg-main-green text-white">
                     <HiOutlinePencilAlt className="mr-1 ml-0.5" size={16} />
                     <div className="mr-1.5 font-sans text-[14.5px] font-[600]">
                       投稿
