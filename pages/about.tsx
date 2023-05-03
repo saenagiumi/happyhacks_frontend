@@ -1,3 +1,4 @@
+import { M_PLUS_1p, Montserrat_Alternates } from "@next/font/google";
 import Footer from "components/Layout/Footer";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
@@ -6,6 +7,17 @@ type Props = {
   title: string;
   description: string;
 };
+
+const montserrat = Montserrat_Alternates({
+  display: "swap",
+  subsets: ["latin"],
+  weight: "400",
+});
+const mplus1 = M_PLUS_1p({
+  display: "swap",
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const AboutPage = ({ title, description }: Props) => {
   return (
@@ -37,7 +49,9 @@ const AboutPage = ({ title, description }: Props) => {
         <div className="mb-10 flex h-[135vw] w-full items-center justify-center bg-amber-300 xs:mb-20 xs:h-[400px] xl:h-[45vh]">
           <div className="flex flex-col items-center justify-center">
             <div className="mt-10">
-              <h2 className="flex items-center justify-center font-sans text-[7.3vw] font-normal tracking-[0.01rem] xs:mb-[-20px] xs:text-[1.9rem] xl:text-[2.3rem]">
+              <h2
+                className={`${mplus1.className} flex items-center justify-center font-sans text-[6vw] xs:mb-[-20px] xs:text-[1.7rem] xl:text-[1.9rem]`}
+              >
                 What&apos;s HappyHacks?
               </h2>
               <Image
