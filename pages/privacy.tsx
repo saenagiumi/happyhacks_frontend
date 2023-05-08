@@ -134,13 +134,13 @@ const PrivacyPage = ({ title }: Props) => {
               お客様の情報の開示、情報の訂正、利用停止、削除をご希望の場合は、以下のTwitterアカウントまでご連絡ください。
             </p>
             <div className="mt-3">
-              @takerudev：
+              @HappyHacks2023：
               <a
-                href="https://twitter.com/takerudev"
+                href="https://twitter.com/HappyHacks2023"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                https://twitter.com/takerudev
+                https://twitter.com/HappyHacks2023
               </a>
             </div>
           </div>
