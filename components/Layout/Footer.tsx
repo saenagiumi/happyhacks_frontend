@@ -30,11 +30,11 @@ const Footer = () => {
             &copy;{" "}
             <a
               className="no-underline hover:underline"
-              href="https://twitter.com/takerudev"
+              href="https://twitter.com/HappyHacks2023"
               target="_blank"
               rel="noopener noreferrer"
             >
-              @takerudev
+              @HappyHacks2023
             </a>{" "}
             All Rights Reserved.
           </span>
