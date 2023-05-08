@@ -9,7 +9,7 @@ type Props = {
 };
 
 const notojp = Noto_Sans({
-  display: "swap",
+  preload: true,
   subsets: ["latin"],
   weight: "400",
 });
@@ -45,7 +45,9 @@ const AboutPage = ({ title, description }: Props) => {
           <div className="flex flex-col items-center justify-center">
             <div className="mt-10">
               <h2
-                className={`${notojp.className} flex items-center justify-center font-sans text-[6.5vw] tracking-[0.002rem] xs:mb-[-10px] xs:text-[1.7rem] xl:text-[1.9rem]`}
+                className={
+                  "flex items-center justify-center font-sans font-normal text-[6.5vw] tracking-[0.002rem] xs:mb-[-10px] xs:text-[1.7rem] xl:text-[1.9rem]"
+                }
               >
                 What&apos;s HappyHacks?
               </h2>
